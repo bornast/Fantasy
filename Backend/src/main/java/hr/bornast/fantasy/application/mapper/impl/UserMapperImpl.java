@@ -23,6 +23,11 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
+    public User map(RegisterCommand command) {
+        return mapper.map(command, User.class);
+    }
+
+    @Override
     public void map(UpdateUserCommand command, User user) {
         mapper.map(command, user);
 
@@ -36,20 +41,10 @@ public class UserMapperImpl implements UserMapper {
         }
 
         // add roles
-        var rolesToAdd = command.getRoleIds().stream()
+        var rolesToAddIds = command.getRoleIds().stream()
             .filter(roleId -> user.getRoles().stream().noneMatch(x -> x.getId() == roleId)).toList();
 
-        // TODO: find roles by ids
-        for (var roleToAdd : rolesToAdd) {
-            // TODO: custom exception
-            var roleToInsert = roleRepository.findById(roleToAdd).orElseThrow(RuntimeException::new);
-            user.addRole(roleToInsert);
-        }
+        roleRepository.findByIds(rolesToAddIds).forEach(user::addRole);
 
-    }
-
-    @Override
-    public User map(RegisterCommand command) {
-        return mapper.map(command, User.class);
     }
 }

@@ -9,6 +9,7 @@ public interface RoleRepository {
     List<Role> findAll();
     Optional<Role> findById(int id);
     Optional<Role> findByName(String name);
+    List<Role> findByIds(List<Integer> ids);
     Role create(Role role);
     Role update(Role role);
     void delete(int id);

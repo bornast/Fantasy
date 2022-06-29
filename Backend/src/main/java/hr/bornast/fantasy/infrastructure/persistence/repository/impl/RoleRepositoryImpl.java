@@ -37,6 +37,11 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
+    public List<Role> findByIds(List<Integer> ids) {
+        return roleRepository.findByIdIn(ids).stream().map(x -> mapper.map(x, Role.class)).toList();
+    }
+
+    @Override
     public Role create(Role role) {
         return mapper.map(roleRepository.save(mapper.map(role, RoleEntity.class)), Role.class);
     }
