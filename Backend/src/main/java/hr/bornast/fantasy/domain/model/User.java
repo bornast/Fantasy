@@ -2,7 +2,6 @@ package hr.bornast.fantasy.domain.model;
 
 import java.util.Set;
 
-import hr.bornast.fantasy.infrastructure.persistence.entity.RoleEntity;
 import lombok.Data;
 
 @Data
@@ -12,5 +11,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
-    private Set<RoleEntity> roles;
+    private Set<Role> roles;
+    public void addRole(Role role) {
+        roles.add(role);
+    }
 }

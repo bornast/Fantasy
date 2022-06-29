@@ -1,6 +1,10 @@
 package hr.bornast.fantasy.infrastructure.persistence.repository.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import hr.bornast.fantasy.application.repository.RoleRepository;
+import hr.bornast.fantasy.domain.model.Role;
 import hr.bornast.fantasy.infrastructure.persistence.entity.RoleEntity;
 import hr.bornast.fantasy.infrastructure.persistence.repository.RoleEntityRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,22 +19,36 @@ public class RoleRepositoryImpl implements RoleRepository {
     private final ModelMapper mapper;
 
     @Override
-    public RoleEntity create(RoleEntity role) {
-        roleRepository.findByName(role.getName())
-            .ifPresent(r -> {throw new RuntimeException("role " + role.getName() + " already exists");});
-
-        return roleRepository.save(role);
+    public List<Role> findAll() {
+        return roleRepository.findAll().stream().map(x -> mapper.map(x, Role.class)).toList();
     }
 
     @Override
-    public RoleEntity findById(int id) {
+    public Optional<Role> findById(int id) {
         // TODO: use custom exception
-        return roleRepository.findById(id).orElseThrow(RuntimeException::new);
+        return roleRepository.findById(id).map(x -> mapper.map(x, Role.class));
     }
 
     @Override
-    public RoleEntity findByName(String name) {
+    public Optional<Role> findByName(String name) {
         // TODO: use custom exception
-        return roleRepository.findByName(name).orElseThrow(RuntimeException::new);
+        return roleRepository.findByName(name)
+            .map(x -> mapper.map(x, Role.class));
     }
+
+    @Override
+    public Role create(Role role) {
+        return mapper.map(roleRepository.save(mapper.map(role, RoleEntity.class)), Role.class);
+    }
+
+    @Override
+    public void delete(int id) {
+        roleRepository.deleteById(id);
+    }
+
+    @Override
+    public Role update(Role role) {
+        return mapper.map(roleRepository.save(mapper.map(role, RoleEntity.class)), Role.class);
+    }
+
 }

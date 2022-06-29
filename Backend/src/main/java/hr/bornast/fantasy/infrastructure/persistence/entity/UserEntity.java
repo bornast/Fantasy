@@ -2,7 +2,6 @@ package hr.bornast.fantasy.infrastructure.persistence.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +29,7 @@ public class UserEntity {
     private String password;
 
     // joinColumn are the columns which are gonna be generated in many to many table
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
                joinColumns = { @JoinColumn(name = "user_id") },
                inverseJoinColumns = { @JoinColumn(name = "role_id") })

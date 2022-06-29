@@ -8,7 +8,7 @@ import hr.bornast.fantasy.application.dto.auth.TokenDto;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.AuthService;
 import hr.bornast.fantasy.common.util.JwtUtil;
-import hr.bornast.fantasy.infrastructure.persistence.entity.UserEntity;
+import hr.bornast.fantasy.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -48,7 +48,9 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByUsername(username);
+        // TODO: custom exception
+        var user = userRepository.findByUsername(username)
+            .orElseThrow(RuntimeException::new);
 
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(
@@ -58,7 +60,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         }
     }
 
-    private Set getAuthorities(UserEntity user) {
+    private Set getAuthorities(User user) {
         Set authorities = new HashSet();
 
         user.getRoles().forEach(role -> {

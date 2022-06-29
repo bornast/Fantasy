@@ -1,8 +1,16 @@
 package hr.bornast.fantasy.application.repository;
 
-import hr.bornast.fantasy.infrastructure.persistence.entity.UserEntity;
+import java.util.List;
+import java.util.Optional;
+
+import hr.bornast.fantasy.domain.model.User;
 
 public interface UserRepository {
-    void create(UserEntity user);
-    UserEntity findByUsername(String username);
+    List<User> findAll();
+    Optional<User> findById(int id);
+    Optional<User> findByUsername(String username);
+    void create(User user);
+    User update(User user);
+    void delete(int id);
+
 }
