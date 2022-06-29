@@ -32,11 +32,11 @@ public class RoleServiceImpl implements RoleService {
             .orElseThrow(RuntimeException::new);
     }
 
-    public void create(CreateRoleCommand command) {
+    public RoleDto create(CreateRoleCommand command) {
         roleRepository.findByName(command.getName())
             .ifPresent(r -> {throw new RuntimeException("role " + command.getName() + " already exists");});
 
-        roleRepository.create(mapper.map(command, Role.class));
+        return mapper.map(roleRepository.create(mapper.map(command, Role.class)), RoleDto.class);
     }
 
     @Override

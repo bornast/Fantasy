@@ -34,8 +34,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void create(User user) {
-        userRepository.save(mapper.map(user, UserEntity.class));
+    public User create(User user) {
+        return mapper.map(userRepository.save(mapper.map(user, UserEntity.class)), User.class);
     }
 
     @Override

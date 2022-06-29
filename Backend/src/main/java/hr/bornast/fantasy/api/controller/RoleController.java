@@ -1,5 +1,6 @@
 package hr.bornast.fantasy.api.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import hr.bornast.fantasy.application.command.role.UpdateRoleCommand;
 import hr.bornast.fantasy.application.dto.role.RoleDto;
 import hr.bornast.fantasy.application.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -43,14 +46,16 @@ public class RoleController {
 
     @PostMapping
     @PreAuthorize("hasRole('Admin')")
-    public void create(@Valid @RequestBody CreateRoleCommand command) {
-        roleService.create(command);
+    public ResponseEntity<RoleDto> create(@Valid @RequestBody CreateRoleCommand command) {
+        var role = roleService.create(command);
+        return created(URI.create("/roles/" + role.getId())).body(role);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('Admin')")
-    public void delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         roleService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

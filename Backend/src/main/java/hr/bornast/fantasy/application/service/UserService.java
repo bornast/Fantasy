@@ -9,7 +9,7 @@ import hr.bornast.fantasy.application.dto.user.UserDto;
 public interface UserService {
     List<UserDto> findAll();
     UserDto findOne(int id);
-    void create(RegisterCommand command);
+    UserDto create(RegisterCommand command);
     UserDto update(int id, UpdateUserCommand command);
     void delete(int id);
     void initRolesAndUser();

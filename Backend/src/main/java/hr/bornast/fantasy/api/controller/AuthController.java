@@ -9,9 +9,7 @@ import hr.bornast.fantasy.application.service.AuthService;
 import hr.bornast.fantasy.application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,18 +34,6 @@ public class AuthController {
     @PostMapping({"/register"})
     public void register(@Valid @RequestBody RegisterCommand command) {
         userService.create(command);
-    }
-
-    @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('Admin')")
-    public String forAdmin() {
-        return "this URL is only accessible to admin";
-    }
-
-    @GetMapping({"/forUser"})
-    @PreAuthorize("hasAnyRole('User', 'Admin')")
-    public String forUser() {
-        return "This URL is only accessible to the user";
     }
 
 }

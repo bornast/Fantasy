@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             .orElseThrow(RuntimeException::new);
     }
 
-    public void create(RegisterCommand command) {
+    public UserDto create(RegisterCommand command) {
         userRepository.findByUsername(command.getUsername())
             .ifPresent(r -> {throw new RuntimeException("user " + command.getUsername() + " already exists");});
 
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(getEncodedPassword(user.getPassword()));
 
-        userRepository.create(user);
+        return mapper.map(userRepository.create(user));
     }
 
     @Override

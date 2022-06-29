@@ -9,7 +9,7 @@ public interface UserRepository {
     List<User> findAll();
     Optional<User> findById(int id);
     Optional<User> findByUsername(String username);
-    void create(User user);
+    User create(User user);
     User update(User user);
     void delete(int id);
 
