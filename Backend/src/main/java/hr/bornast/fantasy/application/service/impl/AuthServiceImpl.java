@@ -38,8 +38,8 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         authenticate(username, password);
 
         var userDetails = loadUserByUsername(username);
-
-        var generatedToken = jwtUtil.generateToken(userDetails);
+        var user = userRepository.findByUsername(username).orElseThrow(RuntimeException::new);
+        var generatedToken = jwtUtil.generateToken(userDetails, user.getId());
 
 //        var user = userRepository.findById(username).get();
 

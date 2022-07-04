@@ -44,13 +44,15 @@ public class JwtUtil {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, int userId) {
         String authorities = userDetails.getAuthorities().stream()
             .map(x -> x.getAuthority().replace("ROLE_", ""))
             .collect(Collectors.joining(","));
 
         return Jwts.builder()
             .claim("roles", authorities)
+            .claim("username", userDetails.getUsername())
+            .claim("userId", userId)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
