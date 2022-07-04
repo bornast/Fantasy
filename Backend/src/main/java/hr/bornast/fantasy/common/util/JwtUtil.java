@@ -1,9 +1,8 @@
 package hr.bornast.fantasy.common.util;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -46,10 +45,12 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
+        String authorities = userDetails.getAuthorities().stream()
+            .map(x -> x.getAuthority().replace("ROLE_", ""))
+            .collect(Collectors.joining(","));
 
         return Jwts.builder()
-            .setClaims(claims)
+            .claim("roles", authorities)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
