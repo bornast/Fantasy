@@ -46,16 +46,20 @@ export class UserService {
 			);
 	}
 
-	deleteUser(id: any) {
-		return this.http.delete(this.baseUrl + "users/" + id);
-	}
-
-	getUser(id) {
+    getUser(id) {
 		return this.http.get<User>(this.baseUrl + "users/" + id);
 	}
 
-	updateUser(id, userToUpdate) {
+    createUser(userToCreate) {
+		return this.http.post(this.baseUrl + "users", userToCreate);
+	}
+
+    updateUser(id, userToUpdate) {
 		return this.http.put(this.baseUrl + "users/" + id, userToUpdate);
+	}
+
+	deleteUser(id: any) {
+		return this.http.delete(this.baseUrl + "users/" + id);
 	}
 
 }

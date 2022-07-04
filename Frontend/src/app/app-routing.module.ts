@@ -83,8 +83,8 @@ const routes: Routes = [
     {path: 'dashboard-bookmarks', component: DashboardBookmarksComponent},
     {path: 'dashboard-my-listings', component: DashboardMyListingsComponent},
     {path: 'admin/user-list', component: UserListComponent, canActivate: [AuthGuard]},
-    {path: 'user-editor', component: UserEditorComponent, canActivate: [AuthGuard]},
-    {path: 'user-editor/:id', component: UserEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/user-editor', component: UserEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/user-editor/:id', component: UserEditorComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
