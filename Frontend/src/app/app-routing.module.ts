@@ -41,6 +41,7 @@ import { TopPlaceComponent } from './components/pages/top-place/top-place.compon
 import { VerticalListingsFullWidthComponent } from './components/pages/vertical-listings-full-width/vertical-listings-full-width.component';
 import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
 import { VerticalListingsRightSidebarComponent } from './components/pages/vertical-listings-right-sidebar/vertical-listings-right-sidebar.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {path: '', component: HomeDemoOneComponent},
@@ -71,7 +72,7 @@ const routes: Routes = [
     {path: 'single-listings', component: ListingsDetailsComponent},
     {path: 'events', component: EventsComponent},
     {path: 'single-events', component: EventsDetailsComponent},
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: 'dashboard-messages', component: DashboardMessagesComponent},
     {path: 'dashboard-bookings', component: DashboardBookingsComponent},
     {path: 'dashboard-wallet', component: DashboardWalletComponent},
@@ -81,9 +82,9 @@ const routes: Routes = [
     {path: 'dashboard-add-listings', component: DashboardAddListingsComponent},
     {path: 'dashboard-bookmarks', component: DashboardBookmarksComponent},
     {path: 'dashboard-my-listings', component: DashboardMyListingsComponent},
-    {path: 'admin/user-list', component: UserListComponent},
-    {path: 'user-editor', component: UserEditorComponent},
-    {path: 'user-editor/:id', component: UserEditorComponent},
+    {path: 'admin/user-list', component: UserListComponent, canActivate: [AuthGuard]},
+    {path: 'user-editor', component: UserEditorComponent, canActivate: [AuthGuard]},
+    {path: 'user-editor/:id', component: UserEditorComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
