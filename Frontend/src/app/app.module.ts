@@ -83,7 +83,7 @@ import { UserEditorComponent } from './components/admin/user/user-editor/user-ed
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 export function tokenGetter() {
-	return localStorage.getItem('filmunity-token');
+	return localStorage.getItem('fantasy-token');
 }
 
 @NgModule({
@@ -175,8 +175,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
-				allowedDomains: ['localhost:5000'], // to what endpoits do we send authorization headers
-				disallowedRoutes: ['localhost:5000/api/auth'] // to what endpoints do we not send authorization headers
+				allowedDomains: ['localhost:8080'], // to what endpoits do we send authorization headers
+				disallowedRoutes: ['localhost:8080/auth'] // to what endpoints do we not send authorization headers
 			}
 		})
   ],
