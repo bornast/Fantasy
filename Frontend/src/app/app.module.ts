@@ -78,6 +78,9 @@ import { DashboardMyListingsComponent } from './components/pages/dashboard/dashb
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ToastrModule } from 'ngx-toastr';
+import { UserListComponent } from './components/admin/user/user-list/user-list.component';
+import { UserEditorComponent } from './components/admin/user/user-editor/user-editor.component';
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
@@ -151,7 +154,9 @@ export function tokenGetter() {
     DashboardMyProfileComponent,
     DashboardAddListingsComponent,
     DashboardBookmarksComponent,
-    DashboardMyListingsComponent
+    DashboardMyListingsComponent,
+    UserListComponent,
+    UserEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -175,7 +180,9 @@ export function tokenGetter() {
 			}
 		})
   ],
-  providers: [],
+  providers: [
+    ErrorInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

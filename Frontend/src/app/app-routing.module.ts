@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { UserEditorComponent } from './components/admin/user/user-editor/user-editor.component';
+import { UserListComponent } from './components/admin/user/user-list/user-list.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { AuthorProfileComponent } from './components/pages/author-profile/author-profile.component';
 import { BlogDetailsComponent } from './components/pages/blog-details/blog-details.component';
@@ -79,6 +81,9 @@ const routes: Routes = [
     {path: 'dashboard-add-listings', component: DashboardAddListingsComponent},
     {path: 'dashboard-bookmarks', component: DashboardBookmarksComponent},
     {path: 'dashboard-my-listings', component: DashboardMyListingsComponent},
+    {path: 'admin/user-list', component: UserListComponent},
+    {path: 'user-editor', component: UserEditorComponent},
+    {path: 'user-editor/:id', component: UserEditorComponent},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list

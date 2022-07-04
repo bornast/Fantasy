@@ -37,35 +37,31 @@ export class AuthService {
 	}
 
 	userHasRole(allowedRoles): boolean {
-		// TODO:
-		// let isMatch = false;
-		// if (this.decodedToken == null)
-		// 	return isMatch;
-		// const userRoles = this.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] as Array<string>;		
-		// allowedRoles.forEach(element => {
-		// 	if (userRoles.includes(element)) {
-		// 		isMatch = true;
-		// 		return;
-		// 	}
-		// });
-		// return isMatch;
-		return true;
+		let isMatch = false;
+		if (this.decodedToken == null)
+			return isMatch;
+		const userRoles = this.decodedToken.roles as Array<string>;		
+		allowedRoles.forEach(element => {
+			if (userRoles.includes(element)) {
+				isMatch = true;
+				return;
+			}
+		});
+		return isMatch;
 	}
 
 	logout() {		
 		localStorage.removeItem('fantasy-token');
-		// TODO:
-		// localStorage.removeItem('fantasy-username');
-		// localStorage.removeItem('fantasy-userId');
+		localStorage.removeItem('fantasy-username');
+		localStorage.removeItem('fantasy-userId');
 		this.decodedToken = null;
 	}
 
 	private storeUserInfoToLocalStorage(tokenObject: any) {
 		this.decodedToken = this.jwtHelper.decodeToken(tokenObject.token);
 		localStorage.setItem('fantasy-token', tokenObject.token);
-		// TODO:
-		// localStorage.setItem('fantasy-userId', this.decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-		// localStorage.setItem('fantasy-username', this.decodedToken.username);
+		localStorage.setItem('fantasy-userId', this.decodedToken.userId);
+		localStorage.setItem('fantasy-username', this.decodedToken.username);
 	}
 
 }

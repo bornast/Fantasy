@@ -1,0 +1,38 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+
+<div class="main-content d-flex flex-column">
+
+    <app-dashboard-navbar></app-dashboard-navbar>
+    
+    <div class="add-listings-box">
+        <h3>Users</h3>
+    
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of usersForList">
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.username}}</td>
+                            <td>
+                                <span [routerLink]="['/admin/user-editor', user.id]" type="button" class="btn btn-primary">Edit</span>
+                                <span (click)="delete(user.id)" style="margin-left:5px;" type="button" class="btn btn-danger">Delete</span>
+                            </td>    
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Main Content Wrapper Area -->
