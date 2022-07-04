@@ -77,6 +77,7 @@ import { DashboardBookmarksComponent } from './components/pages/dashboard/dashbo
 import { DashboardMyListingsComponent } from './components/pages/dashboard/dashboard-my-listings/dashboard-my-listings.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ToastrModule } from 'ngx-toastr';
 
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
@@ -162,6 +163,10 @@ export function tokenGetter() {
     FormsModule,
     NgxPaginationModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+			timeOut: 8000,
+			positionClass: 'toast-top-right'
+		}),
     JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
