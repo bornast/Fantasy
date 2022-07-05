@@ -7,19 +7,7 @@
         <br>
         <br>
 
-        <div class="row">
-            <aside class="widget-area">
-                <section class="widget widget_search" style="padding: 30px 0px 30px 0px;">
-                    <form class="search-form">
-                        <label>
-                            <span class="screen-reader-text">Search for:</span>
-                            <input type="search" class="search-field" name="searchTxt" placeholder="Search..." [(ngModel)]="searchTxt">
-                        </label>
-                        <button type="submit" (click)="search()"><i class="bx bx-search-alt"></i></button>
-                    </form>
-                </section>
-            </aside>
-        </div>
+        <list-search [searchTxt]="searchTxt" (search)="search($event)"></list-search>
 
         <div class="row">
             <div class="col-lg-12 col-md-12">

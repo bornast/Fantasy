@@ -10,7 +10,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./role-list.component.scss']
 })
 export class RoleListComponent implements OnInit {
-
+    
     rolesForList: any[];
 	pagination: Pagination;
 	searchTxt: string;
@@ -27,7 +27,6 @@ export class RoleListComponent implements OnInit {
 			this.rolesForList = roles.result;
             this.pagination = roles.pagination;
             this.pagination.currentPage += 1;
-            console.log(this.pagination);
 		});
 	}
 
@@ -47,7 +46,8 @@ export class RoleListComponent implements OnInit {
         this.loadRoles();
     }
 
-    search() {
+    search(event: any) {
+        this.searchTxt = event;
         this.loadRoles();
     }
 

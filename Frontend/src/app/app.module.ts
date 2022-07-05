@@ -83,6 +83,7 @@ import { UserEditorComponent } from './components/admin/user/user-editor/user-ed
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { RoleListComponent } from './components/admin/role/role-list/role-list.component';
 import { RoleEditorComponent } from './components/admin/role/role-editor/role-editor.component';
+import { ListSearchComponent } from './components/common/list-search/list-search.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -160,7 +161,8 @@ export function tokenGetter() {
     UserListComponent,
     UserEditorComponent,
     RoleListComponent,
-    RoleEditorComponent
+    RoleEditorComponent,
+    ListSearchComponent
   ],
   imports: [
     BrowserModule,
