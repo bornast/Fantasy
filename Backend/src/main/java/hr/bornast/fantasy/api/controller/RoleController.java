@@ -39,7 +39,7 @@ public class RoleController {
     @GetMapping
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<PagedListDto<RoleDto>> findAll(RoleQuery query) {
-        return ok(roleService.findAll(PageRequest.of(query.getPage(), query.getSize()), query.getName()));
+        return ok(roleService.findAll(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getName()));
     }
 
     @GetMapping("/{id}")

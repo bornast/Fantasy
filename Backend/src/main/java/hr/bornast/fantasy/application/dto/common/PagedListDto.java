@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 @NoArgsConstructor
 public class PagedListDto<T> {
     private List<T> result;
-    private PaginationDto pagination;
+    private PaginationDto<T> pagination;
 
     public PagedListDto<T> getPagedResult(Page<T> page) {
         return new PagedListDto<>(page.stream().toList(), new PaginationDto<>(page));

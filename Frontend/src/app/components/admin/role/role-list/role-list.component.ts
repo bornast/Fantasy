@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Pagination } from 'src/app/models/pagination';
 import { RoleService } from 'src/app/services/role.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -11,7 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 export class RoleListComponent implements OnInit {
 
     rolesForList: any[];
-	// pagination: Pagination;
+	pagination: Pagination;
 	pageNumber: any = 1;
 	searchTxt: string;
 
@@ -22,8 +23,9 @@ export class RoleListComponent implements OnInit {
 	}
 
 	loadRoles() {
-		this.roleService.getRecordNames().subscribe((roles) => {
-			this.rolesForList = roles;
+        this.roleService.getRolesByFilter().subscribe((roles) => {
+			this.rolesForList = roles.result;
+            this.pagination = roles.pagination;
 		});
 	}
 
