@@ -70,10 +70,10 @@ public class RoleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<RoleDto> update(@PathVariable int id, @Valid @RequestBody UpdateRoleCommand command) {
         return ok(roleService.update(id, command));
     }
+
 }

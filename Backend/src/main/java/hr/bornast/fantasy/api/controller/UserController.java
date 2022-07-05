@@ -63,7 +63,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<UserDto> update(@PathVariable int id, @Valid @RequestBody UpdateUserCommand command) {

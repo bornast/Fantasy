@@ -76,6 +76,12 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!-- open api -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.9</version>
+        </dependency>
 
         <!-- if this dependency is removed, tomcat throws an exception -->
         <dependency>
