@@ -25,13 +25,11 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Optional<Role> findById(int id) {
-        // TODO: use custom exception
         return roleRepository.findById(id).map(x -> mapper.map(x, Role.class));
     }
 
     @Override
     public Optional<Role> findByName(String name) {
-        // TODO: use custom exception
         return roleRepository.findByName(name)
             .map(x -> mapper.map(x, Role.class));
     }

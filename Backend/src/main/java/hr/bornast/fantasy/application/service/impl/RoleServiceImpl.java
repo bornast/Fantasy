@@ -28,7 +28,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto findOne(int id) {
-        // TODO: custom exception
         return roleRepository.findById(id)
             .map(x -> mapper.map(x, RoleDto.class))
             .orElseThrow(EntityNotFoundException::new);

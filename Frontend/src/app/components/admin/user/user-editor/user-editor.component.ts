@@ -52,8 +52,6 @@ export class UserEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getUser(user["id"]);
-			}, (error) => {
-				this.toast.error("Failed to create!");
 			});
 		}
 		else {

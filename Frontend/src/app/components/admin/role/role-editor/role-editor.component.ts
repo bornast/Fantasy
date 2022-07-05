@@ -43,8 +43,6 @@ export class RoleEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getRole(role["id"]);
-			}, (error) => {
-				this.toast.error("Failed to create!");
 			});
 		}
 		else {
