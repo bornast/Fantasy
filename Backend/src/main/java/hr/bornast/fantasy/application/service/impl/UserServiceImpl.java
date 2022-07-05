@@ -38,10 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findOne(int id) {
-        // TODO: custom exception
         return userRepository.findById(id)
             .map(mapper::map)
-            .orElseThrow(RuntimeException::new);
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     public UserDto create(RegisterCommand command) {
@@ -50,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
         var user = mapper.map(command);
 
-        var role = roleRepository.findByName("User").orElseThrow(EntityNotFoundException::new);
+        var role = roleRepository.findByName("User").orElseThrow(RuntimeException::new);
 
         Set<Role> roles = new HashSet<>();
         roles.add(role);
@@ -63,11 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(int id, UpdateUserCommand command) {
-        // TODO: custom exception
-        var user = userRepository.findById(id).orElseThrow(RuntimeException::new);
-
+        var user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         mapper.map(command, user);
-
         return mapper.map(userRepository.update(user));
     }
 
