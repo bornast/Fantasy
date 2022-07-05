@@ -13,8 +13,8 @@ export class RoleListComponent implements OnInit {
 
     rolesForList: any[];
 	pagination: Pagination;
-	pageNumber: any = 1;
 	searchTxt: string;
+    currentPage: number = 1;
 
 	constructor(private roleService: RoleService, private route: ActivatedRoute, private toast: ToastService) { }
 
@@ -23,9 +23,11 @@ export class RoleListComponent implements OnInit {
 	}
 
 	loadRoles() {
-        this.roleService.getRolesByFilter().subscribe((roles) => {
+        this.roleService.getRolesByFilter(null, this.currentPage-1).subscribe((roles) => {
 			this.rolesForList = roles.result;
             this.pagination = roles.pagination;
+            this.pagination.currentPage += 1;
+            console.log(this.pagination);
 		});
 	}
 
@@ -39,5 +41,10 @@ export class RoleListComponent implements OnInit {
 			});
 		}
 	}
+
+    changePage(event: any) {
+        this.currentPage = event;
+        this.loadRoles();
+    }
 
 }

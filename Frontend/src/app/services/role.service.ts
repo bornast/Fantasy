@@ -20,7 +20,7 @@ export class RoleService {
         return this.http.get<RecordName[]>(this.baseUrl + "roles/");
 	}
 
-    getRolesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 5): Observable<PaginatedResult<RecordName[]>> {
+    getRolesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<RecordName[]>> {
 		let params = new HttpParams();
 		params = params.append('pageSize', pageSize);
 		params = params.append('pageNumber', pageNumber);

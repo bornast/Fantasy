@@ -1,5 +1,5 @@
 <app-dashboard-sidemenu></app-dashboard-sidemenu>
-<div class="main-content d-flex flex-column">
+<div class="main-content d-flex flex-column" *ngIf="rolesForList">
     <app-dashboard-navbar></app-dashboard-navbar>
     <div class="entity-list-div">
         <h3>Roles</h3>
@@ -17,7 +17,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let role of rolesForList">
+                        <tr *ngFor="let role of rolesForList | paginate: {itemsPerPage:pagination.pageSize, currentPage: pagination.currentPage, totalItems: pagination.totalCount}">
                             <td>{{role.id}}</td>
                             <td>{{role.name}}</td>
                             <td>
@@ -27,6 +27,12 @@
                         </tr>
                     </tbody>
                   </table>
+            </div>
+            
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="pagination-area text-center">
+                    <pagination-controls (pageChange)="changePage(currentPage = $event)"></pagination-controls>
+                </div>
             </div>
         </div>
     </div>

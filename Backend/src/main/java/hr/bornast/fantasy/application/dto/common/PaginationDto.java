@@ -14,6 +14,6 @@ public class PaginationDto<T> {
         setPageSize(page.getSize());
         setCurrentPage(page.getNumber());
         setTotalPages(page.getTotalPages());
-        setTotalCount(page.getNumberOfElements());
+        setTotalCount((int)page.getTotalElements());
     }
 }
