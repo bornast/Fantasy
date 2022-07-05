@@ -1,16 +1,18 @@
 package hr.bornast.fantasy.api.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import hr.bornast.fantasy.application.command.auth.RegisterCommand;
 import hr.bornast.fantasy.application.command.user.UpdateUserCommand;
+import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.user.UserDto;
+import hr.bornast.fantasy.application.query.user.UserQuery;
 import hr.bornast.fantasy.application.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,8 +39,8 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<List<UserDto>> findAll() {
-        return ok(userService.findAll());
+    public ResponseEntity<PagedListDto<UserDto>> findAll(UserQuery query) {
+        return ok(userService.findAll(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getUsername()));
     }
 
     @GetMapping("/{id}")

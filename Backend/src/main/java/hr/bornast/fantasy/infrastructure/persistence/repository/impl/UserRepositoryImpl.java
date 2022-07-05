@@ -1,6 +1,5 @@
 package hr.bornast.fantasy.infrastructure.persistence.repository.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import hr.bornast.fantasy.application.repository.UserRepository;
@@ -9,6 +8,8 @@ import hr.bornast.fantasy.infrastructure.persistence.entity.UserEntity;
 import hr.bornast.fantasy.infrastructure.persistence.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,8 +20,14 @@ public class UserRepositoryImpl implements UserRepository {
     private final ModelMapper mapper;
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll().stream().map(x -> mapper.map(x, User.class)).toList();
+    public Page<User> findAll(Pageable paging) {
+        return userRepository.findAll(paging).map(x -> mapper.map(x, User.class));
+    }
+
+    @Override
+    public Page<User> findByUsername(String username, Pageable paging) {
+        return userRepository.findByUsernameContainingIgnoreCase(username, paging)
+            .map(x -> mapper.map(x, User.class));
     }
 
     @Override

@@ -22,15 +22,15 @@ public class RoleServiceImpl implements RoleService {
     private final ModelMapper mapper;
 
     @Override
-    public PagedListDto<RoleDto> findAll(Pageable pageable, String name) {
+    public PagedListDto<RoleDto> findAll(Pageable paging, String name) {
         if (name == null) {
             return new PagedListDto<RoleDto>().getPagedResult(
-                roleRepository.findAll(pageable)
+                roleRepository.findAll(paging)
                     .map(x -> mapper.map(x, RoleDto.class)));
         }
 
         return new PagedListDto<RoleDto>().getPagedResult(
-            roleRepository.findByName(name, pageable)
+            roleRepository.findByName(name, paging)
                 .map(x -> mapper.map(x, RoleDto.class)));
     }
 

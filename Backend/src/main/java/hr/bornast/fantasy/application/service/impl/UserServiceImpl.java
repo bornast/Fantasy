@@ -1,11 +1,11 @@
 package hr.bornast.fantasy.application.service.impl;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import hr.bornast.fantasy.application.command.auth.RegisterCommand;
 import hr.bornast.fantasy.application.command.user.UpdateUserCommand;
+import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.user.UserDto;
 import hr.bornast.fantasy.application.mapper.UserMapper;
 import hr.bornast.fantasy.application.repository.RoleRepository;
@@ -16,6 +16,7 @@ import hr.bornast.fantasy.common.exception.ValidationException;
 import hr.bornast.fantasy.domain.model.Role;
 import hr.bornast.fantasy.domain.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,16 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
 
     @Override
-    public List<UserDto> findAll() {
-        return userRepository.findAll()
-            .stream()
-            .map(mapper::map)
-            .toList();
+    public PagedListDto<UserDto> findAll(Pageable paging, String username) {
+        if (username == null) {
+            return new PagedListDto<UserDto>().getPagedResult(
+                userRepository.findAll(paging)
+                    .map(mapper::map));
+        }
+
+        return new PagedListDto<UserDto>().getPagedResult(
+            userRepository.findByUsername(username, paging)
+                .map(mapper::map));
     }
 
     @Override
