@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

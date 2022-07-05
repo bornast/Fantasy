@@ -32,7 +32,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/roles")
+@RequestMapping("/api/v1/roles")
 @CrossOrigin
 public class RoleController {
 
