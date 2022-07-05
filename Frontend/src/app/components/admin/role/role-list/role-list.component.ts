@@ -23,7 +23,7 @@ export class RoleListComponent implements OnInit {
 	}
 
 	loadRoles() {
-        this.roleService.getRolesByFilter(null, this.currentPage-1).subscribe((roles) => {
+        this.roleService.getRolesByFilter(this.searchTxt, this.currentPage-1).subscribe((roles) => {
 			this.rolesForList = roles.result;
             this.pagination = roles.pagination;
             this.pagination.currentPage += 1;
@@ -44,6 +44,10 @@ export class RoleListComponent implements OnInit {
 
     changePage(event: any) {
         this.currentPage = event;
+        this.loadRoles();
+    }
+
+    search() {
         this.loadRoles();
     }
 
