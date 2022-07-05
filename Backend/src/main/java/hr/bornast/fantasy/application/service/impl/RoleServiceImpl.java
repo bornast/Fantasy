@@ -1,8 +1,11 @@
 package hr.bornast.fantasy.application.service.impl;
 
+import java.util.List;
+
 import hr.bornast.fantasy.application.command.role.CreateRoleCommand;
 import hr.bornast.fantasy.application.command.role.UpdateRoleCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
+import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.role.RoleDto;
 import hr.bornast.fantasy.application.repository.RoleRepository;
 import hr.bornast.fantasy.application.service.RoleService;
@@ -32,6 +35,11 @@ public class RoleServiceImpl implements RoleService {
         return new PagedListDto<RoleDto>().getPagedResult(
             roleRepository.findByName(name, paging)
                 .map(x -> mapper.map(x, RoleDto.class)));
+    }
+
+    @Override
+    public List<RecordNameDto> findAllRecordNames() {
+        return roleRepository.findAll().stream().map(x -> mapper.map(x, RecordNameDto.class)).toList();
     }
 
     @Override

@@ -32,6 +32,11 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll().stream().map(x -> mapper.map(x, Role.class)).toList();
+    }
+
+    @Override
     public Optional<Role> findById(int id) {
         return roleRepository.findById(id).map(x -> mapper.map(x, Role.class));
     }

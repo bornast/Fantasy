@@ -77,9 +77,8 @@ export class UserEditorComponent implements OnInit {
 		this.user.roles.forEach(role => {
 			this.userToSave.roleIds.push(role.id);
 		});
+        console.log("user", this.userToSave);
 	}
-
-
 
 	private loadRoles() {
 		this.roleService.getRecordNames().subscribe((roles) => {

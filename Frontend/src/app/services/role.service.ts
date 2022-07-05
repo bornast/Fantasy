@@ -15,9 +15,8 @@ export class RoleService {
 	constructor(private http: HttpClient) { }
 
 
-    // TODO: add ge
     getRecordNames(): Observable<RecordName[]> {
-        return this.http.get<RecordName[]>(this.baseUrl + "roles/");
+        return this.http.get<RecordName[]>(this.baseUrl + "roles/recordNames");
 	}
 
     getRolesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<RecordName[]>> {

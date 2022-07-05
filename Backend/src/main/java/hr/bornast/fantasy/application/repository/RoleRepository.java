@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface RoleRepository {
     Page<Role> findAll(Pageable paging);
     Page<Role> findByName(String name, Pageable paging);
+    List<Role> findAll();
     Optional<Role> findById(int id);
     Optional<Role> findByName(String name);
     List<Role> findByIds(List<Integer> ids);

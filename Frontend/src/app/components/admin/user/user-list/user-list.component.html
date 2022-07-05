@@ -1,27 +1,29 @@
 <app-dashboard-sidemenu></app-dashboard-sidemenu>
-<div class="main-content d-flex flex-column">
+<div class="main-content d-flex flex-column" *ngIf="usersForList">
     <app-dashboard-navbar></app-dashboard-navbar>
     <div class="entity-list-div">
         <h3>Users</h3>
-            <span [routerLink]="['/admin/user-editor']" style="float:right;" class="btn btn-primary">Add New <i class='bx bx-plus-medical'></i></span>
         <br>
         <br>
+        
+        <list-search [searchTxt]="searchTxt" (search)="search($event)"></list-search>
+
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
                         <th scope="col">Username</th>
+                        <th scope="col">Name</th>                        
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of usersForList">
+                        <tr *ngFor="let user of usersForList | paginate: {itemsPerPage:pagination.pageSize, currentPage: pagination.currentPage, totalItems: pagination.totalCount}">
                             <td>{{user.id}}</td>
-                            <td>{{user.name}}</td>
                             <td>{{user.username}}</td>
+                            <td>{{user.name}}</td>                            
                             <td>
                                 <span [routerLink]="['/admin/user-editor', user.id]" type="button" class="btn btn-primary">Edit <i class='bx bx-pencil'></i></span>
                                 <span (click)="delete(user.id)" style="margin-left:5px;" type="button" class="btn btn-danger">Delete <i class='bx bx-trash'></i></span>
@@ -29,6 +31,12 @@
                         </tr>
                     </tbody>
                   </table>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="pagination-area text-center">
+                    <pagination-controls (pageChange)="changePage(currentPage = $event)"></pagination-controls>
+                </div>
             </div>
         </div>
     </div>

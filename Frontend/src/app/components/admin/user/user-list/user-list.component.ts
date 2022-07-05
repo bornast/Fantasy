@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Pagination } from 'src/app/models/pagination';
 import { User } from 'src/app/models/User';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,9 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 export class UserListComponent implements OnInit {
 
     usersForList: any[];
-	// pagination: Pagination;
-	pageNumber: any = 1;
+	pagination: Pagination;
 	searchTxt: string;
+    currentPage: number = 1;
 
 	constructor(private userService: UserService, private route: ActivatedRoute, private toast: ToastService) { }
 
@@ -22,10 +23,11 @@ export class UserListComponent implements OnInit {
 		this.loadUsers();
 	}
 
-	loadUsers() {
-		this.userService.getUsersByFilter(this.searchTxt, this.pageNumber, 4).subscribe((users) => {
-			// this.pagination = users.pagination;
-			this.usersForList = this.transformUserForList(users);
+    loadUsers() {
+        this.userService.getUsersByFilter(this.searchTxt, this.currentPage-1).subscribe((users) => {
+			this.usersForList = this.transformUserForList(users.result);
+            this.pagination = users.pagination;
+            this.pagination.currentPage += 1;
 		});
 	}
 
@@ -55,5 +57,15 @@ export class UserListComponent implements OnInit {
 			});
 		}
 	}
+
+    changePage(event: any) {
+        this.currentPage = event;
+        this.loadUsers();
+    }
+
+    search(event: any) {
+        this.searchTxt = event;
+        this.loadUsers();
+    }
 
 }

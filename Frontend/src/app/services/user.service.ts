@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { PaginatedResult } from '../models/pagination';
 import { User } from '../models/User';
 
 @Injectable({
@@ -14,36 +15,14 @@ export class UserService {
 
 	constructor(private http: HttpClient) { }
 
-	// getUsersByFilter(name?: string, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<User[]>> {
-
-	// 	const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
-
-	// 	let params = new HttpParams();
-	// 	params = params.append('pageSize', itemsPerPage);
-	// 	params = params.append('pageNumber', pageNumber);
-	// 	if (name != null)
-	// 		params = params.append('name', name);
-
-	// 	return this.http.get<User[]>(this.baseUrl + "user/", { observe: 'response', params })
-	// 		.pipe(
-	// 			map(response => {
-	// 				paginatedResult.result = response.body;
-	// 				if (response.headers.get('Pagination') != null) {
-	// 					paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-	// 				}
-	// 				return paginatedResult;
-	// 			})
-	// 		);
-	// }
-
-    getUsersByFilter(name?: string, pageNumber: any = 1, itemsPerPage: any = 5): Observable<User[]> {
-		return this.http.get<User[]>(this.baseUrl + "users/", { observe: 'response'})
-			.pipe(
-				map(response => {
-                    console.log(response);
-					return response.body;
-				})
-			);
+    getUsersByFilter(username?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<User[]>> {
+		let params = new HttpParams();
+		params = params.append('pageSize', pageSize);
+		params = params.append('pageNumber', pageNumber);
+		if (username != null)
+			params = params.append('username', username);
+        
+        return this.http.get<PaginatedResult<User[]>>(this.baseUrl + "users/", { params });
 	}
 
     getUser(id) {

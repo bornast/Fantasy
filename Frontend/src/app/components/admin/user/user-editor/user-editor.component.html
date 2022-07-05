@@ -26,10 +26,10 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-12 col-md-12" *ngIf="roles">
                 <div class="form-group">
                     <label>Roles</label>
-                    <select name="roles" multiple [(ngModel)]="userToSave.roleIds">
+                    <select name="role" multiple [(ngModel)]="userToSave.roleIds">
                         <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
                     </select>
                 </div>
