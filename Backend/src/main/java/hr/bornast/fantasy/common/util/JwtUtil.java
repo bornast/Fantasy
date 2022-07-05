@@ -15,7 +15,7 @@ public class JwtUtil {
 
     // TODO: move to application.properties
     private static final String SECRET_KEY = "fantasy_secret_key";
-    private static final int TOKEN_VALIDITY = 3600 * 5;
+    private static final int TOKEN_VALIDITY = 3600 * 500;
 
     public String getUserNameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);

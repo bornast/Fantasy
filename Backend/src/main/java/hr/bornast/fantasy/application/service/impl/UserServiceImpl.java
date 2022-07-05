@@ -11,6 +11,8 @@ import hr.bornast.fantasy.application.mapper.UserMapper;
 import hr.bornast.fantasy.application.repository.RoleRepository;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.UserService;
+import hr.bornast.fantasy.common.exception.EntityNotFoundException;
+import hr.bornast.fantasy.common.exception.ValidationException;
 import hr.bornast.fantasy.domain.model.Role;
 import hr.bornast.fantasy.domain.model.User;
 import lombok.RequiredArgsConstructor;
@@ -44,11 +46,11 @@ public class UserServiceImpl implements UserService {
 
     public UserDto create(RegisterCommand command) {
         userRepository.findByUsername(command.getUsername())
-            .ifPresent(r -> {throw new RuntimeException("user " + command.getUsername() + " already exists");});
+            .ifPresent(r -> {throw new ValidationException("User", "user " + command.getUsername() + " already exists");});
 
         var user = mapper.map(command);
 
-        var role = roleRepository.findByName("User").orElseThrow(RuntimeException::new);
+        var role = roleRepository.findByName("User").orElseThrow(EntityNotFoundException::new);
 
         Set<Role> roles = new HashSet<>();
         roles.add(role);
@@ -98,8 +100,8 @@ public class UserServiceImpl implements UserService {
         var user = new User();
         user.setFirstName("user");
         user.setLastName("user");
-        user.setUsername("user123");
-        user.setPassword(getEncodedPassword("123"));
+        user.setUsername("user");
+        user.setPassword(getEncodedPassword("user"));
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(userRoleCreated);
         user.setRoles(userRoles);

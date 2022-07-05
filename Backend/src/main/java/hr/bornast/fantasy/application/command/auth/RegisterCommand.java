@@ -1,12 +1,13 @@
 package hr.bornast.fantasy.application.command.auth;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
 public class RegisterCommand {
-    @NotNull
+    @NotEmpty
     private String username;
     @NotNull
     private String firstName;
