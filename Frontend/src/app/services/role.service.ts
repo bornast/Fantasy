@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { RecordName } from '../models/recordName';
-import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +19,20 @@ export class RoleService {
         return this.http.get<RecordName[]>(this.baseUrl + "roles/");
 	}
 
-	deleteRole(id: any) {
-		return this.http.delete(this.baseUrl + "roles/" + id);
+    getRole(id) {
+		return this.http.get<RecordName>(this.baseUrl + "roles/" + id);
 	}
 
-	getRole(id) {
-		return this.http.get<User>(this.baseUrl + "roles/" + id);
+    createRole(roleToCreate) {
+		return this.http.post(this.baseUrl + "roles/", roleToCreate);
 	}
 
-	updateRole(id, roleToUpdate) {
+    updateRole(id, roleToUpdate) {
 		return this.http.put(this.baseUrl + "roles/" + id, roleToUpdate);
 	}
+
+	deleteRole(id: any) {
+		return this.http.delete(this.baseUrl + "roles/" + id);
+	}	
 
 }

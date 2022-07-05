@@ -81,6 +81,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserListComponent } from './components/admin/user/user-list/user-list.component';
 import { UserEditorComponent } from './components/admin/user/user-editor/user-editor.component';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+import { RoleListComponent } from './components/admin/role/role-list/role-list.component';
+import { RoleEditorComponent } from './components/admin/role/role-editor/role-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -156,7 +158,9 @@ export function tokenGetter() {
     DashboardBookmarksComponent,
     DashboardMyListingsComponent,
     UserListComponent,
-    UserEditorComponent
+    UserEditorComponent,
+    RoleListComponent,
+    RoleEditorComponent
   ],
   imports: [
     BrowserModule,

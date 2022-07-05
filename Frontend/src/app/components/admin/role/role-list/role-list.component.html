@@ -1,0 +1,33 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+<div class="main-content d-flex flex-column">
+    <app-dashboard-navbar></app-dashboard-navbar>
+    <div class="entity-list-div">
+        <h3>Roles</h3>
+            <span [routerLink]="['/admin/role-editor']" style="float:right;" class="btn btn-primary">Add New <i class='bx bx-plus-medical'></i></span>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let role of rolesForList">
+                            <td>{{role.id}}</td>
+                            <td>{{role.name}}</td>
+                            <td>
+                                <span [routerLink]="['/admin/role-editor', role.id]" type="button" class="btn btn-primary">Edit <i class='bx bx-pencil'></i></span>
+                                <span (click)="delete(role.id)" style="margin-left:5px;" type="button" class="btn btn-danger">Delete <i class='bx bx-trash'></i></span>
+                            </td>    
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
