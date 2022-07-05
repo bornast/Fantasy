@@ -1,9 +1,8 @@
 package hr.bornast.fantasy.application.service.impl;
 
-import java.util.List;
-
 import hr.bornast.fantasy.application.command.role.CreateRoleCommand;
 import hr.bornast.fantasy.application.command.role.UpdateRoleCommand;
+import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.role.RoleDto;
 import hr.bornast.fantasy.application.repository.RoleRepository;
 import hr.bornast.fantasy.application.service.RoleService;
@@ -12,6 +11,7 @@ import hr.bornast.fantasy.common.exception.ValidationException;
 import hr.bornast.fantasy.domain.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +22,16 @@ public class RoleServiceImpl implements RoleService {
     private final ModelMapper mapper;
 
     @Override
-    public List<RoleDto> findAll() {
-        return roleRepository.findAll().stream().map(x -> mapper.map(x, RoleDto.class)).toList();
+    public PagedListDto<RoleDto> findAll(Pageable pageable, String name) {
+        if (name == null) {
+            return new PagedListDto<RoleDto>().getPagedResult(
+                roleRepository.findAll(pageable)
+                    .map(x -> mapper.map(x, RoleDto.class)));
+        }
+
+        return new PagedListDto<RoleDto>().getPagedResult(
+            roleRepository.findByName(name, pageable)
+                .map(x -> mapper.map(x, RoleDto.class)));
     }
 
     @Override

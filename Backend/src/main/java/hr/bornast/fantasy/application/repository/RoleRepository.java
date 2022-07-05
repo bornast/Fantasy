@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import hr.bornast.fantasy.domain.model.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface RoleRepository {
-    List<Role> findAll();
+    Page<Role> findAll(Pageable paging);
+    Page<Role> findByName(String name, Pageable paging);
     Optional<Role> findById(int id);
     Optional<Role> findByName(String name);
     List<Role> findByIds(List<Integer> ids);

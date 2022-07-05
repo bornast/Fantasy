@@ -1,15 +1,17 @@
 package hr.bornast.fantasy.api.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
 import hr.bornast.fantasy.application.command.role.CreateRoleCommand;
 import hr.bornast.fantasy.application.command.role.UpdateRoleCommand;
+import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.role.RoleDto;
+import hr.bornast.fantasy.application.query.role.RoleQuery;
 import hr.bornast.fantasy.application.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,8 +38,8 @@ public class RoleController {
 
     @GetMapping
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<List<RoleDto>> findAll() {
-        return ok(roleService.findAll());
+    public ResponseEntity<PagedListDto<RoleDto>> findAll(RoleQuery query) {
+        return ok(roleService.findAll(PageRequest.of(query.getPage(), query.getSize()), query.getName()));
     }
 
     @GetMapping("/{id}")
