@@ -1,6 +1,5 @@
 package hr.bornast.fantasy.application.dto.user;
 
-import java.util.List;
 import java.util.Set;
 
 import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
@@ -14,5 +13,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private Set<RoleDto> roles;
-    private List<EntityMediaDto> media;
+    private EntityMediaDto media;
 }

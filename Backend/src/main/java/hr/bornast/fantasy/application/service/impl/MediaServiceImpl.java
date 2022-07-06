@@ -1,11 +1,9 @@
 package hr.bornast.fantasy.application.service.impl;
 
-import java.util.List;
-
 import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
 import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
-import hr.bornast.fantasy.application.dto.media.MediaDto;
+import hr.bornast.fantasy.application.dto.media.MediaDetailDto;
 import hr.bornast.fantasy.application.mapper.MediaMapper;
 import hr.bornast.fantasy.application.repository.MediaRepository;
 import hr.bornast.fantasy.application.service.CloudinaryService;
@@ -24,13 +22,12 @@ public class MediaServiceImpl implements MediaService {
     private final MediaMapper mapper;
 
     @Override
-    public List<EntityMediaDto> getEntityMedia(int entityId, int entityTypeId) {
-        return mediaRepository.findByEntity(entityId, entityTypeId).stream()
-            .map(mapper::mapEntityMedia).toList();
+    public EntityMediaDto getEntityMedia(int entityId, int entityTypeId) {
+        return mapper.mapEntityMedia(mediaRepository.findByEntity(entityId, entityTypeId));
     }
 
     @Override
-    public MediaDto upload(UploadMediaCommand command) {
+    public MediaDetailDto upload(UploadMediaCommand command) {
         var uploadResult = cloudinaryService.upload(command.getFile());
 
         var media = mapper.map(command);

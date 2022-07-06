@@ -1,9 +1,11 @@
 package hr.bornast.fantasy.application.mapper.impl;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
 import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
+import hr.bornast.fantasy.application.dto.media.MediaDetailDto;
 import hr.bornast.fantasy.application.dto.media.MediaDto;
 import hr.bornast.fantasy.application.mapper.MediaMapper;
 import hr.bornast.fantasy.application.repository.EntityTypeRepository;
@@ -42,8 +44,8 @@ public class MediaMapperImpl implements MediaMapper {
     }
 
     @Override
-    public MediaDto map(Media media) {
-        var result = new MediaDto();
+    public MediaDetailDto map(Media media) {
+        var result = new MediaDetailDto();
         result.setId(media.getId());
         result.setEntityTypeId(media.getEntityType().getId());
         result.setMediaTypeId(media.getMediaType().getId());
@@ -53,11 +55,18 @@ public class MediaMapperImpl implements MediaMapper {
     }
 
     @Override
-    public EntityMediaDto mapEntityMedia(Media media) {
+    public EntityMediaDto mapEntityMedia(List<Media> media) {
         var result = new EntityMediaDto();
-        result.setId(media.getId());
-        result.setUrl(media.getUrl());
-        result.setIsMain(media.isMain());
+        for (var m : media) {
+            if (m.isMain()) {
+                result.setMainMedia(m.getUrl());
+            }
+            var mediaToAdd = new MediaDto();
+            mediaToAdd.setId(m.getId());
+            mediaToAdd.setUrl(m.getUrl());
+            mediaToAdd.setIsMain(m.isMain());
+            result.addMedia(mediaToAdd);
+        }
         return result;
     }
 

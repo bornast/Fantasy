@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
-import hr.bornast.fantasy.application.dto.media.MediaDto;
+import hr.bornast.fantasy.application.dto.media.MediaDetailDto;
 import hr.bornast.fantasy.application.service.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class MediaController {
     private final MediaService mediaService;
 
     @PostMapping
-    public ResponseEntity<MediaDto> upload(UploadMediaCommand command) {
+    public ResponseEntity<MediaDetailDto> upload(UploadMediaCommand command) {
         return ok(mediaService.upload(command));
     }
 

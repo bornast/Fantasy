@@ -1,9 +1,11 @@
 package hr.bornast.fantasy.application.dto.media;
 
-public class MediaDto {
+public class MediaDetailDto {
     private int id;
     private String url;
     private boolean isMain;
+    private int entityTypeId;
+    private int mediaTypeId;
 
     public int getId() {
         return id;
@@ -27,5 +29,21 @@ public class MediaDto {
 
     public void setIsMain(boolean main) {
         isMain = main;
+    }
+
+    public int getEntityTypeId() {
+        return entityTypeId;
+    }
+
+    public void setEntityTypeId(int entityTypeId) {
+        this.entityTypeId = entityTypeId;
+    }
+
+    public int getMediaTypeId() {
+        return mediaTypeId;
+    }
+
+    public void setMediaTypeId(int mediaTypeId) {
+        this.mediaTypeId = mediaTypeId;
     }
 }
