@@ -5,6 +5,8 @@ import hr.bornast.fantasy.application.command.user.UpdateUserCommand;
 import hr.bornast.fantasy.application.dto.user.UserDto;
 import hr.bornast.fantasy.application.mapper.UserMapper;
 import hr.bornast.fantasy.application.repository.RoleRepository;
+import hr.bornast.fantasy.application.service.MediaService;
+import hr.bornast.fantasy.common.enums.EntityType;
 import hr.bornast.fantasy.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,10 +18,13 @@ public class UserMapperImpl implements UserMapper {
 
     private final ModelMapper mapper;
     private final RoleRepository roleRepository;
+    private final MediaService mediaService;
 
     @Override
     public UserDto map(User user) {
-        return mapper.map(user, UserDto.class);
+        var result = mapper.map(user, UserDto.class);
+        result.setMedia(mediaService.getEntityMedia(result.getId(), EntityType.USER.getValue()));
+        return result;
     }
 
     @Override

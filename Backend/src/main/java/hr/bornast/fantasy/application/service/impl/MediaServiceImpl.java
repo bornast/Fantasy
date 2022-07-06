@@ -1,12 +1,17 @@
 package hr.bornast.fantasy.application.service.impl;
 
+import java.util.List;
+
+import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
+import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
 import hr.bornast.fantasy.application.dto.media.MediaDto;
 import hr.bornast.fantasy.application.mapper.MediaMapper;
 import hr.bornast.fantasy.application.repository.MediaRepository;
 import hr.bornast.fantasy.application.service.CloudinaryService;
 import hr.bornast.fantasy.application.service.MediaService;
 import hr.bornast.fantasy.common.enums.MediaType;
+import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,12 @@ public class MediaServiceImpl implements MediaService {
     private final MediaRepository mediaRepository;
     private final CloudinaryService cloudinaryService;
     private final MediaMapper mapper;
+
+    @Override
+    public List<EntityMediaDto> getEntityMedia(int entityId, int entityTypeId) {
+        return mediaRepository.findByEntity(entityId, entityTypeId).stream()
+            .map(mapper::mapEntityMedia).toList();
+    }
 
     @Override
     public MediaDto upload(UploadMediaCommand command) {
@@ -37,13 +48,25 @@ public class MediaServiceImpl implements MediaService {
         return mapper.map(mediaRepository.create(media));
     }
 
-//    @Override
-//    public void delete(int id) {
-//        mediaRepository.delete(id);
-//    }
-//
-//    @Override
-//    public void setMain(int id) {
-//
-//    }
+    @Override
+    public void setMain(int id, SetMainMediaCommand command) {
+        var maybeMainMedia = mediaRepository.findByEntityAndIsMain(
+            command.getEntityId(), command.getEntityTypeId(), command.getMediaTypeId(), true);
+
+        if (maybeMainMedia.isPresent()) {
+            var mainMedia = maybeMainMedia.get();
+            mainMedia.setMain(false);
+            mediaRepository.update(mainMedia);
+        }
+
+        var photoToUpdate = mediaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        photoToUpdate.setMain(true);
+        mediaRepository.update(photoToUpdate);
+    }
+
+    @Override
+    public void delete(int id) {
+        mediaRepository.delete(id);
+    }
+
 }

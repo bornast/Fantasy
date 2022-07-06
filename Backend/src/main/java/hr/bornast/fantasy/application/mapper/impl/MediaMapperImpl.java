@@ -3,6 +3,7 @@ package hr.bornast.fantasy.application.mapper.impl;
 import java.time.OffsetDateTime;
 
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
+import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
 import hr.bornast.fantasy.application.dto.media.MediaDto;
 import hr.bornast.fantasy.application.mapper.MediaMapper;
 import hr.bornast.fantasy.application.repository.EntityTypeRepository;
@@ -46,6 +47,15 @@ public class MediaMapperImpl implements MediaMapper {
         result.setId(media.getId());
         result.setEntityTypeId(media.getEntityType().getId());
         result.setMediaTypeId(media.getMediaType().getId());
+        result.setUrl(media.getUrl());
+        result.setIsMain(media.isMain());
+        return result;
+    }
+
+    @Override
+    public EntityMediaDto mapEntityMedia(Media media) {
+        var result = new EntityMediaDto();
+        result.setId(media.getId());
         result.setUrl(media.getUrl());
         result.setIsMain(media.isMain());
         return result;

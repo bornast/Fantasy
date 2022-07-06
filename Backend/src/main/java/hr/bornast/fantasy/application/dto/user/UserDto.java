@@ -1,7 +1,9 @@
 package hr.bornast.fantasy.application.dto.user;
 
+import java.util.List;
 import java.util.Set;
 
+import hr.bornast.fantasy.application.dto.media.EntityMediaDto;
 import hr.bornast.fantasy.application.dto.role.RoleDto;
 import lombok.Data;
 
@@ -12,4 +14,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private Set<RoleDto> roles;
+    private List<EntityMediaDto> media;
 }

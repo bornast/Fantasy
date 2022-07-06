@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
         userRepository.create(user);
 
         var entityType = new EntityType();
-        entityType.setName("memory");
+        entityType.setName("user");
         entityTypeRepository.create(entityType);
 
         var entityType1 = new EntityType();
