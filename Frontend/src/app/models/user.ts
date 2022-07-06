@@ -1,3 +1,4 @@
+import { EntityMedia, Media } from "./media";
 import { RecordName } from "./recordName";
 
 export interface User {
@@ -6,4 +7,5 @@ export interface User {
     firstName: string;
     lastName: string;
     roles: RecordName[];
+    media: EntityMedia;
 }

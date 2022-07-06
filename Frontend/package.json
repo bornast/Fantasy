@@ -23,6 +23,7 @@
     "bootstrap": "^5.2.0-beta1",
     "jquery": "^3.6.0",
     "magnific-popup": "^1.1.0",
+    "ng2-file-upload": "^1.4.0",
     "ngx-owl-carousel-o": "^7.0.2",
     "ngx-pagination": "^6.0.1",
     "ngx-select-dropdown": "^2.1.0",

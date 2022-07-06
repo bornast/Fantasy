@@ -84,6 +84,8 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { RoleListComponent } from './components/admin/role/role-list/role-list.component';
 import { RoleEditorComponent } from './components/admin/role/role-editor/role-editor.component';
 import { ListSearchComponent } from './components/common/list-search/list-search.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { MediaEditorComponent } from './components/common/media-editor/media-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -162,7 +164,8 @@ export function tokenGetter() {
     UserEditorComponent,
     RoleListComponent,
     RoleEditorComponent,
-    ListSearchComponent
+    ListSearchComponent,
+    MediaEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -172,6 +175,7 @@ export function tokenGetter() {
     SelectDropDownModule,
     NgxTypedJsModule,
     FormsModule,
+    FileUploadModule,
     NgxPaginationModule,
     HttpClientModule,
     ToastrModule.forRoot({

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
+import { ENTITYTYPE } from 'src/app/constants/entityTypeConstant';
+import { MEDIATYPE } from 'src/app/constants/mediaTypeConstant';
 import { RecordName } from 'src/app/models/recordName';
 import { User } from 'src/app/models/User';
 import { RoleService } from 'src/app/services/role.service';
@@ -14,10 +16,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserEditorComponent implements OnInit {
 
+    entityTypeId: any = ENTITYTYPE.user
+    mediaTypeId: any = MEDIATYPE.image;
 	crudAction: any = CRUDACTION.create;
 	user: User;
 	userToSave: any = {
-		roleIds: []
+		roleIds: [],
+        media: []
 	};
 
 	roles: RecordName[];
@@ -77,6 +82,7 @@ export class UserEditorComponent implements OnInit {
 		this.user.roles.forEach(role => {
 			this.userToSave.roleIds.push(role.id);
 		});
+        this.userToSave.media = this.user.media.media;
         console.log("user", this.userToSave);
 	}
 
