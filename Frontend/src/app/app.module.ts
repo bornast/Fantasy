@@ -98,6 +98,8 @@ import { FormationListComponent } from './components/admin/formation/formation-l
 import { FormationEditorComponent } from './components/admin/formation/formation-editor/formation-editor.component';
 import { RefereeListComponent } from './components/admin/referee/referee-list/referee-list.component';
 import { RefereeEditorComponent } from './components/admin/referee/referee-editor/referee-editor.component';
+import { StadiumListComponent } from './components/admin/stadium/stadium-list/stadium-list.component';
+import { StadiumEditorComponent } from './components/admin/stadium/stadium-editor/stadium-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -189,7 +191,9 @@ export function tokenGetter() {
     FormationListComponent,
     FormationEditorComponent,
     RefereeListComponent,
-    RefereeEditorComponent
+    RefereeEditorComponent,
+    StadiumListComponent,
+    StadiumEditorComponent
   ],
   imports: [
     BrowserModule,
