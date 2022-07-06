@@ -36,16 +36,16 @@
             </div>
 
             <div class="col-lg-12 col-md-12" *ngIf="user">
-                <!-- Headline -->
-                <!-- <div class="add-listing-headline">
+                <div class="add-listing-headline">
                     <h3>Media</h3>
-                </div> -->
-                <!-- Media -->
-                <h3>media</h3>
-                <media-editor [entityTypeId]="entityTypeId" [mediaTypeId]="mediaTypeId" [entityId]="user['id']" [media]="userToSave.media"></media-editor>
+                </div>
+                <media-editor [entityTypeId]="entityTypeId" [entityId]="user['id']" [media]="userToSave.media"></media-editor>
             </div>
-
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="row">
             <div class="col-lg-12 col-sm-12">
@@ -64,7 +64,7 @@
                 >Cancel
                 </button>
             </div>
-        </div>
+        </div>        
 
     </div>
 

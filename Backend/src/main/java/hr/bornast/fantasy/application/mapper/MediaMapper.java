@@ -8,7 +8,7 @@ import hr.bornast.fantasy.application.dto.media.MediaDetailDto;
 import hr.bornast.fantasy.domain.model.Media;
 
 public interface MediaMapper {
-    Media map(UploadMediaCommand command);
+    Media map(UploadMediaCommand command, int mediaTypeId);
     MediaDetailDto map(Media media);
     EntityMediaDto mapEntityMedia(List<Media> media);
 }

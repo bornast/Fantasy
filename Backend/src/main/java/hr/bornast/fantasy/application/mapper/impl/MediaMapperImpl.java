@@ -21,23 +21,23 @@ import org.springframework.stereotype.Service;
 public class MediaMapperImpl implements MediaMapper {
 
     private final ModelMapper mapper;
-    private final MediaTypeRepository mediaTypeRepository;
     private final EntityTypeRepository entityTypeRepository;
+    private final MediaTypeRepository mediaTypeRepository;
 
     @Override
-    public Media map(UploadMediaCommand command) {
+    public Media map(UploadMediaCommand command, int mediaTypeId) {
         var result = mapper.map(command, Media.class);
-
-        var mediaType = mediaTypeRepository
-            .findById(command.getMediaTypeId())
-            .orElseThrow(EntityNotFoundException::new);
 
         var entityType = entityTypeRepository
             .findById(command.getEntityTypeId())
             .orElseThrow(EntityNotFoundException::new);
 
-        result.setMediaType(mediaType);
+        var mediaType = mediaTypeRepository
+            .findById(mediaTypeId)
+            .orElseThrow(EntityNotFoundException::new);
+
         result.setEntityType(entityType);
+        result.setMediaType(mediaType);
         result.setCreatedAt(OffsetDateTime.now());
 
         return result;
@@ -65,6 +65,7 @@ public class MediaMapperImpl implements MediaMapper {
             mediaToAdd.setId(m.getId());
             mediaToAdd.setUrl(m.getUrl());
             mediaToAdd.setIsMain(m.isMain());
+            mediaToAdd.setMediaTypeId(m.getMediaType().getId());
             result.addMedia(mediaToAdd);
         }
         return result;

@@ -6,7 +6,7 @@ import java.util.Optional;
 import hr.bornast.fantasy.domain.model.Media;
 
 public interface MediaRepository {
-    Optional<Media> findByEntityAndIsMain(int entityId, int entityTypeId, int mediaTypeId, boolean isMain);
+    Optional<Media> findByEntityAndIsMain(int entityId, int entityTypeId, boolean isMain);
     List<Media> findByEntity(int entityId, int entityTypeId);
     Optional<Media> findById(int id);
     Media create(Media media);

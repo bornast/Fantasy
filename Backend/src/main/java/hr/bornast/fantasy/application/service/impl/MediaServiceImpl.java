@@ -10,6 +10,7 @@ import hr.bornast.fantasy.application.service.CloudinaryService;
 import hr.bornast.fantasy.application.service.MediaService;
 import hr.bornast.fantasy.common.enums.MediaType;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
+import hr.bornast.fantasy.common.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +31,15 @@ public class MediaServiceImpl implements MediaService {
     public MediaDetailDto upload(UploadMediaCommand command) {
         var uploadResult = cloudinaryService.upload(command.getFile());
 
-        var media = mapper.map(command);
+        var media = mapper.map(command, uploadResult.getMediaType().getValue());
 
         media.setUrl(uploadResult.getUrl());
         media.setPublicId(uploadResult.getPublicId());
 
         var isMain = mediaRepository.findByEntityAndIsMain(
-            command.getEntityId(), command.getEntityTypeId(), command.getMediaTypeId(), true);
+            command.getEntityId(), command.getEntityTypeId(), true);
 
-        if (isMain.isEmpty() && command.getMediaTypeId() == MediaType.IMAGE.getValue()) {
+        if (isMain.isEmpty() && uploadResult.getMediaType() == MediaType.IMAGE) {
             media.setMain(true);
         }
 
@@ -47,8 +48,14 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public void setMain(int id, SetMainMediaCommand command) {
+        var photoToUpdate = mediaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        if (photoToUpdate.getMediaType().getId() == MediaType.VIDEO.getValue()) {
+            throw new ValidationException("Media", "Cannot set Video media type as main media");
+        }
+
         var maybeMainMedia = mediaRepository.findByEntityAndIsMain(
-            command.getEntityId(), command.getEntityTypeId(), command.getMediaTypeId(), true);
+            command.getEntityId(), command.getEntityTypeId(), true);
 
         if (maybeMainMedia.isPresent()) {
             var mainMedia = maybeMainMedia.get();
@@ -56,7 +63,6 @@ public class MediaServiceImpl implements MediaService {
             mediaRepository.update(mainMedia);
         }
 
-        var photoToUpdate = mediaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         photoToUpdate.setMain(true);
         mediaRepository.update(photoToUpdate);
     }

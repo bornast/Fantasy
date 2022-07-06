@@ -8,5 +8,4 @@ public class UploadMediaCommand {
     private MultipartFile file;
     private int entityId;
     private int entityTypeId;
-    private int mediaTypeId;
 }

@@ -53,11 +53,13 @@
 <br>
 <div class="row">
 	<div class="col-sm-2 img-wrapper" *ngFor="let m of media">
-		<img src="{{ m.url }}" class="img-thumbnail p-1">
+		<img *ngIf="m.mediaTypeId == imageMediaType" src="{{ m.url }}" class="img-thumbnail p-1">
+        <video *ngIf="m.mediaTypeId == videoMediaType" height="100px" controls="controls" preload="metadata">
+            <source src="{{ m.url }}" type="video/mp4">
+          </video>
 		<div class="text-center">
 			<button type="button" class="btn btn-sm mr-1" (click)="setMainMedia(m)" [disabled]="m.isMain" [ngClass]="m.isMain ? 'btn-success active' : 'btn-secondary'" [disabled]="m.isMain">Main</button>
 			<button type="button" style="margin-left: 5px;" class="btn btn-sm mr-1 btn-danger" [disabled]="m.isMain" (click)="deleteMedia(m.id)">Remove</button>
 		</div>
 	</div>
 </div>
-<br>

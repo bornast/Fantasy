@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { MEDIATYPE } from 'src/app/constants/mediaTypeConstant';
 import { Media } from 'src/app/models/media';
 import { MediaService } from 'src/app/services/media.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -14,13 +15,14 @@ export class MediaEditorComponent implements OnInit {
 
 	@Input() entityTypeId: any;
 	@Input() entityId: any;
-    @Input() mediaTypeId: any;
 	@Input() media: Media[];
 	@Output() getMemberMediaChange = new EventEmitter<string>();
 	uploader: FileUploader;
 	hasBaseDropZoneOver = false;
 	baseUrl = environment.apiUrl;
 	currentMain: Media;
+    imageMediaType = MEDIATYPE.image;
+    videoMediaType = MEDIATYPE.video;
 
 	constructor(private toast: ToastService, private mediaService: MediaService) { }
 
@@ -32,7 +34,6 @@ export class MediaEditorComponent implements OnInit {
 		this.hasBaseDropZoneOver = e;
 	}
 
-    // TODO: how to handel mediaTypeId
 	initializeUploader() {
 		this.uploader = new FileUploader({
 			url: this.baseUrl + 'media',
@@ -44,7 +45,6 @@ export class MediaEditorComponent implements OnInit {
 			additionalParameter: {
 				entityTypeId: this.entityTypeId,
 				entityId: this.entityId,
-                mediaTypeId: this.mediaTypeId 
 			}
 		});
 
@@ -57,6 +57,7 @@ export class MediaEditorComponent implements OnInit {
 					id: res.id,
 					url: res.url,
 					isMain: res.isMain,
+                    mediaTypeId: res.mediaTypeId
 				};
 				this.media.push(media);
 			}
@@ -66,8 +67,7 @@ export class MediaEditorComponent implements OnInit {
 	setMainMedia(media: Media) {
         let mediaData = {
             entityId: this.entityId,
-            entityTypeId: this.entityTypeId,
-            mediaTypeId: this.mediaTypeId
+            entityTypeId: this.entityTypeId
         };
 		this.mediaService.setMainMedia(media.id, mediaData).subscribe(() => {
 			this.currentMain = this.media.filter(p => p.isMain === true)[0]; // find the previous main media and set it to false

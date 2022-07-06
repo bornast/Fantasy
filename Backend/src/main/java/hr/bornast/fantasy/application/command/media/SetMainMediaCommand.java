@@ -6,5 +6,4 @@ import lombok.Data;
 public class SetMainMediaCommand {
     private int entityId;
     private int entityTypeId;
-    private int mediaTypeId;
 }

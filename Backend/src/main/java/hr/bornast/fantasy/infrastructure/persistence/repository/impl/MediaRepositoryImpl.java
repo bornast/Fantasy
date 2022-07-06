@@ -19,8 +19,8 @@ public class MediaRepositoryImpl implements MediaRepository {
     private final ModelMapper mapper;
 
     @Override
-    public Optional<Media> findByEntityAndIsMain(int entityId, int entityTypeId, int mediaTypeId, boolean isMain) {
-        return mediaRepository.findByEntityAndIsMain(entityId, entityTypeId, mediaTypeId, isMain)
+    public Optional<Media> findByEntityAndIsMain(int entityId, int entityTypeId, boolean isMain) {
+        return mediaRepository.findByEntityAndIsMain(entityId, entityTypeId, isMain)
             .map(x -> mapper.map(x, Media.class));
     }
 

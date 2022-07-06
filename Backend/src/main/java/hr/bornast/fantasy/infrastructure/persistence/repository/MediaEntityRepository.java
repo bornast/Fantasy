@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MediaEntityRepository extends JpaRepository<MediaEntity, Integer> {
-    @Query("SELECT m from MediaEntity m where m.entityId = ?1 and m.entityType.id = ?2 and m.mediaType.id = ?3 and m.isMain = ?4")
-    Optional<MediaEntity> findByEntityAndIsMain(int entityId, int entityTypeId, int mediaTypeId, boolean isMain);
+    @Query("SELECT m from MediaEntity m where m.entityId = ?1 and m.entityType.id = ?2 and m.isMain = ?3")
+    Optional<MediaEntity> findByEntityAndIsMain(int entityId, int entityTypeId, boolean isMain);
 
     @Query("SELECT m from MediaEntity m where m.entityId = ?1 and m.entityType.id = ?2")
     List<MediaEntity> findByEntity(int entityId, int entityTypeId);
