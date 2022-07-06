@@ -8,6 +8,8 @@ import { PositionEditorComponent } from './components/admin/position/position-ed
 import { PositionListComponent } from './components/admin/position/position-list/position-list.component';
 import { PresidentEditorComponent } from './components/admin/president/president-editor/president-editor.component';
 import { PresidentListComponent } from './components/admin/president/president-list/president-list.component';
+import { RefereeEditorComponent } from './components/admin/referee/referee-editor/referee-editor.component';
+import { RefereeListComponent } from './components/admin/referee/referee-list/referee-list.component';
 import { RoleEditorComponent } from './components/admin/role/role-editor/role-editor.component';
 import { RoleListComponent } from './components/admin/role/role-list/role-list.component';
 import { SeasonEditorComponent } from './components/admin/season/season-editor/season-editor.component';
@@ -115,6 +117,9 @@ const routes: Routes = [
     {path: 'admin/formation-list', component: FormationListComponent, canActivate: [AuthGuard]},
     {path: 'admin/formation-editor', component: FormationEditorComponent, canActivate: [AuthGuard]},
     {path: 'admin/formation-editor/:id', component: FormationEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/referee-list', component: RefereeListComponent, canActivate: [AuthGuard]},
+    {path: 'admin/referee-editor', component: RefereeEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/referee-editor/:id', component: RefereeEditorComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
