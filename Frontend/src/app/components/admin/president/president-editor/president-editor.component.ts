@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
 import { President } from 'src/app/models/president';
 import { PresidentService } from 'src/app/services/president.service';
@@ -20,7 +20,8 @@ export class PresidentEditorComponent implements OnInit {
 	constructor(
         private presidentService: PresidentService, 
         private toast: ToastService, 
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private router: Router) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -43,6 +44,7 @@ export class PresidentEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getPresident(president["id"]);
+                this.router.navigate(['/admin/president-list']);
 			});
 		}
 		else {

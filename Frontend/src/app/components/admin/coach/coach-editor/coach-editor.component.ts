@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
 import { Coach } from 'src/app/models/coach';
 import { CoachService } from 'src/app/services/coach.service';
@@ -20,7 +20,8 @@ export class CoachEditorComponent implements OnInit {
 	constructor(
         private coachService: CoachService, 
         private toast: ToastService, 
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private router: Router) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -43,6 +44,7 @@ export class CoachEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getCoach(coach["id"]);
+                this.router.navigate(['/admin/coach-list']);
 			});
 		}
 		else {

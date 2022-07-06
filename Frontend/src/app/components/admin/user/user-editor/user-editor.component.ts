@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
 import { ENTITYTYPE } from 'src/app/constants/entityTypeConstant';
 import { RecordName } from 'src/app/models/recordName';
@@ -29,7 +29,8 @@ export class UserEditorComponent implements OnInit {
         private userService: UserService,
         private roleService: RoleService, 
         private toast: ToastService, 
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private router: Router) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -55,6 +56,7 @@ export class UserEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getUser(user["id"]);
+                this.router.navigate(['/admin/user-list']);
 			});
 		}
 		else {

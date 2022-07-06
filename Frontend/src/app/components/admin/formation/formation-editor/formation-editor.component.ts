@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
 import { RecordName } from 'src/app/models/recordName';
 import { FormationService } from 'src/app/services/formation.service';
@@ -20,7 +20,8 @@ export class FormationEditorComponent implements OnInit {
 	constructor(
         private formationService: FormationService, 
         private toast: ToastService, 
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private router: Router) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -43,6 +44,7 @@ export class FormationEditorComponent implements OnInit {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getFormation(formation["id"]);
+                this.router.navigate(['/admin/formation-list']);
 			});
 		}
 		else {
