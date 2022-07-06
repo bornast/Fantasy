@@ -4,14 +4,13 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../models/pagination';
 import { RecordName } from '../models/recordName';
-import { Season } from '../models/season';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SeasonService {
+export class PositionService {
 
-    baseUrl = environment.apiUrl + "seasons/";
+    baseUrl = environment.apiUrl + "positions/";
 
 	constructor(private http: HttpClient) { }
 
@@ -20,29 +19,29 @@ export class SeasonService {
         return this.http.get<RecordName[]>(this.baseUrl + "record-names");
 	}
 
-    getSeasonsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Season[]>> {
+    getPositionsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<RecordName[]>> {
 		let params = new HttpParams();
 		params = params.append('pageSize', pageSize);
 		params = params.append('pageNumber', pageNumber);
 		if (name != null)
 			params = params.append('name', name);
         
-        return this.http.get<PaginatedResult<Season[]>>(this.baseUrl, { params });
+        return this.http.get<PaginatedResult<RecordName[]>>(this.baseUrl, { params });
 	}
 
-    getSeason(id) {
-		return this.http.get<Season>(this.baseUrl + id);
+    getPosition(id) {
+		return this.http.get<RecordName>(this.baseUrl + id);
 	}
 
-    createSeason(seasonToCreate) {
-		return this.http.post(this.baseUrl, seasonToCreate);
+    createPosition(positionToCreate) {
+		return this.http.post(this.baseUrl, positionToCreate);
 	}
 
-    updateSeasons(id, seasonToUpdate) {
-		return this.http.put(this.baseUrl + id, seasonToUpdate);
+    updatePositions(id, positionToUpdate) {
+		return this.http.put(this.baseUrl + id, positionToUpdate);
 	}
 
-	deleteSeasons(id: any) {
+	deletePositions(id: any) {
 		return this.http.delete(this.baseUrl + id);
 	}	
 
