@@ -90,6 +90,8 @@ import { SeasonListComponent } from './components/admin/season/season-list/seaso
 import { SeasonEditorComponent } from './components/admin/season/season-editor/season-editor.component';
 import { PositionListComponent } from './components/admin/position/position-list/position-list.component';
 import { PositionEditorComponent } from './components/admin/position/position-editor/position-editor.component';
+import { CoachListComponent } from './components/admin/coach/coach-list/coach-list.component';
+import { CoachEditorComponent } from './components/admin/coach/coach-editor/coach-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -173,7 +175,9 @@ export function tokenGetter() {
     SeasonListComponent,
     SeasonEditorComponent,
     PositionListComponent,
-    PositionEditorComponent
+    PositionEditorComponent,
+    CoachListComponent,
+    CoachEditorComponent
   ],
   imports: [
     BrowserModule,
