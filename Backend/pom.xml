@@ -83,6 +83,14 @@
             <version>1.6.9</version>
         </dependency>
 
+        <!-- cloudinary -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.32.2</version>
+        </dependency>
+
+
         <!-- if this dependency is removed, tomcat throws an exception -->
         <dependency>
             <groupId>javax.xml.bind</groupId>

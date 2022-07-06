@@ -8,11 +8,15 @@ import hr.bornast.fantasy.application.command.user.UpdateUserCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.user.UserDto;
 import hr.bornast.fantasy.application.mapper.UserMapper;
+import hr.bornast.fantasy.application.repository.EntityTypeRepository;
+import hr.bornast.fantasy.application.repository.MediaTypeRepository;
 import hr.bornast.fantasy.application.repository.RoleRepository;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.UserService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.common.exception.ValidationException;
+import hr.bornast.fantasy.domain.model.EntityType;
+import hr.bornast.fantasy.domain.model.MediaType;
 import hr.bornast.fantasy.domain.model.Role;
 import hr.bornast.fantasy.domain.model.User;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,9 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
+    // TODO: remove asap
+    private final MediaTypeRepository mediaTypeRepository;
+    private final EntityTypeRepository entityTypeRepository;
 
     @Override
     public PagedListDto<UserDto> findAll(Pageable paging, String username) {
@@ -108,6 +115,22 @@ public class UserServiceImpl implements UserService {
         userRoles.add(userRoleCreated);
         user.setRoles(userRoles);
         userRepository.create(user);
+
+        var entityType = new EntityType();
+        entityType.setName("memory");
+        entityTypeRepository.create(entityType);
+
+        var entityType1 = new EntityType();
+        entityType1.setName("memory1");
+        entityTypeRepository.create(entityType1);
+
+        var mediaType = new MediaType();
+        mediaType.setName("image");
+        mediaTypeRepository.create(mediaType);
+
+        var mediaType1 = new MediaType();
+        mediaType1.setName("video");
+        mediaTypeRepository.create(mediaType1);
     }
 
     private String getEncodedPassword(String password) {

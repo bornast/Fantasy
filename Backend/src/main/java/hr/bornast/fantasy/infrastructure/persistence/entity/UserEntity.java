@@ -21,7 +21,6 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(columnDefinition = "serial")
     private int id;
     private String username;
     private String firstName;
