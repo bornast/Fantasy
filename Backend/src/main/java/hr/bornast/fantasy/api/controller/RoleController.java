@@ -44,7 +44,7 @@ public class RoleController {
         return ok(roleService.findAll(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getName()));
     }
 
-    @GetMapping("/recordNames")
+    @GetMapping("/record-names")
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<List<RecordNameDto>> findAllRecordNames() {
         return ok(roleService.findAllRecordNames());

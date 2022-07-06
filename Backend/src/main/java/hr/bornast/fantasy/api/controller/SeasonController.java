@@ -44,7 +44,7 @@ public class SeasonController {
         return ok(seasonService.findAll(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getName()));
     }
 
-    @GetMapping("/recordNames")
+    @GetMapping("/record-names")
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<List<RecordNameDto>> findAllRecordNames() {
         return ok(seasonService.findAllRecordNames());

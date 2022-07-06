@@ -86,6 +86,8 @@ import { RoleEditorComponent } from './components/admin/role/role-editor/role-ed
 import { ListSearchComponent } from './components/common/list-search/list-search.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MediaEditorComponent } from './components/common/media-editor/media-editor.component';
+import { SeasonListComponent } from './components/admin/season/season-list/season-list.component';
+import { SeasonEditorComponent } from './components/admin/season/season-editor/season-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -165,7 +167,9 @@ export function tokenGetter() {
     RoleListComponent,
     RoleEditorComponent,
     ListSearchComponent,
-    MediaEditorComponent
+    MediaEditorComponent,
+    SeasonListComponent,
+    SeasonEditorComponent
   ],
   imports: [
     BrowserModule,

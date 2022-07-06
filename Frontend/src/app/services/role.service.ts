@@ -16,7 +16,7 @@ export class RoleService {
 
 
     getRecordNames(): Observable<RecordName[]> {
-        return this.http.get<RecordName[]>(this.baseUrl + "roles/recordNames");
+        return this.http.get<RecordName[]>(this.baseUrl + "roles/record-names");
 	}
 
     getRolesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<RecordName[]>> {
