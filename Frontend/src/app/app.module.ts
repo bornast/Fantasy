@@ -94,6 +94,8 @@ import { CoachListComponent } from './components/admin/coach/coach-list/coach-li
 import { CoachEditorComponent } from './components/admin/coach/coach-editor/coach-editor.component';
 import { PresidentListComponent } from './components/admin/president/president-list/president-list.component';
 import { PresidentEditorComponent } from './components/admin/president/president-editor/president-editor.component';
+import { FormationListComponent } from './components/admin/formation/formation-list/formation-list.component';
+import { FormationEditorComponent } from './components/admin/formation/formation-editor/formation-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -181,7 +183,9 @@ export function tokenGetter() {
     CoachListComponent,
     CoachEditorComponent,
     PresidentListComponent,
-    PresidentEditorComponent
+    PresidentEditorComponent,
+    FormationListComponent,
+    FormationEditorComponent
   ],
   imports: [
     BrowserModule,

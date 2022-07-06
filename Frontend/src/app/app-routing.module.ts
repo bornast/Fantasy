@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CoachEditorComponent } from './components/admin/coach/coach-editor/coach-editor.component';
 import { CoachListComponent } from './components/admin/coach/coach-list/coach-list.component';
+import { FormationEditorComponent } from './components/admin/formation/formation-editor/formation-editor.component';
+import { FormationListComponent } from './components/admin/formation/formation-list/formation-list.component';
 import { PositionEditorComponent } from './components/admin/position/position-editor/position-editor.component';
 import { PositionListComponent } from './components/admin/position/position-list/position-list.component';
 import { PresidentEditorComponent } from './components/admin/president/president-editor/president-editor.component';
@@ -110,6 +112,9 @@ const routes: Routes = [
     {path: 'admin/president-list', component: PresidentListComponent, canActivate: [AuthGuard]},
     {path: 'admin/president-editor', component: PresidentEditorComponent, canActivate: [AuthGuard]},
     {path: 'admin/president-editor/:id', component: PresidentEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/formation-list', component: FormationListComponent, canActivate: [AuthGuard]},
+    {path: 'admin/formation-editor', component: FormationEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/formation-editor/:id', component: FormationEditorComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
