@@ -5,8 +5,7 @@ import java.util.Map;
 
 public enum EntityType {
     USER(5),
-    PLAYER(6),
-    COACH(7);
+    PLAYER(6);
 
     private int value;
     private static Map map = new HashMap<>();
