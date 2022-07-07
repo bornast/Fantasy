@@ -124,6 +124,10 @@ public class UserServiceImpl implements UserService {
         entityType1.setName("player");
         entityTypeRepository.create(entityType1);
 
+        var entityType2 = new EntityType();
+        entityType2.setName("team");
+        entityTypeRepository.create(entityType2);
+
         var mediaType = new MediaType();
         mediaType.setName("image");
         mediaTypeRepository.create(mediaType);

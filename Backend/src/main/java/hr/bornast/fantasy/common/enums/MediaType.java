@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum MediaType {
-    IMAGE(7),
-    VIDEO(8);
+    IMAGE(8),
+    VIDEO(9);
 
     private int value;
     private static Map map = new HashMap<>();
