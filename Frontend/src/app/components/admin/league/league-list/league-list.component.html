@@ -1,0 +1,45 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+<div class="main-content d-flex flex-column" *ngIf="leaguesForList">
+    <app-dashboard-navbar></app-dashboard-navbar>
+    <div class="entity-list-div">
+        <h3>Leagues</h3>
+        <span [routerLink]="['/admin/league-editor']" style="float:right;" class="btn btn-primary">Add New <i class='bx bx-plus-medical'></i></span>
+        
+        <br>
+        <br>
+
+        <list-search [searchTxt]="searchTxt" (search)="search($event)"></list-search>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th style="width: 10%" scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Season</th>
+                        <th style="width: 20%" scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let league of leaguesForList | paginate: {itemsPerPage:pagination.pageSize, currentPage: pagination.currentPage, totalItems: pagination.totalCount}">
+                            <td>{{league.id}}</td>
+                            <td>{{league.name}}</td>
+                            <td>{{league.season.name}}</td>
+                            <td>
+                                <span [routerLink]="['/admin/league-editor', league.id]" type="button" class="btn btn-primary">Edit <i class='bx bx-pencil'></i></span>
+                                <span (click)="delete(league.id)" style="margin-left:5px;" type="button" class="btn btn-danger">Delete <i class='bx bx-trash'></i></span>
+                            </td>    
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="pagination-area text-center">
+                    <pagination-controls (pageChange)="changePage(currentPage = $event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

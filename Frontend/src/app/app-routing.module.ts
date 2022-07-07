@@ -4,6 +4,8 @@ import { CoachEditorComponent } from './components/admin/coach/coach-editor/coac
 import { CoachListComponent } from './components/admin/coach/coach-list/coach-list.component';
 import { FormationEditorComponent } from './components/admin/formation/formation-editor/formation-editor.component';
 import { FormationListComponent } from './components/admin/formation/formation-list/formation-list.component';
+import { LeagueEditorComponent } from './components/admin/league/league-editor/league-editor.component';
+import { LeagueListComponent } from './components/admin/league/league-list/league-list.component';
 import { PlayerEditorComponent } from './components/admin/player/player-editor/player-editor.component';
 import { PlayerListComponent } from './components/admin/player/player-list/player-list.component';
 import { PositionEditorComponent } from './components/admin/position/position-editor/position-editor.component';
@@ -135,6 +137,9 @@ const routes: Routes = [
     {path: 'admin/team-list', component: TeamListComponent, canActivate: [AuthGuard]},
     {path: 'admin/team-editor', component: TeamEditorComponent, canActivate: [AuthGuard]},
     {path: 'admin/team-editor/:id', component: TeamEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/league-list', component: LeagueListComponent, canActivate: [AuthGuard]},
+    {path: 'admin/league-editor', component: LeagueEditorComponent, canActivate: [AuthGuard]},
+    {path: 'admin/league-editor/:id', component: LeagueEditorComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
