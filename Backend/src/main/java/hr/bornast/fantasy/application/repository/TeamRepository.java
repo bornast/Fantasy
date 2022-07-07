@@ -13,6 +13,7 @@ public interface TeamRepository {
     List<Team> findAll();
     Optional<Team> findById(int id);
     Optional<Team> findByName(String name);
+    List<Team> findByIds(List<Integer> ids);
     Team create(Team team);
     Team update(Team team);
     void delete(int id);

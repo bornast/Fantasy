@@ -48,6 +48,11 @@ public class TeamRepositoryImpl implements TeamRepository {
     }
 
     @Override
+    public List<Team> findByIds(List<Integer> ids) {
+        return teamRepository.findByIdIn(ids).stream().map(x -> mapper.map(x, Team.class)).toList();
+    }
+
+    @Override
     public Team create(Team team) {
         return mapper.map(teamRepository.save(mapper.map(team, TeamEntity.class)), Team.class);
     }
