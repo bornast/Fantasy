@@ -1,4 +1,4 @@
 export const MEDIATYPE: any = {
-	image: 7,
-    video: 8
+	image: 8,
+    video: 9
 };

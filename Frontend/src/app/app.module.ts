@@ -102,6 +102,8 @@ import { StadiumListComponent } from './components/admin/stadium/stadium-list/st
 import { StadiumEditorComponent } from './components/admin/stadium/stadium-editor/stadium-editor.component';
 import { PlayerListComponent } from './components/admin/player/player-list/player-list.component';
 import { PlayerEditorComponent } from './components/admin/player/player-editor/player-editor.component';
+import { TeamListComponent } from './components/admin/team/team-list/team-list.component';
+import { TeamEditorComponent } from './components/admin/team/team-editor/team-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -197,7 +199,9 @@ export function tokenGetter() {
     StadiumListComponent,
     StadiumEditorComponent,
     PlayerListComponent,
-    PlayerEditorComponent
+    PlayerEditorComponent,
+    TeamListComponent,
+    TeamEditorComponent
   ],
   imports: [
     BrowserModule,

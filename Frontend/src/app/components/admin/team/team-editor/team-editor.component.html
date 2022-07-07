@@ -1,0 +1,83 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+<div class="main-content d-flex flex-column">
+    <app-dashboard-navbar></app-dashboard-navbar>
+    <!-- Start -->
+    <div class="entity-list-div">
+        <h3>Basic Informations</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="teamToSave.name">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>Date of Establishment</label>
+                    <input type="date" [(ngModel)]="teamToSave.dateOfEstablishment" min="1900-01-01" max="2023-12-31" class="form-control form-control-alternative">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="presidents">
+                <div class="form-group">
+                    <label>President</label>
+                    <select name="president" [(ngModel)]="teamToSave.presidentId">
+                        <option *ngFor="let president of presidents" [ngValue]="president.id">{{president.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="coaches">
+                <div class="form-group">
+                    <label>Coach</label>
+                    <select name="coach" [(ngModel)]="teamToSave.coachId">
+                        <option *ngFor="let coach of coaches" [ngValue]="coach.id">{{coach.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="stadiums">
+                <div class="form-group">
+                    <label>Stadium</label>
+                    <select name="stadium" [(ngModel)]="teamToSave.stadiumId">
+                        <option *ngFor="let stadium of stadiums" [ngValue]="stadium.id">{{stadium.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="team">
+                <div class="add-listing-headline">
+                    <h3>Media</h3>
+                </div>
+                <media-editor [entityTypeId]="entityTypeId" [entityId]="team['id']" [media]="teamToSave.media"></media-editor>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <button 
+                    class="btn btn-primary" 
+                    type="button" 
+                    [disabled]="!teamToSave.name||!teamToSave.dateOfEstablishment||!teamToSave.presidentId"
+                    (click)="save()"
+                >Save
+                </button>
+                <button 
+                    class="btn btn-secondary"
+                    type="button"
+                    style="margin-left: 5px;"
+                    [routerLink]="['/admin/team-list']"
+                >Cancel
+                </button>
+            </div>
+        </div>        
+
+    </div>
+
+</div>
