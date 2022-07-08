@@ -49,7 +49,7 @@ public class PresidentRepositoryImpl implements PresidentRepository {
 
     @Override
     public President create(President president) {
-        return mapper.map(presidentRepository.save(mapper.map(president, PresidentEntity.class)), President.class);
+        return mapper.map(presidentRepository.saveAndFlush(mapper.map(president, PresidentEntity.class)), President.class);
     }
 
     @Override

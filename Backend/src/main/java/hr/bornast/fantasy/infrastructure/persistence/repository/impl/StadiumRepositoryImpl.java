@@ -49,7 +49,7 @@ public class StadiumRepositoryImpl implements StadiumRepository {
 
     @Override
     public Stadium create(Stadium stadium) {
-        return mapper.map(stadiumRepository.save(mapper.map(stadium, StadiumEntity.class)), Stadium.class);
+        return mapper.map(stadiumRepository.saveAndFlush(mapper.map(stadium, StadiumEntity.class)), Stadium.class);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class CoachRepositoryImpl implements CoachRepository {
 
     @Override
     public Coach create(Coach coach) {
-        return mapper.map(coachRepository.save(mapper.map(coach, CoachEntity.class)), Coach.class);
+        return mapper.map(coachRepository.saveAndFlush(mapper.map(coach, CoachEntity.class)), Coach.class);
     }
 
     @Override
