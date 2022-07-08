@@ -1,0 +1,69 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+<div class="main-content d-flex flex-column">
+    <app-dashboard-navbar></app-dashboard-navbar>
+    <!-- Start -->
+    <div class="entity-list-div">
+        <h3>Basic Informations</h3>
+
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12" *ngIf="players">
+                <div class="form-group">
+                    <label>Player</label>
+                    <select name="player" [(ngModel)]="transferToSave.playerId">
+                        <option *ngFor="let player of players" [ngValue]="player.id">{{player.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="teams">
+                <div class="form-group">
+                    <label>From Team</label>
+                    <select name="fromTeam" [(ngModel)]="transferToSave.fromTeamId">
+                        <option *ngFor="let team of teams" [ngValue]="team.id">{{team.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="teams">
+                <div class="form-group">
+                    <label>To Team</label>
+                    <select name="player" [(ngModel)]="transferToSave.toTeamId">
+                        <option *ngFor="let team of teams" [ngValue]="team.id">{{team.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>Transfer Date</label>
+                    <input type="date" [(ngModel)]="transferToSave.transferDate" min="1900-01-01" max="2023-12-31" class="form-control form-control-alternative">
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <button 
+                    class="btn btn-primary" 
+                    type="button" 
+                    [disabled]="!transferToSave.playerId||!transferToSave.toTeamId||!transferToSave.transferDate"
+                    (click)="save()"
+                >Save
+                </button>
+                <button 
+                    class="btn btn-secondary"
+                    type="button"
+                    style="margin-left: 5px;"
+                    [routerLink]="['/admin/transfer-list']"
+                >Cancel
+                </button>
+            </div>
+        </div>        
+
+    </div>
+
+</div>

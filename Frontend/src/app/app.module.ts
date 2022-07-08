@@ -106,6 +106,8 @@ import { TeamListComponent } from './components/admin/team/team-list/team-list.c
 import { TeamEditorComponent } from './components/admin/team/team-editor/team-editor.component';
 import { LeagueListComponent } from './components/admin/league/league-list/league-list.component';
 import { LeagueEditorComponent } from './components/admin/league/league-editor/league-editor.component';
+import { TransferListComponent } from './components/admin/transfer/transfer-list/transfer-list.component';
+import { TransferEditorComponent } from './components/admin/transfer/transfer-editor/transfer-editor.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -205,7 +207,9 @@ export function tokenGetter() {
     TeamListComponent,
     TeamEditorComponent,
     LeagueListComponent,
-    LeagueEditorComponent
+    LeagueEditorComponent,
+    TransferListComponent,
+    TransferEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -48,6 +48,7 @@ public class TransferMapperImpl implements TransferMapper {
             .orElseThrow(EntityNotFoundException::new);
 
         transfer.setPlayer(player);
+        transfer.setFromTeam(null);
         fromTeam.ifPresent(transfer::setFromTeam);
         transfer.setToTeam(toTeam);
     }
