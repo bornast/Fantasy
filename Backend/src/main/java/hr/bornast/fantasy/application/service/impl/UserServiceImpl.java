@@ -9,6 +9,7 @@ import hr.bornast.fantasy.application.command.user.UpdateUserCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.user.UserDto;
 import hr.bornast.fantasy.application.mapper.UserMapper;
+import hr.bornast.fantasy.application.repository.CardRepository;
 import hr.bornast.fantasy.application.repository.CoachRepository;
 import hr.bornast.fantasy.application.repository.EntityTypeRepository;
 import hr.bornast.fantasy.application.repository.MediaTypeRepository;
@@ -22,6 +23,7 @@ import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.UserService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.common.exception.ValidationException;
+import hr.bornast.fantasy.domain.model.Card;
 import hr.bornast.fantasy.domain.model.Coach;
 import hr.bornast.fantasy.domain.model.EntityType;
 import hr.bornast.fantasy.domain.model.MediaType;
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService {
     private final TeamRepository teamRepository;
     private final PositionRepository positionRepository;
     private final PlayerRepository playerRepository;
+    private final CardRepository cardRepository;
 
     @Override
     public PagedListDto<UserDto> findAll(Pageable paging, String username) {
@@ -200,6 +203,14 @@ public class UserServiceImpl implements UserService {
         player1.setDateOfBirth(new Date());
         player1.setPosition(positionRes);
         playerRepository.create(player1);
+
+        var yellowCard = new Card();
+        yellowCard.setName("yellow");
+        var yellowCardRes = cardRepository.create(yellowCard);
+
+        var redCard = new Card();
+        redCard.setName("red");
+        var redCardRes = cardRepository.create(redCard);
     }
 
     private String getEncodedPassword(String password) {
