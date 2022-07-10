@@ -108,6 +108,7 @@ public class MatchEntityMapperImpl implements MatchEntityMapper {
     @Override
     public MatchEntity map(Match match) {
         var result = new MatchEntity();
+        result.setId(match.getId());
 
         addTeam(match.getHomeTeam(), result, true);
         addTeam(match.getAwayTeam(), result, false);
