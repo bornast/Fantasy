@@ -37,6 +37,11 @@ public class TransferRepositoryImpl implements TransferRepository {
     }
 
     @Override
+    public Optional<Transfer> findLastPlayerTransfer(int playerId) {
+        return transferRepository.findLastPlayerTransfer(playerId).map(x -> mapper.map(x, Transfer.class));
+    }
+
+    @Override
     public Optional<Transfer> findById(int id) {
         return transferRepository.findById(id).map(x -> mapper.map(x, Transfer.class));
     }

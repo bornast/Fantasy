@@ -1,6 +1,8 @@
 package hr.bornast.fantasy.common.conf;
 
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.modelmapper.AbstractConverter;
@@ -25,6 +27,15 @@ public class CommonConfiguration {
             }
         };
         result.addConverter(toStringDate);
+
+        Converter<OffsetDateTime, String> toStringOffsetDateTime = new AbstractConverter<OffsetDateTime, String>() {
+            @Override
+            protected String convert(OffsetDateTime source) {
+                DateTimeFormatter datetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                return datetimeFormat.format(source);
+            }
+        };
+        result.addConverter(toStringOffsetDateTime);
 
         result.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 

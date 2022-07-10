@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 public interface TeamService {
     PagedListDto<TeamDto> findAll(Pageable pageable, String name);
     List<RecordNameDto> findAllRecordNames();
+    List<RecordNameDto> findTeamPlayers(int id);
     TeamDto findOne(int id);
     TeamDto create(SaveTeamCommand command);
     TeamDto update(int id, SaveTeamCommand command);

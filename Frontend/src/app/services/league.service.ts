@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { League } from '../models/league';
 import { PaginatedResult } from '../models/pagination';
+import { RecordName } from '../models/recordName';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,10 @@ export class LeagueService {
     baseUrl = environment.apiUrl + "leagues/";
 
 	constructor(private http: HttpClient) { }
+
+    getRecordNames(): Observable<RecordName[]> {
+        return this.http.get<RecordName[]>(this.baseUrl + "record-names");
+	}
 
     getLeaguesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<League[]>> {
 		let params = new HttpParams();

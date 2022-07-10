@@ -2,16 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Match } from '../models/match';
 import { PaginatedResult } from '../models/pagination';
 import { RecordName } from '../models/recordName';
-import { Team } from '../models/team';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService {
+export class MatchService {
 
-    baseUrl = environment.apiUrl + "teams/";
+    baseUrl = environment.apiUrl + "matches/";
 
 	constructor(private http: HttpClient) { }
 
@@ -20,33 +20,32 @@ export class TeamService {
         return this.http.get<RecordName[]>(this.baseUrl + "record-names");
 	}
 
-    getTeamPlayers(teamId): Observable<RecordName[]> {
-        return this.http.get<RecordName[]>(this.baseUrl + teamId + "/players");
-	}
-
-    getTeamsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Team[]>> {
+    getMatchesByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Match[]>> {
 		let params = new HttpParams();
 		params = params.append('pageSize', pageSize);
 		params = params.append('pageNumber', pageNumber);
 		if (name != null)
-			params = params.append('name', name);
+			params = params.append('teamName', name);
         
-        return this.http.get<PaginatedResult<Team[]>>(this.baseUrl, { params });
+        return this.http.get<PaginatedResult<Match[]>>(this.baseUrl, { params });
 	}
 
-    getTeam(id) {
-		return this.http.get<Team>(this.baseUrl + id);
+    getMatch(id) {
+		return this.http.get<Match>(this.baseUrl + id);
 	}
 
-    createTeam(objecToCreate) {
+    createMatch(objecToCreate) {
+        objecToCreate.matchDate = objecToCreate.matchDate + ":00Z";
+        console.log("objecttocreate", objecToCreate);
 		return this.http.post(this.baseUrl, objecToCreate);
 	}
 
-    updateTeam(id, objectToUpdate) {
+    updateMatch(id, objectToUpdate) {
+        objectToUpdate.matchDate = objectToUpdate.matchDate + ":00Z";
 		return this.http.put(this.baseUrl + id, objectToUpdate);
 	}
 
-	deleteTeam(id: any) {
+	deleteMatch(id: any) {
 		return this.http.delete(this.baseUrl + id);
 	}
 

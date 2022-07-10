@@ -17,5 +17,6 @@ public class MatchDto {
     private RecordNameDto referee;
     private RecordNameDto stadium;
     private int spectatorCount;
-
+    private String name;
+    private String result;
 }

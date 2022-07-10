@@ -47,6 +47,11 @@ public class TeamController {
         return ok(teamService.findAllRecordNames());
     }
 
+    @GetMapping("/{id}/players")
+    public ResponseEntity<List<RecordNameDto>> findTeamPlayers(@PathVariable int id) {
+        return ok(teamService.findTeamPlayers(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TeamDto> findOne(@PathVariable int id) {
         return ok(teamService.findOne(id));

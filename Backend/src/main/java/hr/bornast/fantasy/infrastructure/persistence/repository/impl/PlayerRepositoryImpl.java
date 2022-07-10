@@ -38,6 +38,12 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     }
 
     @Override
+    public List<Player> findAllPlayersInTransfer(int teamId) {
+        return playerRepository.findAllPlayersInTransfer(teamId).stream()
+            .map(x -> mapper.map(x, Player.class)).toList();
+    }
+
+    @Override
     public Optional<Player> findById(int id) {
         return playerRepository.findById(id).map(x -> mapper.map(x, Player.class));
     }

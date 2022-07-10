@@ -12,6 +12,7 @@ public interface PlayerRepository {
     Page<Player> findAll(Pageable paging);
     Page<Player> findByName(String name, Pageable paging);
     List<Player> findAll();
+    List<Player> findAllPlayersInTransfer(int teamId);
     Optional<Player> findById(int id);
     Optional<Player> findByName(String name);
     List<Player> findByIds(Set<Integer> ids);
