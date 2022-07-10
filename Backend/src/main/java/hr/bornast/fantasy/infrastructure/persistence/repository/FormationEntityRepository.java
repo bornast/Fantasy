@@ -1,5 +1,6 @@
 package hr.bornast.fantasy.infrastructure.persistence.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import hr.bornast.fantasy.infrastructure.persistence.entity.FormationEntity;
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface FormationEntityRepository extends JpaRepository<FormationEntity, Integer> {
     Optional<FormationEntity> findByName(String name);
     Page<FormationEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    List<FormationEntity> findByIdIn(List<Integer> ids);
 }

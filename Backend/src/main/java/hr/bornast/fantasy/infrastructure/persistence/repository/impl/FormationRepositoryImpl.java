@@ -48,6 +48,11 @@ public class FormationRepositoryImpl implements FormationRepository {
     }
 
     @Override
+    public List<Formation> findByIds(List<Integer> ids) {
+        return formationRepository.findByIdIn(ids).stream().map(x -> mapper.map(x, Formation.class)).toList();
+    }
+
+    @Override
     public Formation create(Formation formation) {
         return mapper.map(formationRepository.save(mapper.map(formation, FormationEntity.class)), Formation.class);
     }

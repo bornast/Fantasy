@@ -2,6 +2,7 @@ package hr.bornast.fantasy.infrastructure.persistence.repository.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import hr.bornast.fantasy.application.repository.PlayerRepository;
 import hr.bornast.fantasy.domain.model.Player;
@@ -45,6 +46,11 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     public Optional<Player> findByName(String name) {
         return playerRepository.findByName(name)
             .map(x -> mapper.map(x, Player.class));
+    }
+
+    @Override
+    public List<Player> findByIds(Set<Integer> ids) {
+        return playerRepository.findByIdIn(ids).stream().map(x -> mapper.map(x, Player.class)).toList();
     }
 
     @Override

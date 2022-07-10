@@ -13,6 +13,7 @@ public interface FormationRepository {
     List<Formation> findAll();
     Optional<Formation> findById(int id);
     Optional<Formation> findByName(String name);
+    List<Formation> findByIds(List<Integer> ids);
     Formation create(Formation formation);
     Formation update(Formation formation);
     void delete(int id);
