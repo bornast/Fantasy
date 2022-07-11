@@ -48,7 +48,7 @@ export class MatchService {
 
     private cloneObjectForRequest(object) {
         var clonedObject = JSON.parse(JSON.stringify(object));
-        clonedObject.matchDate = clonedObject.matchDate + ":00Z";
+        
         if (clonedObject.goals.length == 1 && Object.keys(clonedObject.goals[0]).length == 0) {
             clonedObject.goals = [];
         }
@@ -61,8 +61,15 @@ export class MatchService {
         if (clonedObject.awayTeam && clonedObject.awayTeam.substitutions.length == 1 && Object.keys(clonedObject.awayTeam.substitutions[0]).length == 0) {
             clonedObject.awayTeam.substitutions = [];
         }
-        console.log("not cloned object", object);
-        console.log("clonedObject", clonedObject);
+
+        var matchDate = new Date(clonedObject.matchDate);
+        matchDate.setHours(matchDate.getHours() - 2);
+
+        var matchDateString = matchDate.getFullYear() + "-" + ("0"+(matchDate.getMonth()+1)).slice(-2) + "-" +
+        ("0" + matchDate.getDate()).slice(-2) + "T" + ("0" + matchDate.getHours()).slice(-2) + ":" + ("0" + matchDate.getMinutes()).slice(-2) + ":00Z";
+
+        clonedObject.matchDate = matchDateString;
+
         return clonedObject;
     }
 
