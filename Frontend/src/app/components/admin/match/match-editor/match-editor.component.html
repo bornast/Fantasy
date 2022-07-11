@@ -12,6 +12,9 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#away" type="button" role="tab" aria-controls="away" aria-selected="false">Away team</button>
                     </li>
+                    <li class="nav-item" role="event">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#event" type="button" role="tab" aria-controls="event" aria-selected="false">Events</button>
+                    </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#detail" type="button" role="tab" aria-controls="detail" aria-selected="false">Details</button>
                     </li>
@@ -39,64 +42,373 @@
                                     </select>
                                 </div>
                             </div>
-
-
                             
-                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers">
-                                <div class="row with-forms" *ngFor="let lineupPlayerId of matchToSave.homeTeam.lineupPlayerIds; let i = index">
-                                    <div class="col-lg-8 col-md-8">
-                                        <div class="form-group">
-                                            <label>Lineup Player</label>
-                                            <select name="homeTeamPlayer" [(ngModel)]="matchToSave.homeTeam.lineupPlayerIds[i]">
-                                                <option *ngFor="let homeTeamPlayer of homeTeamPlayers" [ngValue]="homeTeamPlayer.id">{{homeTeamPlayer.name}}</option>
-                                            </select>
+                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.homeTeam && homeTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Lineup</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let lineupPlayerId of matchToSave.homeTeam.lineupPlayerIds; let i = index">
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="homeTeamPlayer" [(ngModel)]="matchToSave.homeTeam.lineupPlayerIds[i]">
+                                                    <option *ngFor="let homeTeamPlayer of homeTeamPlayers" [ngValue]="homeTeamPlayer.id">{{homeTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <!-- <div class="col-md-8">
-                                        <label *ngIf="i == 0" class="ml-1">Film</label>
-                                        <ng-select 
-                                            [items]="films"
-                                            class="custom-select form-control-alternative mt-3"
-                                            bindLabel="name"
-                                            bindValue="id"
-                                            [(ngModel)]="this.watchlistToSave.films[i].filmId">
-                                        </ng-select>
-                                    </div> -->
-                                    <div style="padding-top: 50px;" class="col-md-1" *ngIf="i == 0">
-                                        <button class="btn btn-primary" (click)="addEmptyHomeLineupPlayer()">Add</button>
-                                    </div>
-                                    <div style="padding-top: 15px;" class="col-md-1" *ngIf="i > 0">
-                                        <button class="btn btn-primary" (click)="addEmptyHomeLineupPlayer()">Add</button>
-                                    </div>
-                                    <div style="padding-top: 50px;" class="col-md-2" *ngIf="i == 0">
-                                        <button class="btn btn-danger" (click)="removeHomeLineupPlayer(i)"
-                                            [disabled]="matchToSave.homeTeam.lineupPlayerIds.length == 1">Remove
-                                        </button>
-                                    </div>
-                                    <div style="padding-top: 15px;" class="col-md-2" *ngIf="i > 0">
-                                        <button class="btn btn-danger" (click)="removeHomeLineupPlayer(i)"
-                                            [disabled]="matchToSave.homeTeam.lineupPlayerIds.length == 1">Remove
-                                        </button>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeLineupPlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeLineupPlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeHomeLineupPlayer(i)"
+                                                [disabled]="matchToSave.homeTeam.lineupPlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeHomeLineupPlayer(i)"
+                                                [disabled]="matchToSave.homeTeam.lineupPlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </ng-container>
 
+                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.homeTeam && homeTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Substitutes</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let substitutePlayerId of matchToSave.homeTeam.substitutePlayerIds; let i = index">
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="homeTeamPlayer" [(ngModel)]="matchToSave.homeTeam.substitutePlayerIds[i]">
+                                                    <option *ngFor="let homeTeamPlayer of homeTeamPlayers" [ngValue]="homeTeamPlayer.id">{{homeTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeSubstitutePlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeSubstitutePlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeHomeSubstitutePlayer(i)"
+                                                [disabled]="matchToSave.homeTeam.substitutePlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeHomeSubstitutePlayer(i)"
+                                                [disabled]="matchToSave.homeTeam.substitutePlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
 
+                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.homeTeam && homeTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Subtitutions</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let substitution of matchToSave.homeTeam.substitutions; let i = index">                                        
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Lineup Player</label>
+                                                <select name="lineupSubstitutePlayerId" [(ngModel)]="matchToSave.homeTeam.substitutions[i].lineupPlayerId">
+                                                    <option *ngFor="let homeTeamPlayer of homeTeamPlayers" [ngValue]="homeTeamPlayer.id">{{homeTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2">
+                                            <div class="form-group">
+                                                <label>Subtitute Player</label>
+                                                <select name="substituteSubstitutePlayerId" [(ngModel)]="matchToSave.homeTeam.substitutions[i].substitutePlayerId">
+                                                    <option *ngFor="let homeTeamPlayer of homeTeamPlayers" [ngValue]="homeTeamPlayer.id">{{homeTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Minute</label>
+                                                <input type="text" class="form-control" [(ngModel)]="matchToSave.homeTeam.substitutions[i].minute">
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeSubstitution()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyHomeSubstitution()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeHomeSubstitution(i)"
+                                                [disabled]="matchToSave.homeTeam.substitutions.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeHomeSubstitution(i)"
+                                                [disabled]="matchToSave.homeTeam.substitutions.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        </div>                
+                        </div>
                     </div>
 
 
                     <!-- AWAY TEAM -->
                     <div class="tab-pane fade" id="away" role="tabpanel">
                         
+                        <div class="row">
 
+                            <div class="col-lg-12 col-md-12" *ngIf="teams">
+                                <div class="form-group">
+                                    <label>Away Team</label>
+                                    <select name="team" [(ngModel)]="matchToSave.awayTeam.teamId" (ngModelChange)="onAwayTeamChange($event)">
+                                        <option *ngFor="let team of teams" [ngValue]="team.id">{{team.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div class="col-lg-12 col-md-12" *ngIf="formations">
+                                <div class="form-group">
+                                    <label>Formation</label>
+                                    <select name="formation" [(ngModel)]="matchToSave.awayTeam.formationId">
+                                        <option *ngFor="let formation of formations" [ngValue]="formation.id">{{formation.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <ng-container *ngIf="matchToSave.awayTeam && awayTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.awayTeam && awayTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Lineup</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let lineupPlayerId of matchToSave.awayTeam.lineupPlayerIds; let i = index">
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="awayTeamPlayer" [(ngModel)]="matchToSave.awayTeam.lineupPlayerIds[i]">
+                                                    <option *ngFor="let awayTeamPlayer of awayTeamPlayers" [ngValue]="awayTeamPlayer.id">{{awayTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwayLineupPlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwayLineupPlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeAwayLineupPlayer(i)"
+                                                [disabled]="matchToSave.awayTeam.lineupPlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeAwayLineupPlayer(i)"
+                                                [disabled]="matchToSave.awayTeam.lineupPlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="matchToSave.awayTeam && awayTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.awayTeam&& awayTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Substitutes</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let substitutePlayerId of matchToSave.awayTeam.substitutePlayerIds; let i = index">
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="awayTeamPlayer" [(ngModel)]="matchToSave.awayTeam.substitutePlayerIds[i]">
+                                                    <option *ngFor="let awayTeamPlayer of awayTeamPlayers" [ngValue]="awayTeamPlayer.id">{{awayTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwaySubstitutePlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwaySubstitutePlayer()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeAwaySubstitutePlayer(i)"
+                                                [disabled]="matchToSave.awayTeam.substitutePlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeAwaySubstitutePlayer(i)"
+                                                [disabled]="matchToSave.awayTeam.substitutePlayerIds.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="matchToSave.awayTeam && awayTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.awayTeam && awayTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Subtitutions</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let substitution of matchToSave.awayTeam.substitutions; let i = index">                                        
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Lineup Player</label>
+                                                <select name="lineupSubstitutePlayerId" [(ngModel)]="matchToSave.awayTeam.substitutions[i].lineupPlayerId">
+                                                    <option *ngFor="let awayTeamPlayer of awayTeamPlayers" [ngValue]="awayTeamPlayer.id">{{awayTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2">
+                                            <div class="form-group">
+                                                <label>Subtitute Player</label>
+                                                <select name="substituteSubstitutePlayerId" [(ngModel)]="matchToSave.awayTeam.substitutions[i].substitutePlayerId">
+                                                    <option *ngFor="let awayTeamPlayer of awayTeamPlayers" [ngValue]="awayTeamPlayer.id">{{awayTeamPlayer.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Minute</label>
+                                                <input type="text" class="form-control" [(ngModel)]="matchToSave.awayTeam.substitutions[i].minute">
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwaySubstitution()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyAwaySubstitution()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeAwaySubstitution(i)"
+                                                [disabled]="matchToSave.awayTeam.substitutions.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeAwaySubstitution(i)"
+                                                [disabled]="matchToSave.awayTeam.substitutions.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </div>
 
 
                     </div>
 
+
+                    <!-- EVENTS -->
+                    <div class="tab-pane fade" id="event" role="tabpanel">
+                        <div class="row">
+
+                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers && matchToSave.awayTeam && awayTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.homeTeam && homeTeamPlayers && matchToSave.awayTeam && awayTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Goals</h3>
+                                    </div>
+                                    <div class="row with-forms" *ngFor="let goal of matchToSave.goals let i = index">                                        
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="goalPlayer" [(ngModel)]="matchToSave.goals[i].playerId">
+                                                    <option *ngFor="let player of getAllPlayers()" [ngValue]="player.id">{{player.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Minute</label>
+                                                <input type="text" class="form-control" [(ngModel)]="matchToSave.goals[i].minute">
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyGoal()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyGoal()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeGoal(i)"
+                                                [disabled]="matchToSave.goals.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeGoal(i)"
+                                                [disabled]="matchToSave.goals.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="matchToSave.homeTeam && homeTeamPlayers && matchToSave.awayTeam && awayTeamPlayers">                                
+                                <div class="col-lg-12 col-md-12" *ngIf="matchToSave.homeTeam && homeTeamPlayers && matchToSave.awayTeam && awayTeamPlayers">
+                                    <div class="add-listing-headline">
+                                        <h3>Cards</h3>
+                                    </div>
+
+                                    <div class="row with-forms" *ngFor="let card of matchToSave.cards let i = index">                                        
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Player</label>
+                                                <select name="goalPlayer" [(ngModel)]="matchToSave.cards[i].playerId">
+                                                    <option *ngFor="let player of getAllPlayers()" [ngValue]="player.id">{{player.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Card</label>
+                                                <select name="card" [(ngModel)]="matchToSave.cards[i].cardId">
+                                                    <option *ngFor="let card of cards" [ngValue]="card.id">{{card.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label>Minute</label>
+                                                <input type="text" class="form-control" [(ngModel)]="matchToSave.cards[i].minute">
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i == 0">
+                                            <button class="btn btn-primary" (click)="addEmptyCard()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px;" class="col-md-1" *ngIf="i > 0">
+                                            <button class="btn btn-primary" (click)="addEmptyCard()">Add</button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i == 0">
+                                            <button class="btn btn-danger" (click)="removeCard(i)"
+                                                [disabled]="matchToSave.cards.length == 1">Remove
+                                            </button>
+                                        </div>
+                                        <div style="padding-top: 40px; margin-left: -40px;" class="col-md-2" *ngIf="i > 0">
+                                            <button class="btn btn-danger" (click)="removeCard(i)"
+                                                [disabled]="matchToSave.cards.length == 1">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                      
+
+                    </div>
 
                     <!-- DETAILS -->
                     <div class="tab-pane fade" id="detail" role="tabpanel">
@@ -104,7 +416,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Date of Establishment</label>
+                                    <label>Match Date</label>
                                     <input type="datetime-local" [(ngModel)]="matchToSave.matchDate" min="1900-01-01" max="2023-12-31" class="form-control form-control-alternative">
                                 </div>
                             </div>

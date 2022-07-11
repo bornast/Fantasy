@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDACTION } from 'src/app/constants/crudActionConstant';
 import { Match, MatchSubstitution } from 'src/app/models/match';
 import { RecordName } from 'src/app/models/recordName';
+import { CardService } from 'src/app/services/card.service';
 import { FormationService } from 'src/app/services/formation.service';
 import { LeagueService } from 'src/app/services/league.service';
 import { MatchService } from 'src/app/services/match.service';
@@ -26,7 +27,9 @@ export class MatchEditorComponent implements OnInit {
         },
         awayTeam: {
 
-        }
+        },
+        goals: [{}],
+        cards: [{}]
 	};
 
     teams: RecordName[];
@@ -36,6 +39,8 @@ export class MatchEditorComponent implements OnInit {
     leagues: RecordName[];
     homeTeamPlayers: RecordName[];
     awayTeamPlayers: RecordName[];
+    allPlayers: RecordName[];
+    cards: RecordName[];
 
 	constructor(
         private matchService: MatchService,
@@ -46,6 +51,7 @@ export class MatchEditorComponent implements OnInit {
         private leagueService: LeagueService,
         private refereeService: RefereeService,
         private stadiumService : StadiumService,
+        private cardService: CardService,
         private router: Router) { }
 
 	ngOnInit() {
@@ -67,6 +73,7 @@ export class MatchEditorComponent implements OnInit {
 	}
 
 	save() {
+        console.log("aaa", this.matchToSave);
 		if (this.crudAction == CRUDACTION.create) {
 			this.matchService.createMatch(this.matchToSave).subscribe((match) => {
 				this.toast.success("Successfully created!");
@@ -86,18 +93,21 @@ export class MatchEditorComponent implements OnInit {
 	}
 
 	loadData() {
-		if (this.crudAction == CRUDACTION.update) 
-			this.prepareSelectedData();
+		if (this.crudAction == CRUDACTION.update) {
+            this.prepareSelectedData();
             if (this.match.homeTeam != null && this.match.homeTeam.team != null)
                 this.loadHomeTeamPlayers(this.match.homeTeam.team.id);
             if (this.match.awayTeam != null && this.match.awayTeam.team != null)
                 this.loadAwayTeamPlayers(this.match.awayTeam.team.id);
+        }
+			
 
         this.loadTeams();
         this.loadFormations();
         this.loadLeagues();
         this.loadReferees();
         this.loadStadiums();
+        this.loadCards();
 	}
 
 	private prepareSelectedData() {
@@ -184,6 +194,12 @@ export class MatchEditorComponent implements OnInit {
 		});
 	}
 
+    private loadCards() {
+		this.cardService.getRecordNames().subscribe((cards) => {
+			this.cards = cards;
+		});
+	}
+
     private loadHomeTeamPlayers(id) {
 		this.teamService.getTeamPlayers(id).subscribe((players) => {
 			this.homeTeamPlayers = players;
@@ -196,12 +212,20 @@ export class MatchEditorComponent implements OnInit {
 		});
 	}
 
-    private onHomeTeamChange(newValue) {
+    private onHomeTeamChange(newValue) {        
+        this.matchToSave.homeTeam.lineupPlayerIds = [null];
+        this.matchToSave.homeTeam.substitutePlayerIds = [null];
+        this.matchToSave.homeTeam.substitutions = [{}];
         this.loadHomeTeamPlayers(newValue);
+        console.log("home team change", this.matchToSave.homeTeam);
     }
 
     private onAwayTeamChange(newValue) {
+        this.matchToSave.awayTeam.lineupPlayerIds = [null];
+        this.matchToSave.awayTeam.substitutePlayerIds = [null];
+        this.matchToSave.awayTeam.substitutions = [{}];
         this.loadAwayTeamPlayers(newValue);
+        console.log("away team change", this.matchToSave.awayTeam);
     }
 
     addEmptyHomeLineupPlayer() {
@@ -210,6 +234,66 @@ export class MatchEditorComponent implements OnInit {
 
 	removeHomeLineupPlayer(index: number) {
 		this.matchToSave.homeTeam.lineupPlayerIds.splice(index, 1);
+	}
+
+    addEmptyHomeSubstitutePlayer() {
+		this.matchToSave.homeTeam.substitutePlayerIds.push(null);
+	}
+
+	removeHomeSubstitutePlayer(index: number) {
+		this.matchToSave.homeTeam.substitutePlayerIds.splice(index, 1);
+	}
+
+    addEmptyHomeSubstitution() {
+		this.matchToSave.homeTeam.substitutions.push({lineupPlayerId: null, substitutePlayer: null, minute: null});
+	}
+
+	removeHomeSubstitution(index: number) {
+		this.matchToSave.homeTeam.substitutions.splice(index, 1);
+	}
+
+    addEmptyAwayLineupPlayer() {
+		this.matchToSave.awayTeam.lineupPlayerIds.push(null);
+	}
+
+	removeAwayLineupPlayer(index: number) {
+		this.matchToSave.awayTeam.lineupPlayerIds.splice(index, 1);
+	}
+
+    addEmptyAwaySubstitutePlayer() {
+		this.matchToSave.awayTeam.substitutePlayerIds.push(null);
+	}
+
+	removeAwaySubstitutePlayer(index: number) {
+		this.matchToSave.awayTeam.substitutePlayerIds.splice(index, 1);
+	}
+
+    addEmptyAwaySubstitution() {
+		this.matchToSave.awayTeam.substitutions.push({lineupPlayerId: null, substitutePlayer: null, minute: null});
+	}
+
+	removeAwaySubstitution(index: number) {
+		this.matchToSave.awayTeam.substitutions.splice(index, 1);
+	}
+
+    getAllPlayers() {
+        return [...new Set([...this.homeTeamPlayers ,...this.awayTeamPlayers])]; //   => remove duplication
+    }
+
+    addEmptyGoal() {
+		this.matchToSave.goals.push({playerId: null, minute: null});
+	}
+
+	removeGoal(index: number) {
+		this.matchToSave.goals.splice(index, 1);
+	}
+
+    addEmptyCard() {
+		this.matchToSave.cards.push({playerId: null, cardId: null, minute: null});
+	}
+
+	removeCard(index: number) {
+		this.matchToSave.cards.splice(index, 1);
 	}
 
 }
