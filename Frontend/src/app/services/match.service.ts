@@ -35,18 +35,35 @@ export class MatchService {
 	}
 
     createMatch(objecToCreate) {
-        objecToCreate.matchDate = objecToCreate.matchDate + ":00Z";
-        console.log("objecttocreate", objecToCreate);
-		return this.http.post(this.baseUrl, objecToCreate);
+		return this.http.post(this.baseUrl, this.cloneObjectForRequest(objecToCreate));
 	}
 
     updateMatch(id, objectToUpdate) {
-        objectToUpdate.matchDate = objectToUpdate.matchDate + ":00Z";
-		return this.http.put(this.baseUrl + id, objectToUpdate);
+		return this.http.put(this.baseUrl + id, this.cloneObjectForRequest(objectToUpdate));
 	}
 
 	deleteMatch(id: any) {
 		return this.http.delete(this.baseUrl + id);
 	}
+
+    private cloneObjectForRequest(object) {
+        var clonedObject = JSON.parse(JSON.stringify(object));
+        clonedObject.matchDate = clonedObject.matchDate + ":00Z";
+        if (clonedObject.goals.length == 1 && Object.keys(clonedObject.goals[0]).length == 0) {
+            clonedObject.goals = [];
+        }
+        if (clonedObject.cards.length == 1 && Object.keys(clonedObject.cards[0]).length == 0) {
+            clonedObject.cards = [];
+        }
+        if (clonedObject.homeTeam && clonedObject.homeTeam.substitutions.length == 1 && Object.keys(clonedObject.homeTeam.substitutions[0]).length == 0) {
+            clonedObject.homeTeam.substitutions = [];
+        }
+        if (clonedObject.awayTeam && clonedObject.awayTeam.substitutions.length == 1 && Object.keys(clonedObject.awayTeam.substitutions[0]).length == 0) {
+            clonedObject.awayTeam.substitutions = [];
+        }
+        console.log("not cloned object", object);
+        console.log("clonedObject", clonedObject);
+        return clonedObject;
+    }
 
 }

@@ -99,8 +99,7 @@ export class MatchEditorComponent implements OnInit {
                 this.loadHomeTeamPlayers(this.match.homeTeam.team.id);
             if (this.match.awayTeam != null && this.match.awayTeam.team != null)
                 this.loadAwayTeamPlayers(this.match.awayTeam.team.id);
-        }
-			
+        }	
 
         this.loadTeams();
         this.loadFormations();
@@ -133,13 +132,19 @@ export class MatchEditorComponent implements OnInit {
                 this.matchToSave.goals.push({playerId: this.match.goals[i].player.id, minute: this.match.goals[i].minute});
             }            
         }
+        if (this.matchToSave.goals.length == 0) {
+            this.matchToSave.goals.push({})
+        }
 
         this.matchToSave.cards = []
         if (this.match.cards != null) {
             for (var i in this.match.cards) {
                 this.matchToSave.cards.push({playerId: this.match.cards[i].player.id, cardId: this.match.cards[i].card.id, minute: this.match.cards[i].minute});
             }            
-        }        
+        }  
+        if (this.matchToSave.cards.length == 0) {
+            this.matchToSave.cards.push({})
+        }      
 
 		this.matchToSave.name = this.match.name;
         this.matchToSave.leagueId = this.match.league.id;
@@ -160,6 +165,9 @@ export class MatchEditorComponent implements OnInit {
                 minute: substitutions[i].minute,
             }
             result.push(obj);
+        }
+        if (result.length == 0) {
+            result.push({})
         }
         return result;
     }
