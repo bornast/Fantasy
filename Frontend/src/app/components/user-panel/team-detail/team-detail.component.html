@@ -91,9 +91,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let result of results | paginate: {itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
-                                <td>{{result.homeTeamName}} <img src="{{result.homeTeamImage}}" style="width:50px; height:33px"></td>
-                                <td>{{result.awayTeamName}} <img src="{{result.awayTeamImage}}" style="width:50px; height:33px"></td>                                
+                            <tr *ngFor="let result of results | paginate: {id: 'pagination1', itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
+                                <td>{{result.homeTeamName}} <img *ngIf="result.homeTeamImage" src="{{result.homeTeamImage}}" style="width:50px; height:33px"></td>
+                                <td>{{result.awayTeamName}} <img *ngIf="result.awayTeamImage" src="{{result.awayTeamImage}}" style="width:50px; height:33px"></td>                                
                                 <td>{{result.result}}</td>
                                 <td>{{result.matchDate}}</td>
                                 <td>{{result.league}}</td>
@@ -106,7 +106,7 @@
 
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="pagination-area text-center">
-                            <pagination-controls (pageChange)="changeResultPage(currentResultPage = $event)"></pagination-controls>
+                            <pagination-controls id="pagination1" (pageChange)="changeResultPage(currentResultPage = $event)"></pagination-controls>
                         </div>
                     </div>
                     
@@ -120,30 +120,24 @@
             
             <br>
             <div class="container">
-                <div class="row" *ngIf="results">
+                <div class="row">
                     
                     <div class="col-lg-12 col-md-12">
-                        <table class="table">
+                        <table class="table" *ngIf="transfers">
                             <thead>
                             <tr>
-                                <th scope="col">Home Team</th>
-                                <th scope="col">Away Team</th>                                
-                                <th scope="col">Result</th>
-                                <th scope="col">Match Date</th>                                
-                                <th scope="col">League</th>
-                                <th scope="col">Season</th>
-                                <th scope="col">Stadium</th>
+                                <th scope="col">Player</th>
+                                <th scope="col">From Team</th>                                
+                                <th scope="col">To Team</th>
+                                <th scope="col">Transfer Date</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let result of results | paginate: {itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
-                                <td>{{result.homeTeamName}} <img src="{{result.homeTeamImage}}" style="width:50px; height:33px"></td>
-                                <td>{{result.awayTeamName}} <img src="{{result.awayTeamImage}}" style="width:50px; height:33px"></td>                                
-                                <td>{{result.result}}</td>
-                                <td>{{result.matchDate}}</td>
-                                <td>{{result.league}}</td>
-                                <td>{{result.season}}</td>
-                                <td>{{result.stadium}}</td>
+                            <tr *ngFor="let transfer of transfers | paginate: {id: 'pagination2', itemsPerPage:transferPagination.pageSize, currentPage: transferPagination.currentPage, totalItems: transferPagination.totalCount}">
+                                <td>{{transfer.playerName}} <img *ngIf="transfer.playerImage" src="{{transfer.playerImage}}" style="width:50px; height:33px"></td>
+                                <td>{{transfer.fromTeamName}} <img *ngIf="transfer.fromTeamImage" src="{{transfer.fromTeamImage}}" style="width:50px; height:33px"></td>
+                                <td>{{transfer.toTeamName}} <img *ngIf="transfer.toTeamImage" src="{{transfer.toTeamImage}}" style="width:50px; height:33px"></td>
+                                <td>{{transfer.transferDate}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -151,14 +145,20 @@
 
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="pagination-area text-center">
-                            <pagination-controls (pageChange)="changeResultPage(currentResultPage = $event)"></pagination-controls>
+                            <pagination-controls id="pagination2" (pageChange)="changeTransferPage(currentTransferPage = $event)"></pagination-controls>
                         </div>
                     </div>
-                    
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div> 
 
         </div>
+        
     </div>
     
 </section>

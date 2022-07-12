@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Pagination } from 'src/app/models/pagination';
@@ -13,9 +13,14 @@ import { TeamService } from 'src/app/services/team.service';
 export class TeamDetailComponent implements OnInit {
 
     team: Team;
+
     results: any[];
     resultPagination: Pagination;
     currentResultPage: number = 1;
+    
+    transfers: any[];
+    transferPagination: Pagination;
+    currentTransferPage: number = 1;
 
     constructor(private temaService: TeamService, private route: ActivatedRoute, private router: Router) { }
 
@@ -31,12 +36,13 @@ export class TeamDetailComponent implements OnInit {
     getTeam(id: any) {
 		this.temaService.getTeam(id).subscribe((team) => {
 			this.team = team;
-            this.loadData();
+            this.loadData();    
 		});
 	}
 
     loadData() {
         this.loadResults();
+        this.loadTransfers();
     }
 
     loadResults() {
@@ -47,9 +53,22 @@ export class TeamDetailComponent implements OnInit {
 		});
     }
 
+    loadTransfers() {
+        this.temaService.getTeamTransfersByFilter(this.team.id, this.currentTransferPage-1).subscribe((transfers) => {
+			this.transfers = transfers.result;
+            this.transferPagination = transfers.pagination;
+            this.transferPagination.currentPage += 1;
+		});
+    }
+
     changeResultPage(event: any) {
         this.currentResultPage = event;
         this.loadResults();
+    }
+    
+    changeTransferPage(event: any) {
+        this.currentTransferPage = event;
+        this.loadTransfers();
     }
 
     singleListingsBox = [

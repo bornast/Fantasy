@@ -112,9 +112,13 @@ public class TeamMapperImpl implements TeamMapper {
         var result = new TeamTransferDto();
 
         var fromTeam = transfer.getFromTeam();
-        result.setFromTeamName(fromTeam.getName());
-        var fromTeamMedia = mediaService.getEntityMedia(fromTeam.getId(), EntityType.TEAM.getValue());
-        result.setFromTeamImage(fromTeamMedia.getMainMedia());
+        if (fromTeam != null) {
+            result.setFromTeamName(fromTeam.getName());
+            var fromTeamMedia = mediaService.getEntityMedia(fromTeam.getId(), EntityType.TEAM.getValue());
+            result.setFromTeamImage(fromTeamMedia.getMainMedia());
+        } else {
+            result.setFromTeamName("No Team");
+        }
 
         var toTeam = transfer.getToTeam();
         result.setToTeamName(toTeam.getName());
@@ -126,7 +130,7 @@ public class TeamMapperImpl implements TeamMapper {
         var playerMedia = mediaService.getEntityMedia(player.getId(), EntityType.PLAYER.getValue());
         result.setPlayerImage(playerMedia.getMainMedia());
 
-        result.setTransferDate(mapper.map(transfer.getTransferDate(), String.class));
+        result.setTransferDate(mapper.map(transfer.getTransferDate(), String.class).substring(0, 10));
 
         return result;
     }
