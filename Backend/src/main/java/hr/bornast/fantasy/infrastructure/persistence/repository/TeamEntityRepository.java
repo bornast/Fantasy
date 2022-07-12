@@ -19,7 +19,16 @@ public interface TeamEntityRepository extends JpaRepository<TeamEntity, Integer>
     @Query(value = "select t.* from teams t inner join favourite_teams ft on (t.id = ft.team_id) where ft.user_id = ?1", nativeQuery = true)
     Page<TeamEntity> findFavouriteTeams(int userId, Pageable paging);
 
+    @Query(value = "select t.* from teams t inner join favourite_teams ft on (t.id = ft.team_id) where ft.user_id = ?1 and lower(t.name) like lower(concat('%',?2,'%'))", nativeQuery = true)
+    Page<TeamEntity> findFavouriteTeams(int userId, String name, Pageable paging);
+
     @Query(value = "select t.* from teams t inner join favourite_teams ft on (t.id = ft.team_id) where ft.user_id = ?1", nativeQuery = true)
     List<TeamEntity> findFavouriteTeams(int userId);
+
+    @Query(value = "select t.* from teams t inner join favourite_teams ft on (t.id = ft.team_id) where ft.user_id = ?1 and lower(t.name) like lower(concat('%',?2,'%'))", nativeQuery = true)
+    List<TeamEntity> findFavouriteTeams(int userId, String name);
+
+    @Query(value = "select t.* from teams t where lower(t.name) like lower(concat('%',?1,'%'))", nativeQuery = true)
+    List<TeamEntity> findAll(String name);
 
 }

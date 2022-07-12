@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { TeamService } from 'src/app/services/team.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-team-picker',
@@ -8,7 +10,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class TeamPickerComponent implements OnInit {
 
-    constructor() { }
+    constructor(private teamService: TeamService, private toast: ToastService) { }
 
     ngOnInit(): void {
         this.resetOption = [this.options[0]];

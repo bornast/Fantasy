@@ -26,6 +26,11 @@ public class TeamRepositoryImpl implements TeamRepository {
     }
 
     @Override
+    public List<Team> findAllByName(String name) {
+        return teamRepository.findAll(name).stream().map(x -> mapper.map(x, Team.class)).toList();
+    }
+
+    @Override
     public Page<Team> findByName(String name, Pageable pageable) {
         return teamRepository.findByNameContainingIgnoreCase(name, pageable)
             .map(x -> mapper.map(x, Team.class));
@@ -69,8 +74,20 @@ public class TeamRepositoryImpl implements TeamRepository {
     }
 
     @Override
+    public Page<Team> findFavouriteTeams(int userId, String name, Pageable paging) {
+        return teamRepository.findFavouriteTeams(userId, name, paging)
+            .map(x -> mapper.map(x, Team.class));
+    }
+
+    @Override
     public List<Team> findFavouriteTeams(int userId) {
         return teamRepository.findFavouriteTeams(userId).stream()
+            .map(x -> mapper.map(x, Team.class)).toList();
+    }
+
+    @Override
+    public List<Team> findFavouriteTeams(int userId, String name) {
+        return teamRepository.findFavouriteTeams(userId, name).stream()
             .map(x -> mapper.map(x, Team.class)).toList();
     }
 

@@ -9,7 +9,7 @@ import hr.bornast.fantasy.application.dto.team.TeamDto;
 import org.springframework.data.domain.Pageable;
 
 public interface TeamService {
-    PagedListDto<TeamDto> findAll(Pageable pageable, String name);
+    PagedListDto<TeamDto> findAll(Pageable paging, String name);
     List<RecordNameDto> findAllRecordNames();
     List<RecordNameDto> findTeamPlayers(int id);
     TeamDto findOne(int id);
@@ -18,6 +18,6 @@ public interface TeamService {
     void delete(int id);
     void setFavourite(int teamId);
     void setUnfavored(int teamId);
-    PagedListDto<TeamDto> findFavourites(Pageable pageable);
-    PagedListDto<TeamDto> findUnfavored(Pageable pageable);
+    PagedListDto<TeamDto> findFavourites(Pageable paging, String name);
+    PagedListDto<TeamDto> findUnfavored(Pageable paging, String name);
 }

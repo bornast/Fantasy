@@ -14,6 +14,7 @@ import hr.bornast.fantasy.application.repository.TransferRepository;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.TeamService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
+import hr.bornast.fantasy.domain.model.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -125,25 +126,37 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public PagedListDto<TeamDto> findFavourites(Pageable paging) {
+    public PagedListDto<TeamDto> findFavourites(Pageable paging, String name) {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username)
             .orElseThrow(EntityNotFoundException::new);
 
+        if (name == null) {
+            return new PagedListDto<TeamDto>().getPagedResult(
+                teamRepository.findFavouriteTeams(user.getId(), paging)
+                    .map(mapper::map));
+        }
+
         return new PagedListDto<TeamDto>().getPagedResult(
-            teamRepository.findFavouriteTeams(user.getId(), paging)
+            teamRepository.findFavouriteTeams(user.getId(), name, paging)
                 .map(mapper::map));
     }
 
     @Override
-    public PagedListDto<TeamDto> findUnfavored(Pageable paging) {
+    public PagedListDto<TeamDto> findUnfavored(Pageable paging, String name) {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username)
             .orElseThrow(EntityNotFoundException::new);
 
-        var favouriteTeams = teamRepository.findFavouriteTeams(user.getId());
+        List<Team> favouriteTeams = new ArrayList<Team>();
 
-        var allTeams = teamRepository.findAll();
+        if (name == null) {
+            favouriteTeams.addAll(teamRepository.findFavouriteTeams(user.getId()));
+        } else {
+            favouriteTeams.addAll(teamRepository.findFavouriteTeams(user.getId(), name));
+        }
+
+        var allTeams = teamRepository.findAllByName(name);
 
         var unfavoredTeams = allTeams.stream()
             .filter(x -> !favouriteTeams.contains(x))
