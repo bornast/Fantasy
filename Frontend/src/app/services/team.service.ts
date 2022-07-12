@@ -54,6 +54,13 @@ export class TeamService {
         return this.http.get<PaginatedResult<Team[]>>(this.baseUrl + "unfavored", { params });
 	}
 
+    getTeamResultsByFilter(teamId: any, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<[]>> {
+		let params = new HttpParams();
+		params = params.append('pageSize', pageSize);
+		params = params.append('pageNumber', pageNumber);
+        return this.http.get<PaginatedResult<[]>>(this.baseUrl + teamId + "/results", { params });
+	}
+
     getTeam(id) {
 		return this.http.get<Team>(this.baseUrl + id);
 	}

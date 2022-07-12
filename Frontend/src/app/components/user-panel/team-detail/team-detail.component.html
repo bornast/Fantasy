@@ -72,43 +72,40 @@
             
             <br>
             <div class="container">
-                <div class="row" *ngIf="team">
+                <div class="row" *ngIf="results">
                     
                     <div class="col-lg-12 col-md-12">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Home Team</th>
+                                <th scope="col">Away Team</th>                                
+                                <th scope="col">Result</th>
+                                <th scope="col">Match Date</th>                                
+                                <th scope="col">League</th>
+                                <th scope="col">Season</th>
+                                <th scope="col">Stadium</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
+                            <tr *ngFor="let result of results | paginate: {itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
+                                <td>{{result.homeTeamName}} <img src="{{result.homeTeamImage}}" style="width:50px; height:33px"></td>
+                                <td>{{result.awayTeamName}} <img src="{{result.awayTeamImage}}" style="width:50px; height:33px"></td>                                
+                                <td>{{result.result}}</td>
+                                <td>{{result.matchDate}}</td>
+                                <td>{{result.league}}</td>
+                                <td>{{result.season}}</td>
+                                <td>{{result.stadium}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    
-
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="pagination-area text-center">
+                            <pagination-controls (pageChange)="changeResultPage(currentResultPage = $event)"></pagination-controls>
+                        </div>
+                    </div>
                     
                 </div>
             </div> 

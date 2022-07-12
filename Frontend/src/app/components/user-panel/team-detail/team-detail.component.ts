@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Pagination } from 'src/app/models/pagination';
 import { Team } from 'src/app/models/team';
 import { TeamService } from 'src/app/services/team.service';
 
@@ -12,6 +13,9 @@ import { TeamService } from 'src/app/services/team.service';
 export class TeamDetailComponent implements OnInit {
 
     team: Team;
+    results: any[];
+    resultPagination: Pagination;
+    currentResultPage: number = 1;
 
     constructor(private temaService: TeamService, private route: ActivatedRoute, private router: Router) { }
 
@@ -27,8 +31,26 @@ export class TeamDetailComponent implements OnInit {
     getTeam(id: any) {
 		this.temaService.getTeam(id).subscribe((team) => {
 			this.team = team;
+            this.loadData();
 		});
 	}
+
+    loadData() {
+        this.loadResults();
+    }
+
+    loadResults() {
+        this.temaService.getTeamResultsByFilter(this.team.id, this.currentResultPage-1).subscribe((results) => {
+			this.results = results.result;
+            this.resultPagination = results.pagination;
+            this.resultPagination.currentPage += 1;
+		});
+    }
+
+    changeResultPage(event: any) {
+        this.currentResultPage = event;
+        this.loadResults();
+    }
 
     singleListingsBox = [
         {

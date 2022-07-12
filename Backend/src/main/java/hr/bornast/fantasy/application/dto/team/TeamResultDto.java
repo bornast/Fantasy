@@ -11,4 +11,6 @@ public class TeamResultDto {
     private String awayTeamImage;
     private String result;
     private String stadium;
+    private String league;
+    private String season;
 }

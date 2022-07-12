@@ -99,6 +99,9 @@ public class TeamMapperImpl implements TeamMapper {
         }
         result.setResult(homeScore + " : " + awayScore);
 
+        result.setLeague(match.getLeague().getName());
+        result.setSeason(match.getLeague().getSeason().getName());
+
         return result;
     }
 }
