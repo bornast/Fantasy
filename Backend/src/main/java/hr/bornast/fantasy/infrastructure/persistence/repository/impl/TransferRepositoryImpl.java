@@ -32,6 +32,11 @@ public class TransferRepositoryImpl implements TransferRepository {
     }
 
     @Override
+    public Page<Transfer> findByTeamId(int teamId, Pageable paging) {
+        return transferRepository.findByTeamId(teamId, paging).map(x -> mapper.map(x, Transfer.class));
+    }
+
+    @Override
     public List<Transfer> findAll() {
         return transferRepository.findAll().stream().map(x -> mapper.map(x, Transfer.class)).toList();
     }

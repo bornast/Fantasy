@@ -15,6 +15,9 @@ public interface TransferEntityRepository extends JpaRepository<TransferEntity, 
     @Query("SELECT t from TransferEntity t where lower(t.player.name) like lower(concat('%',?1,'%'))")
     Page<TransferEntity> findByNameContainingIgnoreCase(String playerName, Pageable pageable);
     List<TransferEntity> findByIdIn(List<Integer> ids);
-    @Query(value = "select * from transfers where player_id = ?1 order by transfer_date desc limit 1;", nativeQuery = true)
+    @Query(value = "select * from transfers where player_id = ?1 order by transfer_date desc limit 1", nativeQuery = true)
     Optional<TransferEntity> findLastPlayerTransfer(int playerId);
+
+    @Query(value = "select * from transfers where from_team_id = ?1 or to_team_id = ?1 order by transfer_date desc", nativeQuery = true)
+    Page<TransferEntity> findByTeamId(int teamId, Pageable pageable);
 }

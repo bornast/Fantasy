@@ -8,6 +8,7 @@ import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
 import hr.bornast.fantasy.application.repository.MatchRepository;
 import hr.bornast.fantasy.application.repository.PlayerRepository;
@@ -178,6 +179,13 @@ public class TeamServiceImpl implements TeamService {
     public PagedListDto<TeamResultDto> findTeamResults(int teamId, Pageable paging) {
         return new PagedListDto<TeamResultDto>().getPagedResult(
             matchRepository.findByTeamId(teamId, paging)
+                .map(mapper::map));
+    }
+
+    @Override
+    public PagedListDto<TeamTransferDto> findTeamTransfers(int teamId, Pageable paging) {
+        return new PagedListDto<TeamTransferDto>().getPagedResult(
+            transferRepository.findByTeamId(teamId, paging)
                 .map(mapper::map));
     }
 

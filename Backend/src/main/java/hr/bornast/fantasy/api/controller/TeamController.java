@@ -10,6 +10,7 @@ import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.query.common.PaginationQuery;
 import hr.bornast.fantasy.application.query.team.TeamQuery;
 import hr.bornast.fantasy.application.service.TeamService;
@@ -57,6 +58,12 @@ public class TeamController {
     @GetMapping("/{id}/results")
     public ResponseEntity<PagedListDto<TeamResultDto>> findTeamResults(@PathVariable int id, PaginationQuery query) {
         return ok(teamService.findTeamResults(id, PageRequest.of(query.getPageNumber(), query.getPageSize())));
+    }
+
+    @GetMapping("/{id}/transfers")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<PagedListDto<TeamTransferDto>> findTeamTransfers(@PathVariable int id, PaginationQuery query) {
+        return ok(teamService.findTeamTransfers(id, PageRequest.of(query.getPageNumber(), query.getPageSize())));
     }
 
     @GetMapping("/{id}")
@@ -109,4 +116,5 @@ public class TeamController {
     public ResponseEntity<PagedListDto<TeamDto>> findUnfavoredTeams(TeamQuery query) {
         return ok(teamService.findUnfavored(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getName()));
     }
+
 }

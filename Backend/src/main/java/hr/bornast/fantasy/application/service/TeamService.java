@@ -7,6 +7,7 @@ import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import org.springframework.data.domain.Pageable;
 
 public interface TeamService {
@@ -22,5 +23,6 @@ public interface TeamService {
     PagedListDto<TeamDto> findFavourites(Pageable paging, String name);
     PagedListDto<TeamDto> findUnfavored(Pageable paging, String name);
     PagedListDto<TeamResultDto> findTeamResults(int teamId, Pageable paging);
+    PagedListDto<TeamTransferDto> findTeamTransfers(int teamId, Pageable paging);
 
 }

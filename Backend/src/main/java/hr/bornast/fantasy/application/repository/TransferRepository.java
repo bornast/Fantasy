@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface TransferRepository {
     Page<Transfer> findAll(Pageable paging);
     Page<Transfer> findByName(String name, Pageable paging);
+    Page<Transfer> findByTeamId(int teamId, Pageable paging);
     List<Transfer> findAll();
     Optional<Transfer> findLastPlayerTransfer(int playerId);
     Optional<Transfer> findById(int id);

@@ -4,6 +4,7 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
 import hr.bornast.fantasy.application.repository.CoachRepository;
 import hr.bornast.fantasy.application.repository.PresidentRepository;
@@ -13,6 +14,7 @@ import hr.bornast.fantasy.common.enums.EntityType;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.domain.model.Match;
 import hr.bornast.fantasy.domain.model.Team;
+import hr.bornast.fantasy.domain.model.Transfer;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -101,6 +103,30 @@ public class TeamMapperImpl implements TeamMapper {
 
         result.setLeague(match.getLeague().getName());
         result.setSeason(match.getLeague().getSeason().getName());
+
+        return result;
+    }
+
+    @Override
+    public TeamTransferDto map(Transfer transfer) {
+        var result = new TeamTransferDto();
+
+        var fromTeam = transfer.getFromTeam();
+        result.setFromTeamName(fromTeam.getName());
+        var fromTeamMedia = mediaService.getEntityMedia(fromTeam.getId(), EntityType.TEAM.getValue());
+        result.setFromTeamImage(fromTeamMedia.getMainMedia());
+
+        var toTeam = transfer.getToTeam();
+        result.setToTeamName(toTeam.getName());
+        var toTeamMedia = mediaService.getEntityMedia(toTeam.getId(), EntityType.TEAM.getValue());
+        result.setToTeamImage(toTeamMedia.getMainMedia());
+
+        var player = transfer.getPlayer();
+        result.setPlayerName(player.getName());
+        var playerMedia = mediaService.getEntityMedia(player.getId(), EntityType.PLAYER.getValue());
+        result.setPlayerImage(playerMedia.getMainMedia());
+
+        result.setTransferDate(mapper.map(transfer.getTransferDate(), String.class));
 
         return result;
     }
