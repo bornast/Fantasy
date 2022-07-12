@@ -16,4 +16,8 @@ public interface TeamService {
     TeamDto create(SaveTeamCommand command);
     TeamDto update(int id, SaveTeamCommand command);
     void delete(int id);
+    void setFavourite(int teamId);
+    void setUnfavored(int teamId);
+    PagedListDto<TeamDto> findFavourites(Pageable pageable);
+    PagedListDto<TeamDto> findUnfavored(Pageable pageable);
 }

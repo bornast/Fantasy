@@ -17,5 +17,6 @@ public interface TeamRepository {
     Team create(Team team);
     Team update(Team team);
     void delete(int id);
-
+    Page<Team> findFavouriteTeams(int userId, Pageable paging);
+    List<Team> findFavouriteTeams(int userId);
 }

@@ -9,6 +9,7 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.query.common.PaginationQuery;
 import hr.bornast.fantasy.application.query.team.TeamQuery;
 import hr.bornast.fantasy.application.service.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -77,4 +78,29 @@ public class TeamController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/{id}/set-favourite")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<Void> setFavourite(@PathVariable int id) {
+        teamService.setFavourite(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/set-unfavored")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<Void> setUnfavored(@PathVariable int id) {
+        teamService.setUnfavored(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/favourites")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<PagedListDto<TeamDto>> findFavouriteTeams(PaginationQuery query) {
+        return ok(teamService.findFavourites(PageRequest.of(query.getPageNumber(), query.getPageSize())));
+    }
+
+    @GetMapping("/unfavored")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<PagedListDto<TeamDto>> findUnfavoredTeams(PaginationQuery query) {
+        return ok(teamService.findUnfavored(PageRequest.of(query.getPageNumber(), query.getPageSize())));
+    }
 }

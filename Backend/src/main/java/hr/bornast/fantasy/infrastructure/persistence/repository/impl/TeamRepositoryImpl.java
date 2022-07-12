@@ -63,6 +63,18 @@ public class TeamRepositoryImpl implements TeamRepository {
     }
 
     @Override
+    public Page<Team> findFavouriteTeams(int userId, Pageable paging) {
+        return teamRepository.findFavouriteTeams(userId, paging)
+            .map(x -> mapper.map(x, Team.class));
+    }
+
+    @Override
+    public List<Team> findFavouriteTeams(int userId) {
+        return teamRepository.findFavouriteTeams(userId).stream()
+            .map(x -> mapper.map(x, Team.class)).toList();
+    }
+
+    @Override
     public Team update(Team team) {
         return mapper.map(teamRepository.save(mapper.map(team, TeamEntity.class)), Team.class);
     }

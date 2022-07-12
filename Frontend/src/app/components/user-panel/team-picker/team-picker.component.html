@@ -1,0 +1,60 @@
+<app-navbar-style-two></app-navbar-style-two>
+
+<!-- Start Page Title Area -->
+<div class="page-title-bg">
+    <div class="container">
+        <h2>Find your favourite team</h2>
+        <form>
+            <div class="row m-0 align-items-center">
+                <div class="col-lg-10 col-md-12 p-0">
+                    <div class="form-group">
+                        <label><i class="flaticon-search"></i></label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-12 p-0">
+                    <div class="submit-btn">
+                        <button type="submit">Search Now</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+<!-- Start Listings Area -->
+<section class="listings-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let Content of singleListingsBox | paginate: { itemsPerPage: 6, currentPage: gridListings }">
+                <div class="single-listings-box">
+                    <div class="listings-image">
+                        <div class="listings-image-slides">
+                            <owl-carousel-o [options]="customOptions">
+                                <ng-template carouselSlide *ngFor="let Image of Content.mainImg;">
+                                    <div class="single-image">
+                                        <img [src]="Image.img" alt="image">
+                                        <a routerLink="/{{Content.detailsLink}}" class="link-btn"></a>
+                                    </div>
+                                </ng-template>
+                            </owl-carousel-o>
+                        </div>
+                        <a class="bookmark-save"><i class="flaticon-heart"></i></a>
+                    </div>
+                    <div class="listings-content">                                  
+                        <h3 style="text-align: center;"><a routerLink="/{{Content.detailsLink}}">{{Content.title}}</a></h3>                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="pagination-area text-center">
+                    <pagination-controls (pageChange)="gridListings = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Listings Area -->

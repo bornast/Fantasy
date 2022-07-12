@@ -11,10 +11,14 @@ import hr.bornast.fantasy.application.mapper.TeamMapper;
 import hr.bornast.fantasy.application.repository.PlayerRepository;
 import hr.bornast.fantasy.application.repository.TeamRepository;
 import hr.bornast.fantasy.application.repository.TransferRepository;
+import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.TeamService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +28,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
     private final TransferRepository transferRepository;
+    private final UserRepository userRepository;
     private final TeamMapper mapper;
 
     @Override
@@ -84,6 +89,73 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void delete(int id) {
         teamRepository.delete(id);
+    }
+
+    @Override
+    public void setFavourite(int teamId) {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByUsername(username)
+            .orElseThrow(EntityNotFoundException::new);
+
+        var team = teamRepository.findById(teamId)
+            .orElseThrow(EntityNotFoundException::new);
+
+        team.addFavouredUser(user);
+
+        teamRepository.update(team);
+    }
+
+    @Override
+    public void setUnfavored(int teamId) {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByUsername(username)
+            .orElseThrow(EntityNotFoundException::new);
+
+        var team = teamRepository.findById(teamId)
+            .orElseThrow(EntityNotFoundException::new);
+
+        var favouriteToRemove = team.getFavoredUsers().stream()
+            .filter(x -> x.getId() == user.getId())
+            .findFirst()
+            .orElseThrow(EntityNotFoundException::new);
+
+        team.getFavoredUsers().remove(favouriteToRemove);
+
+        teamRepository.update(team);
+    }
+
+    @Override
+    public PagedListDto<TeamDto> findFavourites(Pageable paging) {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByUsername(username)
+            .orElseThrow(EntityNotFoundException::new);
+
+        return new PagedListDto<TeamDto>().getPagedResult(
+            teamRepository.findFavouriteTeams(user.getId(), paging)
+                .map(mapper::map));
+    }
+
+    @Override
+    public PagedListDto<TeamDto> findUnfavored(Pageable paging) {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByUsername(username)
+            .orElseThrow(EntityNotFoundException::new);
+
+        var favouriteTeams = teamRepository.findFavouriteTeams(user.getId());
+
+        var allTeams = teamRepository.findAll();
+
+        var unfavoredTeams = allTeams.stream()
+            .filter(x -> !favouriteTeams.contains(x))
+            .map(mapper::map)
+            .toList();
+
+        int start = Math.min((int)paging.getOffset(), unfavoredTeams.size());
+        int end = Math.min((start + paging.getPageSize()), unfavoredTeams.size());
+
+        Page<TeamDto> page = new PageImpl<>(unfavoredTeams.subList(start, end), paging, unfavoredTeams.size());
+
+        return new PagedListDto<TeamDto>().getPagedResult(page);
     }
 
 }

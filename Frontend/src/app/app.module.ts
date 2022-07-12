@@ -110,6 +110,7 @@ import { TransferListComponent } from './components/admin/transfer/transfer-list
 import { TransferEditorComponent } from './components/admin/transfer/transfer-editor/transfer-editor.component';
 import { MatchListComponent } from './components/admin/match/match-list/match-list.component';
 import { MatchEditorComponent } from './components/admin/match/match-editor/match-editor.component';
+import { TeamPickerComponent } from './components/user-panel/team-picker/team-picker.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -213,7 +214,8 @@ export function tokenGetter() {
     TransferListComponent,
     TransferEditorComponent,
     MatchListComponent,
-    MatchEditorComponent
+    MatchEditorComponent,
+    TeamPickerComponent
   ],
   imports: [
     BrowserModule,
