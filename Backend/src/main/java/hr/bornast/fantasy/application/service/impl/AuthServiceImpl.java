@@ -7,7 +7,6 @@ import hr.bornast.fantasy.application.command.auth.LoginCommand;
 import hr.bornast.fantasy.application.dto.auth.TokenDto;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.AuthService;
-import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.common.util.JwtUtil;
 import hr.bornast.fantasy.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

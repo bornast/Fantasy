@@ -18,10 +18,12 @@ export class NavbarStyleOneComponent implements OnInit {
   }
 
   login() {
-		this.authService.login(this.loginObject).subscribe(() => {
-			this.toast.success('Logged in successfully');
-			this.router.navigate(['/']);
-		});
+        this.authService.login(this.loginObject).subscribe(() => {
+            this.toast.success('Logged in successfully');
+            this.router.navigate(['/team-picker']);
+        }, () => {
+            this.router.navigate(['/home']);
+        });
 	}
 
 }

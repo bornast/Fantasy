@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +31,9 @@ public class GlobalExceptionHandler {
             httpStatus = HttpStatus.FORBIDDEN;
         }
         else if (ex instanceof InternalAuthenticationServiceException) {
+            httpStatus = HttpStatus.UNAUTHORIZED;
+        }
+        else if (ex instanceof BadCredentialsException) {
             httpStatus = HttpStatus.UNAUTHORIZED;
         }
         else if (ex instanceof ValidationException) {

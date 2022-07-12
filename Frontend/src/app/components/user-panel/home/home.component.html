@@ -1,0 +1,84 @@
+<span *ngIf="isLoggedIn == true">
+    <app-navbar-style-two></app-navbar-style-two>
+</span>
+
+<!-- Start Page Title Area -->
+<div class="page-title-area" *ngFor="let Content of pageTitleContent;" style="background-image: url({{Content.backgroundImage}});">
+    <div class="container">
+        <div class="page-title-content">
+            <br>
+            <br>
+            <br>
+            <h2>{{Content.title}}</h2>
+        </div>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+<!-- Start Timeline Area -->
+<section class="timeline-area ptb-100">
+    <div class="container">
+        <div class="main-timeline">
+            <div class="timeline" *ngFor="let Content of timelineContent;">
+                <span class="icon">{{Content.number}}</span>
+                <div class="timeline-content">
+                    <h3 class="title">{{Content.title}}</h3>
+                    <p class="description">{{Content.description}}</p>
+                    <a *ngIf="Content.number == '3' && isLoggedIn == true" routerLink="/{{Content.buttonLink}}" class="default-btn">{{Content.buttonText}}</a>
+                    <a style="cursor: pointer;" *ngIf="(Content.number == '1' || Content.number == '2') && isLoggedIn == false" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" class="default-btn">{{Content.buttonText}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Timeline Area -->
+
+<div class="modal fade loginRegisterModal" id="loginRegisterModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x'></i></button>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Login</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="true">Register</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="login" role="tabpanel">
+                    <div class="vesax-login">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" placeholder="Username" class="form-control" name="username" [(ngModel)]="loginObject.username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="loginObject.password">
+                            </div>
+                            <button (click)="login()" type="submit" data-bs-dismiss="modal">Login Now</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="register" role="tabpanel">
+                    <div class="vesax-register">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" placeholder="Username" class="form-control" name="registration-username" [(ngModel)]="registerObject.username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" class="form-control" name="registration-password" [(ngModel)]="registerObject.password">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="First Name" class="form-control" name="registration-firstname" [(ngModel)]="registerObject.firstName">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Last Name" class="form-control" name="registration-lastname" [(ngModel)]="registerObject.lastName">
+                            </div>
+                            <button (click)="register()" data-bs-dismiss="modal" type="submit">Register Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

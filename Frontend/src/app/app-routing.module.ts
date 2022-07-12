@@ -68,6 +68,7 @@ import { VerticalListingsFullWidthComponent } from './components/pages/vertical-
 import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
 import { VerticalListingsRightSidebarComponent } from './components/pages/vertical-listings-right-sidebar/vertical-listings-right-sidebar.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
+import { HomeComponent } from './components/user-panel/home/home.component';
 import { TeamPickerComponent } from './components/user-panel/team-picker/team-picker.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -154,6 +155,7 @@ const routes: Routes = [
     {path: 'admin/match-editor/:id', component: MatchEditorComponent, canActivate: [AuthGuard]},
     {path: 'team-picker', component: TeamPickerComponent, canActivate: [AuthGuard]},
     {path: 'favourite-team-list', component: FavouriteTeamListComponent, canActivate: [AuthGuard]},
+    {path: 'home', component: HomeComponent},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list

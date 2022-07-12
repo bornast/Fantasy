@@ -112,6 +112,7 @@ import { MatchListComponent } from './components/admin/match/match-list/match-li
 import { MatchEditorComponent } from './components/admin/match/match-editor/match-editor.component';
 import { TeamPickerComponent } from './components/user-panel/team-picker/team-picker.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
+import { HomeComponent } from './components/user-panel/home/home.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -217,7 +218,8 @@ export function tokenGetter() {
     MatchListComponent,
     MatchEditorComponent,
     TeamPickerComponent,
-    FavouriteTeamListComponent
+    FavouriteTeamListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
