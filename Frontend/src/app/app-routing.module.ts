@@ -69,6 +69,7 @@ import { VerticalListingsLeftSidebarComponent } from './components/pages/vertica
 import { VerticalListingsRightSidebarComponent } from './components/pages/vertical-listings-right-sidebar/vertical-listings-right-sidebar.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
 import { HomeComponent } from './components/user-panel/home/home.component';
+import { TeamDetailComponent } from './components/user-panel/team-detail/team-detail.component';
 import { TeamPickerComponent } from './components/user-panel/team-picker/team-picker.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -156,6 +157,7 @@ const routes: Routes = [
     {path: 'team-picker', component: TeamPickerComponent, canActivate: [AuthGuard]},
     {path: 'favourite-team-list', component: FavouriteTeamListComponent, canActivate: [AuthGuard]},
     {path: 'home', component: HomeComponent},
+    {path: 'team-detail/:id', component: TeamDetailComponent},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list

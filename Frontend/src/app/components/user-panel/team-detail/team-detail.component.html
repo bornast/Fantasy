@@ -1,0 +1,78 @@
+<app-navbar-style-two></app-navbar-style-two>
+
+<!-- Start Listings Details Area -->
+<section class="listings-details-area pb-70">
+    <div class="listings-details-image">
+        <img src="https://media-01.imu.nl/storage/peleus.eu/3248/wp/PSI-Soccer-Background-1920x500.jpg?v=1534780244195" alt="image">
+        <div class="container-fluid">
+        </div>
+    </div>
+    <div class="listings-details-nav">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item" role="media">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="false">Team Info</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#result" type="button" role="tab" aria-controls="result" aria-selected="false">Results</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <!-- TAB TEAM INFO -->
+        <div class="tab-pane fade show active" id="info" role="tabpanel">
+
+            <br>
+            <div class="container">
+                <div class="row" *ngIf="team">
+                    
+                    <div class="col-lg-6 col-md-6">
+                        <div class="products-details-desc">
+                            <div class="products-meta" style="font-size: 20px;">
+                                <span>Name: <span class="in-stock">{{team.name}}</span></span>
+                                <span>Date of establishment: <span class="in-stock">{{team.dateOfEstablishment}}</span></span>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="products-details-desc">
+                            <div class="products-meta" style="font-size: 20px;">
+                                <span>President: <span class="in-stock">{{team.president.name}}</span></span>
+                                <span>Coach: <span class="in-stock">{{team.coach.name}}</span></span>
+                                <span>Stadium: <a class="in-stock">{{team.stadium.name}}</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12" *ngIf="team.media.media.length > 0">
+                        <div class="listings-details-desc">
+                            <h3>Gallery</h3>
+                            <div id="gallery">
+                                <div class="gallery-slides">
+                                    <owl-carousel-o [options]="galleryOptions">
+                                        <ng-template carouselSlide *ngFor="let media of team.media.media;">
+                                            <div class="single-image-box">
+                                                <img [src]="media.url" alt="image">
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                            </div>                                                                              
+                        </div>                        
+                    </div>
+                </div>
+            </div>      
+
+        </div>
+        
+        <!-- TAB RESULTS -->
+        <div class="tab-pane fade" id="result" role="tabpanel">
+            details
+        </div>
+
+    </div>
+    
+</section>
+<!-- End Listings Details Area -->

@@ -36,7 +36,7 @@
                                 <ng-template carouselSlide *ngFor="let media of team.media.media;">
                                     <div class="single-image">
                                         <img [src]="media.url" alt="image">
-                                        <a routerLink="/" class="link-btn"></a>
+                                        <a [routerLink]="['/team-detail', team.id]" class="link-btn"></a>
                                     </div>
                                 </ng-template>
                             </owl-carousel-o>
@@ -44,7 +44,7 @@
                         <a (click)="markAsFavourite(team)" class="bookmark-save"><i style="cursor: pointer;" class="flaticon-heart"></i></a>
                     </div>
                     <div class="listings-content">                                  
-                        <h3 style="text-align: center;"><a routerLink="/details">{{team.name}}</a></h3>                        
+                        <h3 style="text-align: center;"><a [routerLink]="['/team-detail', team.id]">{{team.name}}</a></h3>                        
                     </div>
                 </div>
             </div>

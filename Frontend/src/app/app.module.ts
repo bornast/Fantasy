@@ -113,6 +113,7 @@ import { MatchEditorComponent } from './components/admin/match/match-editor/matc
 import { TeamPickerComponent } from './components/user-panel/team-picker/team-picker.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
 import { HomeComponent } from './components/user-panel/home/home.component';
+import { TeamDetailComponent } from './components/user-panel/team-detail/team-detail.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -219,7 +220,8 @@ export function tokenGetter() {
     MatchEditorComponent,
     TeamPickerComponent,
     FavouriteTeamListComponent,
-    HomeComponent
+    HomeComponent,
+    TeamDetailComponent
   ],
   imports: [
     BrowserModule,
