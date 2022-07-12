@@ -34,6 +34,26 @@ export class TeamService {
         return this.http.get<PaginatedResult<Team[]>>(this.baseUrl, { params });
 	}
 
+    getFavouriteTeamsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Team[]>> {
+		let params = new HttpParams();
+		params = params.append('pageSize', pageSize);
+		params = params.append('pageNumber', pageNumber);
+		if (name != null)
+			params = params.append('name', name);
+        
+        return this.http.get<PaginatedResult<Team[]>>(this.baseUrl + "favourites", { params });
+	}
+
+    getUnfavoredTeamsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Team[]>> {
+		let params = new HttpParams();
+		params = params.append('pageSize', pageSize);
+		params = params.append('pageNumber', pageNumber);
+		if (name != null)
+			params = params.append('name', name);
+        
+        return this.http.get<PaginatedResult<Team[]>>(this.baseUrl + "unfavored", { params });
+	}
+
     getTeam(id) {
 		return this.http.get<Team>(this.baseUrl + id);
 	}
@@ -48,6 +68,14 @@ export class TeamService {
 
 	deleteTeam(id: any) {
 		return this.http.delete(this.baseUrl + id);
+	}
+
+    markTeamAsFavourite(id) {
+		return this.http.post(this.baseUrl + id + "/set-favourite", {});
+	}
+
+    markTeamAsUnfavored(id) {
+		return this.http.post(this.baseUrl + id + "/set-unfavored", {});
 	}
 
 }

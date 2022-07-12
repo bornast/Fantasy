@@ -6,11 +6,11 @@ import { TeamService } from 'src/app/services/team.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-team-picker',
-  templateUrl: './team-picker.component.html',
-  styleUrls: ['./team-picker.component.scss']
+  selector: 'app-favourite-team-list',
+  templateUrl: './favourite-team-list.component.html',
+  styleUrls: ['./favourite-team-list.component.scss']
 })
-export class TeamPickerComponent implements OnInit {
+export class FavouriteTeamListComponent implements OnInit {
 
     teamsForList: any[];
 	pagination: Pagination;
@@ -24,7 +24,7 @@ export class TeamPickerComponent implements OnInit {
 	}
 
 	loadTeams() {
-        this.teamService.getUnfavoredTeamsByFilter(this.searchTxt, this.currentPage-1).subscribe((teams) => {
+        this.teamService.getFavouriteTeamsByFilter(this.searchTxt, this.currentPage-1).subscribe((teams) => {
 			this.teamsForList = teams.result;
             this.pagination = teams.pagination;
             this.pagination.currentPage += 1;
@@ -40,12 +40,12 @@ export class TeamPickerComponent implements OnInit {
         this.loadTeams();
     }
 
-    markAsFavourite(team: Team) {
-        this.teamService.markTeamAsFavourite(team.id).subscribe(() => {
+    markAsUnfavored(team: Team) {
+        this.teamService.markTeamAsUnfavored(team.id).subscribe(() => {
             this.loadTeams();
-            this.toast.success("Successfully marked " + team.name + " as favourite");
+            this.toast.success("Successfully marked " + team.name + " as unfavored");
         }, () => {
-            this.toast.error("Failed to mark as favourite!");
+            this.toast.error("Failed to mark as unfavored!");
         });
     }
 

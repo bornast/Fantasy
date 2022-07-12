@@ -3,7 +3,7 @@
 <!-- Start Page Title Area -->
 <div class="page-title-bg">
     <div class="container">
-        <h2>Find your teams to favour</h2>
+        <h2>Find your favourite team</h2>
         <form>
             <div class="row m-0 align-items-center">
                 <div class="col-lg-10 col-md-12 p-0">
@@ -41,7 +41,7 @@
                                 </ng-template>
                             </owl-carousel-o>
                         </div>
-                        <a (click)="markAsFavourite(team)" class="bookmark-save"><i style="cursor: pointer;" class="flaticon-heart"></i></a>
+                        <a style="background-color: #0EC6D8;" (click)="markAsUnfavored(team)" class="bookmark-save"><i style="cursor: pointer;" class="flaticon-heart"></i></a>
                     </div>
                     <div class="listings-content">                                  
                         <h3 style="text-align: center;"><a routerLink="/details">{{team.name}}</a></h3>                        
