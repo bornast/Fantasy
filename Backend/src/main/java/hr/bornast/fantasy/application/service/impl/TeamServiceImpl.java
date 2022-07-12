@@ -7,7 +7,9 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamResultDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
+import hr.bornast.fantasy.application.repository.MatchRepository;
 import hr.bornast.fantasy.application.repository.PlayerRepository;
 import hr.bornast.fantasy.application.repository.TeamRepository;
 import hr.bornast.fantasy.application.repository.TransferRepository;
@@ -30,6 +32,7 @@ public class TeamServiceImpl implements TeamService {
     private final PlayerRepository playerRepository;
     private final TransferRepository transferRepository;
     private final UserRepository userRepository;
+    private final MatchRepository matchRepository;
     private final TeamMapper mapper;
 
     @Override
@@ -169,6 +172,13 @@ public class TeamServiceImpl implements TeamService {
         Page<TeamDto> page = new PageImpl<>(unfavoredTeams.subList(start, end), paging, unfavoredTeams.size());
 
         return new PagedListDto<TeamDto>().getPagedResult(page);
+    }
+
+    @Override
+    public PagedListDto<TeamResultDto> findTeamResults(int teamId, Pageable paging) {
+        return new PagedListDto<TeamResultDto>().getPagedResult(
+            matchRepository.findByTeamId(teamId, paging)
+                .map(mapper::map));
     }
 
 }

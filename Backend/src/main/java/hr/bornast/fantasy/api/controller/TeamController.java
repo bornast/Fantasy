@@ -9,6 +9,8 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.query.common.PaginationQuery;
 import hr.bornast.fantasy.application.query.team.TeamQuery;
 import hr.bornast.fantasy.application.service.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +52,11 @@ public class TeamController {
     @GetMapping("/{id}/players")
     public ResponseEntity<List<RecordNameDto>> findTeamPlayers(@PathVariable int id) {
         return ok(teamService.findTeamPlayers(id));
+    }
+
+    @GetMapping("/{id}/results")
+    public ResponseEntity<PagedListDto<TeamResultDto>> findTeamResults(@PathVariable int id, PaginationQuery query) {
+        return ok(teamService.findTeamResults(id, PageRequest.of(query.getPageNumber(), query.getPageSize())));
     }
 
     @GetMapping("/{id}")

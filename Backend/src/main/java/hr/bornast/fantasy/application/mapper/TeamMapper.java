@@ -3,6 +3,8 @@ package hr.bornast.fantasy.application.mapper;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.domain.model.Match;
 import hr.bornast.fantasy.domain.model.Team;
 
 public interface TeamMapper {
@@ -10,4 +12,5 @@ public interface TeamMapper {
     void map(SaveTeamCommand command, Team team);
     Team map(SaveTeamCommand command);
     RecordNameDto mapRecordName(Team team);
+    TeamResultDto map(Match match);
 }

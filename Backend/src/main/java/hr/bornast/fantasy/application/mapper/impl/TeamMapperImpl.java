@@ -3,6 +3,7 @@ package hr.bornast.fantasy.application.mapper.impl;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamResultDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
 import hr.bornast.fantasy.application.repository.CoachRepository;
 import hr.bornast.fantasy.application.repository.PresidentRepository;
@@ -10,6 +11,7 @@ import hr.bornast.fantasy.application.repository.StadiumRepository;
 import hr.bornast.fantasy.application.service.MediaService;
 import hr.bornast.fantasy.common.enums.EntityType;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
+import hr.bornast.fantasy.domain.model.Match;
 import hr.bornast.fantasy.domain.model.Team;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -64,5 +66,39 @@ public class TeamMapperImpl implements TeamMapper {
     @Override
     public RecordNameDto mapRecordName(Team team) {
         return mapper.map(team, RecordNameDto.class);
+    }
+
+    @Override
+    public TeamResultDto map(Match match) {
+        var result = new TeamResultDto();
+
+        var homeTeam = match.getHomeTeam().getTeam();
+        result.setHomeTeamName(homeTeam.getName());
+        var homeTeamMedia = mediaService.getEntityMedia(homeTeam.getId(), EntityType.TEAM.getValue());
+        result.setHomeTeamImage(homeTeamMedia.getMainMedia());
+
+        var awayTeam = match.getAwayTeam().getTeam();;
+        result.setAwayTeamName(awayTeam.getName());
+        var awayTeamMedia = mediaService.getEntityMedia(awayTeam.getId(), EntityType.TEAM.getValue());
+        result.setAwayTeamImage(awayTeamMedia.getMainMedia());
+
+        result.setStadium(match.getStadium().getName());
+        result.setMatchDate(mapper.map(match.getMatchDate(), String.class).replace("T", " "));
+
+        var homeScore = 0;
+        var awayScore = 0;
+        for (var goal : match.getGoals()) {
+            if (match.getHomeTeam().getLineupPlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
+                homeScore += 1;
+            }
+            else if (match.getHomeTeam().getSubstitutePlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
+                homeScore += 1;
+            } else {
+                awayScore += 1;
+            }
+        }
+        result.setResult(homeScore + " : " + awayScore);
+
+        return result;
     }
 }

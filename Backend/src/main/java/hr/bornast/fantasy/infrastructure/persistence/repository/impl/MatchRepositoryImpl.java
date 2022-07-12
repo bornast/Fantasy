@@ -31,6 +31,11 @@ public class MatchRepositoryImpl implements MatchRepository {
     }
 
     @Override
+    public Page<Match> findByTeamId(int teamId, Pageable paging) {
+        return matchRepository.findByTeamId(teamId, paging).map(mapper::map);
+    }
+
+    @Override
     public List<Match> findAll() {
         return matchRepository.findAll().stream().map(mapper::map).toList();
     }

@@ -43,18 +43,18 @@ public class MatchMapperImpl implements MatchMapper {
     private final StadiumRepository stadiumRepository;
 
     @Override
-    public MatchDto map(Match team) {
-        var result = mapper.map(team, MatchDto.class);
+    public MatchDto map(Match match) {
+        var result = mapper.map(match, MatchDto.class);
 
         result.setName(result.getHomeTeam().getTeam().getName() + " vs " + result.getAwayTeam().getTeam().getName());
 
         var homeScore = 0;
         var awayScore = 0;
-        for (var goal : team.getGoals()) {
-            if (team.getHomeTeam().getLineupPlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
+        for (var goal : match.getGoals()) {
+            if (match.getHomeTeam().getLineupPlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
                 homeScore += 1;
             }
-            else if (team.getHomeTeam().getSubstitutePlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
+            else if (match.getHomeTeam().getSubstitutePlayers().stream().anyMatch(x -> x.getId() == goal.getPlayer().getId())) {
                 homeScore += 1;
             } else {
                 awayScore += 1;
