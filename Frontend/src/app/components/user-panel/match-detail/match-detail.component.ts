@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { MEDIATYPE } from 'src/app/constants/mediaTypeConstant';
 import { Match, MatchSubstitution } from 'src/app/models/match';
 import { Media } from 'src/app/models/media';
 import { Pagination } from 'src/app/models/pagination';
@@ -156,6 +157,14 @@ export class MatchDetailComponent implements OnInit {
 				items: 2,
 			}
 		}
+    }
+
+    getImageMedia() {
+        return this.mediaForList.filter(x => x.mediaTypeId != MEDIATYPE.video);
+    }
+
+    getVideoMedia() {
+        return this.mediaForList.filter(x => x.mediaTypeId == MEDIATYPE.video);
     }
 
 }

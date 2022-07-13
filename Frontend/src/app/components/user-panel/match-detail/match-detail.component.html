@@ -266,15 +266,20 @@
                             <div id="gallery">
                                 <div class="gallery-slides">
                                     <owl-carousel-o [options]="galleryOptions">
-                                        <ng-template carouselSlide *ngFor="let media of mediaForList;">
+                                        <ng-template carouselSlide *ngFor="let media of getImageMedia();">
                                             <div class="single-image-box">
                                                 <img [src]="media.url" alt="image">
                                             </div>
                                         </ng-template>
                                     </owl-carousel-o>
                                 </div>
-                            </div>                                                                              
-                        </div>                        
+                            </div>
+                        </div>
+                        <span *ngFor="let media of getVideoMedia();">
+                            <video controls="controls" preload="metadata">
+                                <source src="http://res.cloudinary.com/dio0qo6my/video/upload/v1657730458/g6mtfselqyj4rafuaqzk.mp4" type="video/mp4">
+                              </video>
+                        </span>                                       
                     </div>
                     
                     <br>
