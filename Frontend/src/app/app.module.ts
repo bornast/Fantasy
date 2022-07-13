@@ -9,13 +9,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeDemoOneComponent } from './components/pages/home-demo-one/home-demo-one.component';
-import { HomeoneListingsComponent } from './components/pages/home-demo-one/homeone-listings/homeone-listings.component';
-import { NavbarStyleOneComponent } from './components/common/navbar-style-one/navbar-style-one.component';
 import { NavbarStyleTwoComponent } from './components/common/navbar-style-two/navbar-style-two.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
-import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
-import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { DashboardSidemenuComponent } from './components/common/dashboard-sidemenu/dashboard-sidemenu.component';
 import { DashboardMessagesComponent } from './components/pages/dashboard/dashboard-messages/dashboard-messages.component';
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
@@ -69,13 +64,8 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeDemoOneComponent,
-    HomeoneListingsComponent,
-    NavbarStyleOneComponent,
     NavbarStyleTwoComponent,
     NotFoundComponent, 
-    VerticalListingsLeftSidebarComponent,
-    DashboardComponent,
     DashboardNavbarComponent,
     DashboardSidemenuComponent,
     DashboardMessagesComponent,

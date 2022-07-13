@@ -31,10 +31,7 @@ import { UserEditorComponent } from './components/admin/user/user-editor/user-ed
 import { UserListComponent } from './components/admin/user/user-list/user-list.component';
 import { DashboardMessagesComponent } from './components/pages/dashboard/dashboard-messages/dashboard-messages.component';
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
-import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
-import { HomeDemoOneComponent } from './components/pages/home-demo-one/home-demo-one.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
-import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
 import { HomeComponent } from './components/user-panel/home/home.component';
 import { MatchDetailComponent } from './components/user-panel/match-detail/match-detail.component';
@@ -43,9 +40,7 @@ import { TeamPickerComponent } from './components/user-panel/team-picker/team-pi
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-    {path: '', component: HomeDemoOneComponent},
-    {path: 'vertical-listings-left-sidebar', component: VerticalListingsLeftSidebarComponent},
-    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+    {path: '', component: HomeComponent},
     {path: 'dashboard-messages', component: DashboardMessagesComponent},
     {path: 'dashboard-my-profile', component: DashboardMyProfileComponent},
     {path: 'admin/user-list', component: UserListComponent, canActivate: [AuthGuard]},
@@ -90,6 +85,7 @@ const routes: Routes = [
     {path: 'admin/match-list', component: MatchListComponent, canActivate: [AuthGuard]},
     {path: 'admin/match-editor', component: MatchEditorComponent, canActivate: [AuthGuard]},
     {path: 'admin/match-editor/:id', component: MatchEditorComponent, canActivate: [AuthGuard]},
+    {path: 'dashboard', component: UserListComponent, canActivate: [AuthGuard]},
     {path: 'team-picker', component: TeamPickerComponent, canActivate: [AuthGuard]},
     {path: 'favourite-team-list', component: FavouriteTeamListComponent, canActivate: [AuthGuard]},
     {path: 'home', component: HomeComponent},
