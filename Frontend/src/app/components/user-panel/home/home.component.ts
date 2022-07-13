@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
         },
         {
             number: '3',
-            title: 'Find your teams to favour',
+            title: 'Pick your favourite teams',
             description: 'Find teams from different leagues to follow. Examine their latest results, players, upcoming matches and rate players.',
             buttonText: 'Team Picker',
             buttonLink: 'team-picker'

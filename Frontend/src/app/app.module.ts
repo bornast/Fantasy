@@ -114,6 +114,7 @@ import { TeamPickerComponent } from './components/user-panel/team-picker/team-pi
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
 import { HomeComponent } from './components/user-panel/home/home.component';
 import { TeamDetailComponent } from './components/user-panel/team-detail/team-detail.component';
+import { MatchDetailComponent } from './components/user-panel/match-detail/match-detail.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -221,7 +222,8 @@ export function tokenGetter() {
     TeamPickerComponent,
     FavouriteTeamListComponent,
     HomeComponent,
-    TeamDetailComponent
+    TeamDetailComponent,
+    MatchDetailComponent
   ],
   imports: [
     BrowserModule,

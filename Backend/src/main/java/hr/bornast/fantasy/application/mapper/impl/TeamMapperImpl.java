@@ -76,6 +76,7 @@ public class TeamMapperImpl implements TeamMapper {
     public TeamResultDto map(Match match) {
         var result = new TeamResultDto();
 
+        result.setMatchId(match.getId());
         var homeTeam = match.getHomeTeam().getTeam();
         result.setHomeTeamName(homeTeam.getName());
         var homeTeamMedia = mediaService.getEntityMedia(homeTeam.getId(), EntityType.TEAM.getValue());

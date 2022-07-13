@@ -1,0 +1,256 @@
+<app-navbar-style-two></app-navbar-style-two>
+
+<!-- Start Listings Details Area -->
+<section class="listings-details-area pb-70">
+    <div class="listings-details-nav">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item" role="media">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#result" type="button" role="tab" aria-controls="result" aria-selected="false">Result</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#memories" type="button" role="tab" aria-controls="memories" aria-selected="false">Memories</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="result" role="tabpanel">
+                    
+            <br>
+            <div class="container">
+                <div class="row" *ngIf="match">
+                    
+                    
+                    <div class="col-lg-12 col-md-12">
+                        <h3 style="text-align: center;">{{match.homeTeam.team.name}} &nbsp;&nbsp;{{match.result}}&nbsp;&nbsp; {{match.awayTeam.team.name}}</h3>
+                    </div>
+
+                    <!-- LINEUP -->
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table table-striped" *ngIf="homeTeamLineupStats">
+                            <thead>
+                                <tr>
+                                  <th scope="col">First Squad</th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                              <tr *ngFor="let player of homeTeamLineupStats">
+                                <td>{{player.name}}
+                                    <span *ngFor="let goal of player.goals">&nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"> {{goal}}</span>
+                                    <span *ngFor="let card of player.cards">&nbsp;
+                                        <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
+                                        <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png"> 
+                                        {{card.minute}}
+                                    </span>
+                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>                                    
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                  <th style="text-align: right;" scope="col">First Squad</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let player of awayTeamLineupStats">
+                                  <td style="text-align: right;">                                                                            
+                                      <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
+                                      <span *ngFor="let card of player.cards">&nbsp;
+                                        {{card.minute}}
+                                        <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
+                                        <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png">                                         
+                                    </span>
+                                      <span *ngFor="let goal of player.goals">&nbsp; {{goal}} &nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"></span>
+                                      {{player.name}}
+                                  </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                    </div>
+
+                    <!-- SUBSTITUTES -->
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table table-striped" *ngIf="homeTeamLineupStats">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Substitutes</th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                              <tr *ngFor="let player of homeTeamSubstituteStats">
+                                <td>{{player.name}}
+                                    <span *ngFor="let goal of player.goals">&nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"> {{goal}}</span>
+                                    <span *ngFor="let card of player.cards">&nbsp;
+                                        <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
+                                        <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png"> 
+                                        {{card.minute}}
+                                    </span>
+                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>                                    
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                  <th style="text-align: right;" scope="col">Substitutes</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let player of awayTeamSubstituteStats">
+                                  <td style="text-align: right;">                                                                            
+                                      <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
+                                      <span *ngFor="let card of player.cards">&nbsp;
+                                        {{card.minute}}
+                                        <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
+                                        <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png">                                         
+                                    </span>
+                                      <span *ngFor="let goal of player.goals">&nbsp;{{goal}} &nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"></span>
+                                      {{player.name}}
+                                  </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                    </div>
+
+                    <!-- COACHES -->
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table" *ngIf="match.homeTeam && match.awayTeam">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Coach</th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{match.homeTeam.coach.name}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                  <th style="text-align: right;" scope="col">Coach</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let player of awayTeamSubstituteStats">
+                                  <td style="text-align: right;">{{match.awayTeam.coach.name}}</td>
+                                </tr>
+                              </tbody>
+                          </table>
+                    </div>
+                    
+                    <!-- FORMATIONS -->
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table" *ngIf="match.homeTeam && match.awayTeam">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Formation</th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{match.homeTeam.formation.name}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <br>
+                        <br>
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                  <th style="text-align: right;" scope="col">Formation</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let player of awayTeamSubstituteStats">
+                                  <td style="text-align: right;">{{match.homeTeam.formation.name}}</td>
+                                </tr>
+                              </tbody>
+                          </table>
+                    </div>
+
+                    <!-- DETAILS -->
+                    <div class="col-lg-12 col-md-12">
+                        <br>
+                        <br>
+                        <table class="table" *ngIf="match.homeTeam && match.awayTeam">
+                            <thead>
+                                <tr>
+                                  <th scope="col">League</th>
+                                  <th scope="col">Match Date</th>
+                                  <th scope="col">Referee</th>
+                                  <th scope="col">Stadium</th>
+                                  <th scope="col">Spectators</th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{match.league.name}}</td>
+                                <td>{{match.matchDate}}</td>
+                                <td>{{match.referee.name}}</td>
+                                <td>{{match.stadium.name}}</td>
+                                <td>{{match.spectatorCount}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</section>
+<!-- End Listings Details Area -->
+
+
+

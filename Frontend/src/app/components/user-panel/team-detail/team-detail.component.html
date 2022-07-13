@@ -94,7 +94,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let result of results | paginate: {id: 'pagination1', itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
+                            <tr [routerLink]="['/match-detail', result.matchId]" class="result-row" *ngFor="let result of results | paginate: {id: 'pagination1', itemsPerPage:resultPagination.pageSize, currentPage: resultPagination.currentPage, totalItems: resultPagination.totalCount}">
                                 <td>{{result.homeTeamName}} <img *ngIf="result.homeTeamImage" src="{{result.homeTeamImage}}" style="width:50px; height:33px"></td>
                                 <td>{{result.awayTeamName}} <img *ngIf="result.awayTeamImage" src="{{result.awayTeamImage}}" style="width:50px; height:33px"></td>                                
                                 <td>{{result.result}}</td>
@@ -185,8 +185,8 @@
                                 <td>{{player.name}} <img *ngIf="player.image" src="{{player.image}}" style="width:50px; height:33px"></td>
                                 <td style="padding-left: 16px;">{{player.matchesPlayed}}</td>
                                 <td style="padding-left: 16px;">{{player.goals}}</td>
-                                <td style="padding-left: 18px;">{{player.yellowCards}}</td>
-                                <td style="padding-left: 16px;">{{player.redCards}}</td>
+                                <td style="padding-left: 16px;">{{player.yellowCards}}</td>
+                                <td style="padding-left: 14px;">{{player.redCards}}</td>
                             </tr>
                             </tbody>
                         </table>

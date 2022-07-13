@@ -12,4 +12,5 @@ public class MatchTeamDto {
     private Set<RecordNameDto> lineupPlayers;
     private Set<RecordNameDto> substitutePlayers;
     private Set<MatchSubstitutionDto> substitutions;
+    private RecordNameDto coach;
 }

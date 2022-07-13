@@ -21,6 +21,7 @@ export class MatchTeam {
     lineupPlayers: RecordName[];
     substitutePlayers: RecordName[];
     substitutions: MatchSubstitution[];
+    coach: RecordName;
 }
 
 export class MatchSubstitution {

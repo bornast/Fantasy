@@ -60,6 +60,8 @@ public class MatchMapperImpl implements MatchMapper {
                 awayScore += 1;
             }
         }
+        result.getHomeTeam().setCoach(mapper.map(match.getHomeTeam().getTeam().getCoach(), RecordNameDto.class));
+        result.getAwayTeam().setCoach(mapper.map(match.getAwayTeam().getTeam().getCoach(), RecordNameDto.class));
 
         result.setResult(homeScore + " : " + awayScore);
 

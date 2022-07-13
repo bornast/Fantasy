@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class TeamResultDto {
+    private int matchId;
     private String matchDate;
     private String homeTeamName;
     private String homeTeamImage;
