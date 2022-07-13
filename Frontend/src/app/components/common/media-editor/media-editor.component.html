@@ -58,10 +58,13 @@
             <source src="{{ m.url }}" type="video/mp4">
           </video>
 		<div class="text-center">
-			<button *ngIf="isMediaModeration == false" type="button" class="btn btn-sm mr-1" (click)="setMainMedia(m)" [disabled]="m.isMain" [ngClass]="m.isMain ? 'btn-success active' : 'btn-secondary'" [disabled]="m.isMain">Main</button>
-			<button *ngIf="isMediaModeration == false" type="button" style="margin-left: 5px;" class="btn btn-sm mr-1 btn-danger" [disabled]="m.isMain" (click)="deleteMedia(m.id)">Remove</button>
+            <button *ngIf="isMemoryUpload == true && m.approved == true" type="button" class="btn btn-sm mr-1" disabled [ngClass]="m.approved ? 'btn-success active' : 'btn-secondary'">Approved</button>
+            <button *ngIf="isMemoryUpload == true && m.approved == false" type="button" class="btn btn-sm mr-1" disabled [ngClass]="m.approved ? 'btn-success active' : 'btn-secondary'">Disapproved</button>
+
+			<button *ngIf="isMediaModeration == false && isMemoryUpload == false" type="button" class="btn btn-sm mr-1" (click)="setMainMedia(m)" [disabled]="m.isMain" [ngClass]="m.isMain ? 'btn-success active' : 'btn-secondary'" [disabled]="m.isMain">Main</button>
+			<button *ngIf="isMediaModeration == false" type="button" style="margin-left: 5px;" class="btn btn-sm mr-1 btn-danger" (click)="deleteMedia(m.id)">Remove</button>
             <button *ngIf="isMediaModeration == true && m.approved == false" type="button" class="btn btn-sm mr-1" (click)="approveMedia(m)" [ngClass]="m.approved ? 'btn-success active' : 'btn-secondary'" style="margin-right: 150px;">Approve</button>
-            <button *ngIf="isMediaModeration == true && m.approved == true" type="button" class="btn btn-sm mr-1" (click)="disapproveMedia(m)" [ngClass]="m.approved ? 'btn-success active' : 'btn-secondary'" style="margin-right: 150px;">Disapprove</button>
+            <button *ngIf="isMediaModeration == true && m.approved == true" type="button" class="btn btn-sm mr-1" (click)="disapproveMedia(m)" [ngClass]="m.approved ? 'btn-success active' : 'btn-secondary'" style="margin-right: 150px;">Disapprove</button>            
 		</div>
         <br>
 	</div>

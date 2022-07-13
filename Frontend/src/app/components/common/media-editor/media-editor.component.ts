@@ -17,6 +17,7 @@ export class MediaEditorComponent implements OnInit {
 	@Input() entityId: any;
 	@Input() media: Media[];
     @Input() isMediaModeration: boolean = false;
+    @Input() isMemoryUpload: boolean = false;
 	@Output() getMemberMediaChange = new EventEmitter<string>();
 	uploader: FileUploader;
 	hasBaseDropZoneOver = false;

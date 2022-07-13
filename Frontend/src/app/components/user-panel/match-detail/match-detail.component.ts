@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ENTITYTYPE } from 'src/app/constants/entityTypeConstant';
 import { MEDIATYPE } from 'src/app/constants/mediaTypeConstant';
 import { Match, MatchSubstitution } from 'src/app/models/match';
 import { Media } from 'src/app/models/media';
@@ -26,6 +27,9 @@ export class MatchDetailComponent implements OnInit {
     mediaPagination: Pagination;
     mediaCurrentPage: number = 1;
 
+    myMedia: Media[];
+    entityTypeId = ENTITYTYPE.memory;
+
     constructor(private matchService: MatchService, private mediaService: MediaService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
@@ -45,6 +49,7 @@ export class MatchDetailComponent implements OnInit {
             this.homeTeamSubstituteStats = this.getTeamSubstituteStats(match, match.homeTeam.substitutePlayers, match.homeTeam.substitutions);
             this.awayTeamSubstituteStats = this.getTeamSubstituteStats(match, match.awayTeam.substitutePlayers, match.awayTeam.substitutions);
             this.loadMemories();
+            this.loadMyMemories();
 		});
 	}
 
@@ -129,6 +134,13 @@ export class MatchDetailComponent implements OnInit {
             this.mediaPagination = media.pagination;
             this.mediaPagination.currentPage += 1;
             console.log("mediaforlist", this.mediaForList);
+		});
+	}
+
+    loadMyMemories() {
+        this.mediaService.getPersonalMedia().subscribe((media) => {
+			this.myMedia = media;
+            console.log("myMedia", this.myMedia);
 		});
 	}
 

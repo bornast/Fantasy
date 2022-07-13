@@ -16,6 +16,9 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#memories" type="button" role="tab" aria-controls="memories" aria-selected="false">Memories</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#mymemories" type="button" role="tab" aria-controls="mymemories" aria-selected="false">Upload Memories</button>
+                </li>
             </ul>
         </div>
     </div>
@@ -282,6 +285,43 @@
                         </span>                                       
                     </div>
                     
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- MY MEMORIES -->
+        <div class="tab-pane fade" id="mymemories" role="tabpanel">
+                    
+            <br>
+            <div class="container">
+                <div class="row" *ngIf="match">                    
+                    
+                    <div class="col-lg-12 col-md-12" *ngIf="mediaForList">
+                        <div class="add-listing-headline">
+                            <h3>Media</h3>
+                        </div>
+                        <media-editor [isMemoryUpload]="true" [entityTypeId]="entityTypeId" [entityId]="match.id" [media]="myMedia"></media-editor>
+                    </div>
+
                     <br>
                     <br>
                     <br>

@@ -31,8 +31,8 @@ export class MediaService {
         return this.http.get<PaginatedResult<Media[]>>(this.baseUrl + "media", { params });
 	}
     
-    getPersonalMedia(id) {
-		return this.http.get<Media>(this.baseUrl + "media/personal");
+    getPersonalMedia() {
+		return this.http.get<Media[]>(this.baseUrl + "media/personal");
 	}
 
 	setMainMedia(mediaId: any, mediaData) {
