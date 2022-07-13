@@ -8,4 +8,5 @@ export interface Media {
     url: string;
     isMain: boolean;
     mediaTypeId: number;
+    approved: boolean;
 }

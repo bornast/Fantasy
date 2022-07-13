@@ -2,7 +2,6 @@ package hr.bornast.fantasy.application.service;
 
 import java.util.List;
 
-import hr.bornast.fantasy.application.command.media.MediaApprovalCommand;
 import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
@@ -15,8 +14,8 @@ public interface MediaService {
     MediaDetailDto upload(UploadMediaCommand command);
     void delete(int id);
     void setMain(int id, SetMainMediaCommand command);
-    void approve(int id, MediaApprovalCommand command);
-    void disapprove(int id, MediaApprovalCommand command);
+    void approve(int id);
+    void disapprove(int id);
     PagedListDto<MediaDetailDto> findApprovedMemories(Pageable paging, int matchId);
     List<MediaDetailDto> findPersonalMemories();
     PagedListDto<MediaDetailDto> findAllMedia(Pageable paging);

@@ -16,6 +16,7 @@ export class MediaEditorComponent implements OnInit {
 	@Input() entityTypeId: any;
 	@Input() entityId: any;
 	@Input() media: Media[];
+    @Input() isMediaModeration: boolean = false;
 	@Output() getMemberMediaChange = new EventEmitter<string>();
 	uploader: FileUploader;
 	hasBaseDropZoneOver = false;
@@ -27,7 +28,8 @@ export class MediaEditorComponent implements OnInit {
 	constructor(private toast: ToastService, private mediaService: MediaService) { }
 
 	ngOnInit() {
-		this.initializeUploader();
+        if (this.isMediaModeration == false)
+		    this.initializeUploader();
 	}
 
 	fileOverBase(e: any): void {
@@ -58,7 +60,8 @@ export class MediaEditorComponent implements OnInit {
 					id: res.id,
 					url: res.url,
 					isMain: res.isMain,
-                    mediaTypeId: res.mediaTypeId
+                    mediaTypeId: res.mediaTypeId,
+                    approved: res.approved
 				};
 				this.media.push(media);
 			}
@@ -87,5 +90,23 @@ export class MediaEditorComponent implements OnInit {
 			this.toast.error('Failed to delete the media');
 		});
 	}
+
+    approveMedia(media: Media) {
+        this.mediaService.approveMedia(media.id).subscribe(() => {
+			this.toast.success('Media has been approved');
+            media.approved = true; // set the selected main media to true
+		}, () => {
+			this.toast.error('Failed to approve the media');
+		});
+    }
+
+    disapproveMedia(media: Media) {
+        this.mediaService.disapproveMedia(media.id).subscribe(() => {
+			this.toast.success('Media has been disapproved');
+            media.approved = false; // set the selected main media to true
+		}, () => {
+			this.toast.error('Failed to disapprove the media');
+		});
+    }
 
 }

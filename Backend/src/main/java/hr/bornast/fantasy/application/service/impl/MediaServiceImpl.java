@@ -2,7 +2,6 @@ package hr.bornast.fantasy.application.service.impl;
 
 import java.util.List;
 
-import hr.bornast.fantasy.application.command.media.MediaApprovalCommand;
 import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
@@ -81,14 +80,14 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public void approve(int id, MediaApprovalCommand command) {
+    public void approve(int id) {
         var photoToUpdate = mediaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         photoToUpdate.setApproved(true);
         mediaRepository.update(photoToUpdate);
     }
 
     @Override
-    public void disapprove(int id, MediaApprovalCommand command) {
+    public void disapprove(int id) {
         var photoToUpdate = mediaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         photoToUpdate.setApproved(false);
         mediaRepository.update(photoToUpdate);

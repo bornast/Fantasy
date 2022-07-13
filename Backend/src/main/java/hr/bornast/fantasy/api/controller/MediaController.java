@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import hr.bornast.fantasy.application.command.media.MediaApprovalCommand;
 import hr.bornast.fantasy.application.command.media.SetMainMediaCommand;
 import hr.bornast.fantasy.application.command.media.UploadMediaCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
@@ -56,15 +55,15 @@ public class MediaController {
 
     @PostMapping("/{id}/approve")
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<Void> approve(@PathVariable int id, @Valid @RequestBody MediaApprovalCommand command) {
-        mediaService.approve(id, command);
+    public ResponseEntity<Void> approve(@PathVariable int id) {
+        mediaService.approve(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/{id}/disapprove")
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<Void> disapprove(@PathVariable int id, @Valid @RequestBody MediaApprovalCommand command) {
-        mediaService.disapprove(id, command);
+    public ResponseEntity<Void> disapprove(@PathVariable int id) {
+        mediaService.disapprove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

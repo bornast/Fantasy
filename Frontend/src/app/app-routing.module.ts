@@ -8,6 +8,7 @@ import { LeagueEditorComponent } from './components/admin/league/league-editor/l
 import { LeagueListComponent } from './components/admin/league/league-list/league-list.component';
 import { MatchEditorComponent } from './components/admin/match/match-editor/match-editor.component';
 import { MatchListComponent } from './components/admin/match/match-list/match-list.component';
+import { MediaListComponent } from './components/admin/media/media-list/media-list.component';
 import { PlayerEditorComponent } from './components/admin/player/player-editor/player-editor.component';
 import { PlayerListComponent } from './components/admin/player/player-list/player-list.component';
 import { PositionEditorComponent } from './components/admin/position/position-editor/position-editor.component';
@@ -160,6 +161,7 @@ const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'team-detail/:id', component: TeamDetailComponent},
     {path: 'match-detail/:id', component: MatchDetailComponent},
+    {path: 'admin/media-list', component: MediaListComponent, canActivate: [AuthGuard]},
     // Here add new pages component
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list

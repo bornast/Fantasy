@@ -1,0 +1,31 @@
+<app-dashboard-sidemenu></app-dashboard-sidemenu>
+<div class="main-content d-flex flex-column" *ngIf="mediaForList">
+    <app-dashboard-navbar></app-dashboard-navbar>
+    <div class="entity-list-div">
+        <h3>Media</h3>        
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <span *ngFor="let media of mediaForList | paginate: {itemsPerPage:pagination.pageSize, currentPage: pagination.currentPage, totalItems: pagination.totalCount}"></span>
+            </div>
+
+            <div class="col-lg-12 col-md-12" *ngIf="mediaForList">
+                <div class="add-listing-headline">
+                    <h3>Media</h3>
+                </div>
+                <media-editor [isMediaModeration]="true" [entityTypeId]="entityTypeId" [entityId]="entityId" [media]="mediaForList"></media-editor>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="pagination-area text-center">
+                    <pagination-controls (pageChange)="changePage(currentPage = $event)"></pagination-controls>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
