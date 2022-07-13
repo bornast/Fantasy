@@ -22,4 +22,8 @@ export class NavbarStyleTwoComponent implements OnInit {
       });
   }
 
+  hasRole(allowedRoles: string[]) {
+    return this.authService.userHasRole(allowedRoles);
+}
+
 }
