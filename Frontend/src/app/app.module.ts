@@ -10,30 +10,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeDemoOneComponent } from './components/pages/home-demo-one/home-demo-one.component';
-import { HomeDemoTwoComponent } from './components/pages/home-demo-two/home-demo-two.component';
-import { AppDownloadComponent } from './components/common/app-download/app-download.component';
-import { HowItWorksComponent } from './components/common/how-it-works/how-it-works.component';
-import { FeedbackStyleOneComponent } from './components/common/feedback-style-one/feedback-style-one.component';
-import { CategoryComponent } from './components/common/category/category.component';
 import { HomeoneListingsComponent } from './components/pages/home-demo-one/homeone-listings/homeone-listings.component';
-import { FeaturesComponent } from './components/common/features/features.component';
-import { FooterStyleOneComponent } from './components/common/footer-style-one/footer-style-one.component';
 import { NavbarStyleOneComponent } from './components/common/navbar-style-one/navbar-style-one.component';
 import { NavbarStyleTwoComponent } from './components/common/navbar-style-two/navbar-style-two.component';
-import { HometwoBannerComponent } from './components/pages/home-demo-two/hometwo-banner/hometwo-banner.component';
-import { HometwoListingsComponent } from './components/pages/home-demo-two/hometwo-listings/hometwo-listings.component';
-import { HometwoDestinationsComponent } from './components/pages/home-demo-two/hometwo-destinations/hometwo-destinations.component';
-import { HometwoEventsComponent } from './components/pages/home-demo-two/hometwo-events/hometwo-events.component';
-import { HometwoBlogComponent } from './components/pages/home-demo-two/hometwo-blog/hometwo-blog.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
-
-import { PartnerComponent } from './components/common/partner/partner.component';
-import { TeamComponent } from './components/common/team/team.component';
-import { FunfactsComponent } from './components/common/funfacts/funfacts.component';
-import { FooterStyleTwoComponent } from './components/common/footer-style-two/footer-style-two.component';
 import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
-import { DashboardNavbarComponent } from './components/common/dashboard-navbar/dashboard-navbar.component';
 import { DashboardSidemenuComponent } from './components/common/dashboard-sidemenu/dashboard-sidemenu.component';
 import { DashboardMessagesComponent } from './components/pages/dashboard/dashboard-messages/dashboard-messages.component';
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
@@ -78,6 +60,7 @@ import { HomeComponent } from './components/user-panel/home/home.component';
 import { TeamDetailComponent } from './components/user-panel/team-detail/team-detail.component';
 import { MatchDetailComponent } from './components/user-panel/match-detail/match-detail.component';
 import { MediaListComponent } from './components/admin/media/media-list/media-list.component';
+import { DashboardNavbarComponent } from './components/common/dashboard-navbar/dashboard-navbar.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');
@@ -87,26 +70,10 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HomeDemoOneComponent,
-    HomeDemoTwoComponent,
-    AppDownloadComponent,
-    HowItWorksComponent,
-    FeedbackStyleOneComponent,
-    CategoryComponent,
     HomeoneListingsComponent,
-    FeaturesComponent,
-    FooterStyleOneComponent,
     NavbarStyleOneComponent,
     NavbarStyleTwoComponent,
-    HometwoBannerComponent,
-    HometwoListingsComponent,
-    HometwoDestinationsComponent,
-    HometwoEventsComponent,
-    HometwoBlogComponent,
-    NotFoundComponent,
-    PartnerComponent,
-    TeamComponent,
-    FunfactsComponent,
-    FooterStyleTwoComponent,    
+    NotFoundComponent, 
     VerticalListingsLeftSidebarComponent,
     DashboardComponent,
     DashboardNavbarComponent,

@@ -33,7 +33,6 @@ import { DashboardMessagesComponent } from './components/pages/dashboard/dashboa
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { HomeDemoOneComponent } from './components/pages/home-demo-one/home-demo-one.component';
-import { HomeDemoTwoComponent } from './components/pages/home-demo-two/home-demo-two.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { VerticalListingsLeftSidebarComponent } from './components/pages/vertical-listings-left-sidebar/vertical-listings-left-sidebar.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
@@ -45,7 +44,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {path: '', component: HomeDemoOneComponent},
-    {path: 'index-2', component: HomeDemoTwoComponent},
     {path: 'vertical-listings-left-sidebar', component: VerticalListingsLeftSidebarComponent},
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: 'dashboard-messages', component: DashboardMessagesComponent},
