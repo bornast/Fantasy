@@ -6,6 +6,7 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
 import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 public interface TeamService {
     PagedListDto<TeamDto> findAll(Pageable paging, String name);
     List<RecordNameDto> findAllRecordNames();
-    List<RecordNameDto> findTeamPlayers(int id);
+    List<TeamPlayerDto> findTeamPlayers(int id);
     TeamDto findOne(int id);
     TeamDto create(SaveTeamCommand command);
     TeamDto update(int id, SaveTeamCommand command);

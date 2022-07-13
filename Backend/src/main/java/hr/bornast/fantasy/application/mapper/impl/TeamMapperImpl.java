@@ -3,6 +3,7 @@ package hr.bornast.fantasy.application.mapper.impl;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
 import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
@@ -13,6 +14,7 @@ import hr.bornast.fantasy.application.service.MediaService;
 import hr.bornast.fantasy.common.enums.EntityType;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.domain.model.Match;
+import hr.bornast.fantasy.domain.model.Player;
 import hr.bornast.fantasy.domain.model.Team;
 import hr.bornast.fantasy.domain.model.Transfer;
 import lombok.RequiredArgsConstructor;
@@ -131,6 +133,30 @@ public class TeamMapperImpl implements TeamMapper {
         result.setPlayerImage(playerMedia.getMainMedia());
 
         result.setTransferDate(mapper.map(transfer.getTransferDate(), String.class).substring(0, 10));
+
+        return result;
+    }
+
+    @Override
+    public TeamPlayerDto map(Player player) {
+        var result = new TeamPlayerDto();
+
+        result.setId(player.getId());
+        result.setName(player.getName());
+        result.setMatchesPlayed(player.getMatches().size());
+
+        int goals = 0;
+        int yellowCards = 0;
+        int redCards = 0;
+        for (var game : player.getMatches()) {
+            goals += game.getGoals().stream().filter(x -> x.getPlayer().getId() == player.getId()).count();
+            yellowCards += game.getCards().stream().filter(x -> (x.getPlayer().getId() == player.getId()) && x.getCard().getName().equals("yellow")).count();
+            redCards += game.getCards().stream().filter(x -> (x.getPlayer().getId() == player.getId()) && x.getCard().getName().equals("red")).count();
+        }
+
+        result.setGoals(goals);
+        result.setYellowCards(yellowCards);
+        result.setRedCards(redCards);
 
         return result;
     }

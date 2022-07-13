@@ -7,6 +7,7 @@ import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
+import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
 import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
@@ -55,17 +56,19 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<RecordNameDto> findTeamPlayers(int id) {
-        var result = new ArrayList<RecordNameDto>();
+    public List<TeamPlayerDto> findTeamPlayers(int id) {
+        var result = new ArrayList<TeamPlayerDto>();
         var transferedPlayers = playerRepository.findAllPlayersInTransfer(id);
 
         for (var transferPlayer : transferedPlayers) {
             var lastPlayerTransfer = transferRepository.findLastPlayerTransfer(transferPlayer.getId())
                 .orElseThrow(EntityNotFoundException::new);
             if (lastPlayerTransfer.getToTeam().getId() == id) {
-                var playerToAdd = new RecordNameDto();
-                playerToAdd.setId(lastPlayerTransfer.getPlayer().getId());
-                playerToAdd.setName(lastPlayerTransfer.getPlayer().getName());
+                var playerToAdd = mapper.map(transferPlayer);
+//                var playerToAdd = new RecordNameDto();
+//                // TODO: map Player class to TeamPlayerDto
+//                playerToAdd.setId(lastPlayerTransfer.getPlayer().getId());
+//                playerToAdd.setName(lastPlayerTransfer.getPlayer().getName());
                 result.add(playerToAdd);
             }
         }
