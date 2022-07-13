@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Match, MatchSubstitution } from 'src/app/models/match';
+import { Media } from 'src/app/models/media';
+import { Pagination } from 'src/app/models/pagination';
 import { RecordName } from 'src/app/models/recordName';
 import { MatchService } from 'src/app/services/match.service';
+import { MediaService } from 'src/app/services/media.service';
 
 @Component({
   selector: 'app-match-detail',
@@ -17,7 +21,11 @@ export class MatchDetailComponent implements OnInit {
     homeTeamSubstituteStats: any[];
     awayTeamSubstituteStats: any[];
 
-    constructor(private matchService: MatchService, private route: ActivatedRoute, private router: Router) { }
+    mediaForList: Media[];
+    mediaPagination: Pagination;
+    mediaCurrentPage: number = 1;
+
+    constructor(private matchService: MatchService, private mediaService: MediaService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
         let id = this.route.snapshot.params['id'];
@@ -35,6 +43,7 @@ export class MatchDetailComponent implements OnInit {
             this.awayTeamLineupStats = this.getTeamLineupStats(match, match.awayTeam.lineupPlayers, match.awayTeam.substitutions);
             this.homeTeamSubstituteStats = this.getTeamSubstituteStats(match, match.homeTeam.substitutePlayers, match.homeTeam.substitutions);
             this.awayTeamSubstituteStats = this.getTeamSubstituteStats(match, match.awayTeam.substitutePlayers, match.awayTeam.substitutions);
+            this.loadMemories();
 		});
 	}
 
@@ -113,37 +122,40 @@ export class MatchDetailComponent implements OnInit {
         return result;
     }
 
-    // formatHomeTeamLineupStats(match: Match) {
-    //     var result = [];
-    //     var lineupPlayers = match.homeTeam.lineupPlayers;
-    //     for (const index in lineupPlayers) {
-    //         var playerToPush = {
-    //             playerId: lineupPlayers[index].id,
-    //             name: lineupPlayers[index].name,
-    //             goals: [],
-    //             cards: []            
-    //         };
+    loadMemories() {
+        this.mediaService.getApprovedMediaByFilter(this.match.id, this.mediaCurrentPage-1).subscribe((media) => {
+			this.mediaForList = media.result;
+            this.mediaPagination = media.pagination;
+            this.mediaPagination.currentPage += 1;
+            console.log("mediaforlist", this.mediaForList);
+		});
+	}
 
-    //         for (const goalIndex in match.goals) {
-    //             if (match.goals[goalIndex].player.id == lineupPlayers[index].id) {
-    //                 playerToPush.goals.push(match.goals[goalIndex].minute);
-    //             }
-    //         }
-
-    //         for (const cardIndex in match.cards) {
-    //             if (match.cards[cardIndex].player.id == lineupPlayers[index].id) {
-    //                 playerToPush.cards.push({card: match.cards[cardIndex].card.name, minute: match.cards[cardIndex].minute});
-    //             }
-    //         }
-
-    //         result.push(playerToPush);
-    //     }
-        
-    //     console.log("match", match);
-        
-
-    //     console.log("result", result);
-    //     return result;
-    // }
+    galleryOptions: OwlOptions = {
+		loop: true,
+		nav: true,
+		dots: false,
+		autoplayHoverPause: true,
+		autoplay: true,
+		margin: 30,
+        navText: [
+            "<i class='flaticon-left-chevron'></i>",
+            "<i class='flaticon-right-chevron'></i>"
+        ],
+		responsive: {
+			0: {
+				items: 1,
+			},
+			576: {
+				items: 2,
+			},
+			768: {
+				items: 2,
+			},
+			992: {
+				items: 2,
+			}
+		}
+    }
 
 }
