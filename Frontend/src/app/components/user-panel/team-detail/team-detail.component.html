@@ -19,6 +19,9 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#transfer" type="button" role="tab" aria-controls="transfer" aria-selected="false">Transfers</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#player" type="button" role="tab" aria-controls="player" aria-selected="false">Players</button>
+                </li>
             </ul>
         </div>
     </div>
@@ -159,6 +162,46 @@
 
         </div>
         
+        <!-- TAB PLAYERS -->
+        <div class="tab-pane fade" id="player" role="tabpanel">
+                    
+            <br>
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-lg-12 col-md-12">
+                        <table class="table" *ngIf="players">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col"><img style="width: 30px; height:30px;" src="https://icon-library.com/images/jersey-icon/jersey-icon-29.jpg"></th>
+                                <th scope="col"><img style="width: 30px; height:30px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"></th>
+                                <th scope="col"><img style="width: 30px; height:30px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"></th>
+                                <th scope="col"><img style="width: 20px; height:30px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let player of players">
+                                <td>{{player.name}} <img *ngIf="player.image" src="{{player.image}}" style="width:50px; height:33px"></td>
+                                <td style="padding-left: 16px;">{{player.matchesPlayed}}</td>
+                                <td style="padding-left: 16px;">{{player.goals}}</td>
+                                <td style="padding-left: 18px;">{{player.yellowCards}}</td>
+                                <td style="padding-left: 16px;">{{player.redCards}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div> 
+
+        </div>
+
     </div>
     
 </section>

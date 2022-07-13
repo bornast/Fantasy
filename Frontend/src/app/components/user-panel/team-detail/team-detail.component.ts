@@ -2,7 +2,9 @@ import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Pagination } from 'src/app/models/pagination';
+import { Player } from 'src/app/models/player';
 import { Team } from 'src/app/models/team';
+import { PlayerService } from 'src/app/services/player.service';
 import { TeamService } from 'src/app/services/team.service';
 
 @Component({
@@ -13,6 +15,7 @@ import { TeamService } from 'src/app/services/team.service';
 export class TeamDetailComponent implements OnInit {
 
     team: Team;
+    players: Player[];
 
     results: any[];
     resultPagination: Pagination;
@@ -43,6 +46,7 @@ export class TeamDetailComponent implements OnInit {
     loadData() {
         this.loadResults();
         this.loadTransfers();
+        this.loadPlayers();
     }
 
     loadResults() {
@@ -58,6 +62,12 @@ export class TeamDetailComponent implements OnInit {
 			this.transfers = transfers.result;
             this.transferPagination = transfers.pagination;
             this.transferPagination.currentPage += 1;
+		});
+    }
+
+    loadPlayers() {
+        this.temaService.getTeamPlayersStatistics(this.team.id).subscribe((players) => {
+			this.players = players;
 		});
     }
 

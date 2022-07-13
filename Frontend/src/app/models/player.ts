@@ -7,4 +7,8 @@ export class Player {
     dateOfBirth: Date;
     position: RecordName;
     media: EntityMedia;
+    matchesPlayer: number;
+    goals: number;
+    yellowCards: number;
+    redCards: number;
 }

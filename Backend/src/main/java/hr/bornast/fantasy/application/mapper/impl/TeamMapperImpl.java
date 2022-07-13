@@ -157,6 +157,8 @@ public class TeamMapperImpl implements TeamMapper {
         result.setGoals(goals);
         result.setYellowCards(yellowCards);
         result.setRedCards(redCards);
+        var media = mediaService.getEntityMedia(player.getId(), EntityType.PLAYER.getValue());
+        result.setImage(media.getMainMedia());
 
         return result;
     }

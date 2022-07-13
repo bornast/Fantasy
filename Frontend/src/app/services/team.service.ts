@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../models/pagination';
+import { Player } from '../models/player';
 import { RecordName } from '../models/recordName';
 import { Team } from '../models/team';
 
@@ -22,6 +23,10 @@ export class TeamService {
 
     getTeamPlayers(teamId): Observable<RecordName[]> {
         return this.http.get<RecordName[]>(this.baseUrl + teamId + "/players");
+	}
+
+    getTeamPlayersStatistics(teamId): Observable<Player[]> {
+        return this.http.get<Player[]>(this.baseUrl + teamId + "/players");
 	}
 
     getTeamsByFilter(name?: string, pageNumber: any = 0, pageSize: any = 10): Observable<PaginatedResult<Team[]>> {
