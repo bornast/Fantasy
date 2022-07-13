@@ -59,8 +59,8 @@ public class MediaRepositoryImpl implements MediaRepository {
     }
 
     @Override
-    public List<Media> findPersonalMedia(int userId, int entityTypeId) {
-        return mediaRepository.findUserMedia(userId, entityTypeId).stream()
+    public List<Media> findPersonalMedia(int userId, int entityId, int entityTypeId) {
+        return mediaRepository.findUserMedia(userId, entityId, entityTypeId).stream()
             .map(x -> mapper.map(x, Media.class)).toList();
     }
 

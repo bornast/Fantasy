@@ -86,12 +86,12 @@ const routes: Routes = [
     {path: 'admin/transfer-editor/:id', component: TransferEditorComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path: 'admin/match-list', component: MatchListComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path: 'admin/match-editor', component: MatchEditorComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
-    {path: 'admin/match-editor/:id', component: MatchEditorComponent, canActivate: [AuthGuard]},    
+    {path: 'admin/match-editor/:id', component: MatchEditorComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path: 'team-picker', component: TeamPickerComponent, canActivate: [AuthGuard]},
     {path: 'favourite-team-list', component: FavouriteTeamListComponent, canActivate: [AuthGuard]},
     {path: 'home', component: HomeComponent},
-    {path: 'team-detail/:id', component: TeamDetailComponent},
-    {path: 'match-detail/:id', component: MatchDetailComponent},
+    {path: 'team-detail/:id', component: TeamDetailComponent, canActivate: [AuthGuard]},
+    {path: 'match-detail/:id', component: MatchDetailComponent, canActivate: [AuthGuard]},
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
 ];
 

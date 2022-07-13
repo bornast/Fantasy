@@ -21,8 +21,8 @@ public interface MediaEntityRepository extends JpaRepository<MediaEntity, Intege
     @Query(value = "select m.* from media m where m.entity_id = ?1 and m.entity_type_id = ?2 and m.is_approved = true", nativeQuery = true)
     Page<MediaEntity> findApprovedMedia(int entityId, int entityTypeId, Pageable paging);
 
-    @Query(value = "select m.* from media m where m.uploaded_by_user_id = ?1 and m.entity_type_id = ?2", nativeQuery = true)
-    List<MediaEntity> findUserMedia(int userId, int entityTypeId);
+    @Query(value = "select m.* from media m where m.uploaded_by_user_id = ?1 and m.entity_id = ?2 and m.entity_type_id = ?3", nativeQuery = true)
+    List<MediaEntity> findUserMedia(int userId, int entityId, int entityTypeId);
 
     @Query(value = "select m.* from media m order by is_approved asc, created_at desc", nativeQuery = true)
     Page<MediaEntity> findAllMedia(Pageable paging);

@@ -17,6 +17,6 @@ public interface MediaService {
     void approve(int id);
     void disapprove(int id);
     PagedListDto<MediaDetailDto> findApprovedMemories(Pageable paging, int matchId);
-    List<MediaDetailDto> findPersonalMemories();
+    List<MediaDetailDto> findPersonalMemories(int entityId);
     PagedListDto<MediaDetailDto> findAllMedia(Pageable paging);
 }

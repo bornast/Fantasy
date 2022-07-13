@@ -31,8 +31,10 @@ export class MediaService {
         return this.http.get<PaginatedResult<Media[]>>(this.baseUrl + "media", { params });
 	}
     
-    getPersonalMedia() {
-		return this.http.get<Media[]>(this.baseUrl + "media/personal");
+    getPersonalMedia(matchId: number) {
+        let params = new HttpParams();
+		params = params.append('matchId', matchId);
+		return this.http.get<Media[]>(this.baseUrl + "media/personal", { params });
 	}
 
 	setMainMedia(mediaId: any, mediaData) {

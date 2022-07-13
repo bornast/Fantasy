@@ -101,12 +101,12 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public List<MediaDetailDto> findPersonalMemories() {
+    public List<MediaDetailDto> findPersonalMemories(int entityId) {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username)
             .orElseThrow(EntityNotFoundException::new);
 
-        return mediaRepository.findPersonalMedia(user.getId(), EntityType.MEMORY.getValue()).stream()
+        return mediaRepository.findPersonalMedia(user.getId(), entityId, EntityType.MEMORY.getValue()).stream()
             .map(mapper::map).toList();
     }
 

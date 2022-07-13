@@ -15,6 +15,6 @@ public interface MediaRepository {
     Media update(Media media);
     void delete(int id);
     Page<Media> findApprovedMedia(int entityId, int entityTypeId, Pageable paging);
-    List<Media> findPersonalMedia(int userId, int entityTypeId);
+    List<Media> findPersonalMedia(int userId, int entityId, int entityTypeId);
     Page<Media> findAllMedia(Pageable paging);
 }

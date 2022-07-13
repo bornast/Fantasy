@@ -138,7 +138,7 @@ export class MatchDetailComponent implements OnInit {
 	}
 
     loadMyMemories() {
-        this.mediaService.getPersonalMedia().subscribe((media) => {
+        this.mediaService.getPersonalMedia(this.match.id).subscribe((media) => {
 			this.myMedia = media;
             console.log("myMedia", this.myMedia);
 		});

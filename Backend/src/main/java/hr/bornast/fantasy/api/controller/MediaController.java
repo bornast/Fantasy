@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -75,8 +76,8 @@ public class MediaController {
 
     @GetMapping("/personal")
     @PreAuthorize("hasAnyRole('Admin', 'User')")
-    public ResponseEntity<List<MediaDetailDto>> findPersonalMemories() {
-        return ok(mediaService.findPersonalMemories());
+    public ResponseEntity<List<MediaDetailDto>> findPersonalMemories(@RequestParam(value = "matchId", required =false) int matchId) {
+        return ok(mediaService.findPersonalMemories(matchId));
     }
 
     @GetMapping

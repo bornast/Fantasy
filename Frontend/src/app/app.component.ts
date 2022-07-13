@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationCancel, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { AuthService } from './services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 declare let $: any;
 
 @Component({
@@ -19,10 +21,17 @@ export class AppComponent {
     location: any;
     routerSubscription: any;
 
-    constructor(private router: Router) {
+    jwtHelper = new JwtHelperService();
+
+    constructor(private authService: AuthService, private router: Router) {
     }
 
     ngOnInit(){
+        const token = localStorage.getItem('fantasy-token');
+		if (token) {
+			this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+		}
+
         this.recallJsFuntions();
     }
 
