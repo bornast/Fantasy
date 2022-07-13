@@ -9,6 +9,8 @@ import hr.bornast.fantasy.infrastructure.persistence.entity.MediaEntity;
 import hr.bornast.fantasy.infrastructure.persistence.repository.MediaEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -48,6 +50,24 @@ public class MediaRepositoryImpl implements MediaRepository {
     @Override
     public void delete(int id) {
         mediaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Media> findApprovedMedia(int entityId, int entityTypeId, Pageable paging) {
+        return mediaRepository.findApprovedMedia(entityId, entityTypeId, paging)
+            .map(x -> mapper.map(x, Media.class));
+    }
+
+    @Override
+    public List<Media> findPersonalMedia(int userId, int entityTypeId) {
+        return mediaRepository.findUserMedia(userId, entityTypeId).stream()
+            .map(x -> mapper.map(x, Media.class)).toList();
+    }
+
+    @Override
+    public Page<Media> findAllMedia(Pageable paging) {
+        return mediaRepository.findAllMedia(paging)
+            .map(x -> mapper.map(x, Media.class));
     }
 
 }

@@ -6,6 +6,8 @@ public class MediaDetailDto {
     private boolean isMain;
     private int entityTypeId;
     private int mediaTypeId;
+    private boolean isApproved;
+    private int uploadedByUserId;
 
     public int getId() {
         return id;
@@ -45,5 +47,21 @@ public class MediaDetailDto {
 
     public void setMediaTypeId(int mediaTypeId) {
         this.mediaTypeId = mediaTypeId;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public int getUploadedByUserId() {
+        return uploadedByUserId;
+    }
+
+    public void setUploadedByUserId(int uploadedByUserId) {
+        this.uploadedByUserId = uploadedByUserId;
     }
 }

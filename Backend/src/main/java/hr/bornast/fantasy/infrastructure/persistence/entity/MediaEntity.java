@@ -2,6 +2,7 @@ package hr.bornast.fantasy.infrastructure.persistence.entity;
 
 import java.time.OffsetDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,4 +42,8 @@ public class MediaEntity {
 
     private String publicId;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isApproved;
+
+    private int uploadedByUserId;
 }

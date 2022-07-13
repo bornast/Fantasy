@@ -4,6 +4,7 @@ public class MediaDto {
     private int id;
     private String url;
     private boolean isMain;
+    private boolean isApproved;
     private int mediaTypeId;
 
     public int getId() {
@@ -36,5 +37,13 @@ public class MediaDto {
 
     public void setMediaTypeId(int mediaTypeId) {
         this.mediaTypeId = mediaTypeId;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }

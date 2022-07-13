@@ -25,7 +25,7 @@ public class MediaMapperImpl implements MediaMapper {
     private final MediaTypeRepository mediaTypeRepository;
 
     @Override
-    public Media map(UploadMediaCommand command, int mediaTypeId) {
+    public Media map(UploadMediaCommand command, int mediaTypeId, int userId) {
         var result = mapper.map(command, Media.class);
 
         var entityType = entityTypeRepository
@@ -39,6 +39,7 @@ public class MediaMapperImpl implements MediaMapper {
         result.setEntityType(entityType);
         result.setMediaType(mediaType);
         result.setCreatedAt(OffsetDateTime.now());
+        result.setUploadedByUserId(userId);
 
         return result;
     }
@@ -51,6 +52,8 @@ public class MediaMapperImpl implements MediaMapper {
         result.setMediaTypeId(media.getMediaType().getId());
         result.setUrl(media.getUrl());
         result.setIsMain(media.isMain());
+        result.setApproved(media.isApproved());
+        result.setUploadedByUserId(media.getUploadedByUserId());
         return result;
     }
 

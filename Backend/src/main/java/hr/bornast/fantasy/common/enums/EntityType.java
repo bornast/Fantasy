@@ -6,7 +6,8 @@ import java.util.Map;
 public enum EntityType {
     USER(5),
     PLAYER(6),
-    TEAM(7);
+    TEAM(7),
+    MEMORY(357);
 
     private int value;
     private static Map map = new HashMap<>();

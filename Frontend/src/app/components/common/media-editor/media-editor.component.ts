@@ -37,6 +37,7 @@ export class MediaEditorComponent implements OnInit {
 	initializeUploader() {
 		this.uploader = new FileUploader({
 			url: this.baseUrl + 'media',
+            authToken: 'Bearer ' + localStorage.getItem('fantasy-token'),
 			isHTML5: true,
 			allowedFileType: ['image', 'video'],
 			removeAfterUpload: true,

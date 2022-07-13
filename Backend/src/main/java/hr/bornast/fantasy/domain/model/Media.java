@@ -15,4 +15,6 @@ public class Media {
     private String publicId;
     private EntityType entityType;
     private int entityId;
+    private boolean isApproved;
+    private int uploadedByUserId;
 }
