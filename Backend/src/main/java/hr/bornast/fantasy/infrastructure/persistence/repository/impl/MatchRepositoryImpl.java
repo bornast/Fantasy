@@ -36,6 +36,11 @@ public class MatchRepositoryImpl implements MatchRepository {
     }
 
     @Override
+    public List<Match> findByTeamId(int teamId) {
+        return matchRepository.findByTeamId(teamId).stream().map(mapper::map).toList();
+    }
+
+    @Override
     public List<Match> findAll() {
         return matchRepository.findAll().stream().map(mapper::map).toList();
     }

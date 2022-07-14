@@ -9,8 +9,10 @@ import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTableDto;
 import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.mapper.TeamMapper;
+import hr.bornast.fantasy.application.repository.LeagueRepository;
 import hr.bornast.fantasy.application.repository.MatchRepository;
 import hr.bornast.fantasy.application.repository.PlayerRepository;
 import hr.bornast.fantasy.application.repository.TeamRepository;
@@ -35,6 +37,7 @@ public class TeamServiceImpl implements TeamService {
     private final TransferRepository transferRepository;
     private final UserRepository userRepository;
     private final MatchRepository matchRepository;
+    private final LeagueRepository leagueRepository;
     private final TeamMapper mapper;
 
     @Override
@@ -190,6 +193,14 @@ public class TeamServiceImpl implements TeamService {
         return new PagedListDto<TeamTransferDto>().getPagedResult(
             transferRepository.findByTeamId(teamId, paging)
                 .map(mapper::map));
+    }
+
+    @Override
+    public List<TeamTableDto> getTeamTable(int leagueId) {
+        var league = leagueRepository.findById(leagueId)
+            .orElseThrow(EntityNotFoundException::new);
+
+        return mapper.map(league);
     }
 
 }

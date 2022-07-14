@@ -16,4 +16,7 @@ public interface MatchEntityRepository extends JpaRepository<MatchEntity, Intege
 
     @Query(value = "select m.* from matches m inner join match_teams mt on (m.id = mt.match_id) where mt.team_id = ?1", nativeQuery = true)
     Page<MatchEntity> findByTeamId(int teamId, Pageable paging);
+
+    @Query(value = "select m.* from matches m inner join match_teams mt on (m.id = mt.match_id) where mt.team_id = ?1", nativeQuery = true)
+    List<MatchEntity> findByTeamId(int teamId);
 }

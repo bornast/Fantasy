@@ -11,6 +11,7 @@ import hr.bornast.fantasy.application.dto.common.RecordNameDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
+import hr.bornast.fantasy.application.dto.team.TeamTableDto;
 import hr.bornast.fantasy.application.dto.team.TeamTransferDto;
 import hr.bornast.fantasy.application.query.common.PaginationQuery;
 import hr.bornast.fantasy.application.query.team.TeamQuery;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.ResponseEntity.created;
@@ -116,6 +118,12 @@ public class TeamController {
     @PreAuthorize("hasAnyRole('Admin', 'User')")
     public ResponseEntity<PagedListDto<TeamDto>> findUnfavoredTeams(TeamQuery query) {
         return ok(teamService.findUnfavored(PageRequest.of(query.getPageNumber(), query.getPageSize()), query.getName()));
+    }
+
+    @GetMapping("/table")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
+    public ResponseEntity<List<TeamTableDto>> findTeamTable(@RequestParam("leagueId") int leagueId) {
+        return ok(teamService.getTeamTable(leagueId));
     }
 
 }
