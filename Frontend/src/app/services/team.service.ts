@@ -25,6 +25,14 @@ export class TeamService {
         return this.http.get<RecordName[]>(this.baseUrl + teamId + "/players");
 	}
 
+    getTeamTable(leagueId: number): Observable<[]> {
+        let params = new HttpParams();
+		if (leagueId != null)
+			params = params.append('leagueId', leagueId);
+        
+        return this.http.get<[]>(this.baseUrl + "table", { params });
+	}
+
     getTeamPlayersStatistics(teamId): Observable<Player[]> {
         return this.http.get<Player[]>(this.baseUrl + teamId + "/players");
 	}

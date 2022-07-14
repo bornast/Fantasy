@@ -17,6 +17,9 @@
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#result" type="button" role="tab" aria-controls="result" aria-selected="false">Results</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab" aria-controls="table" aria-selected="false">Table</button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#transfer" type="button" role="tab" aria-controls="transfer" aria-selected="false">Transfers</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -102,6 +105,53 @@
                                 <td>{{result.league}}</td>
                                 <td>{{result.season}}</td>
                                 <td>{{result.stadium}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="pagination-area text-center">
+                            <pagination-controls id="pagination1" (pageChange)="changeResultPage(currentResultPage = $event)"></pagination-controls>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> 
+
+        </div>
+
+        <!-- TAB TABLE -->
+        <div class="tab-pane fade" id="table" role="tabpanel">
+            
+            <br>
+            <div class="container">
+                <div class="row" *ngIf="table">
+                    
+                    <div class="col-lg-12 col-md-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Team</th>                                
+                                <th scope="col">Game Count</th>
+                                <th scope="col">Win</th>                                
+                                <th scope="col">Draw</th>
+                                <th scope="col">Lose</th>
+                                <th scope="col">Ratio</th>
+                                <th scope="col">Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let team of table">                                
+                                <td>{{team.sequence}}</td>
+                                <td>{{team.teamName}}</td>
+                                <td>{{team.gameCount}}</td>
+                                <td>{{team.winCount}}</td>
+                                <td>{{team.drawCount}}</td>
+                                <td>{{team.loseCount}}</td>
+                                <td>{{team.goalRatio}}</td>
+                                <td>{{team.points}}</td>
                             </tr>
                             </tbody>
                         </table>

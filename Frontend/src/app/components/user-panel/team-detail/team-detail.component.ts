@@ -25,7 +25,9 @@ export class TeamDetailComponent implements OnInit {
     transferPagination: Pagination;
     currentTransferPage: number = 1;
 
-    constructor(private temaService: TeamService, private route: ActivatedRoute, private router: Router) { }
+    table: any[];
+
+    constructor(private teamService: TeamService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
         let id = this.route.snapshot.params['id'];
@@ -37,7 +39,7 @@ export class TeamDetailComponent implements OnInit {
     }
 
     getTeam(id: any) {
-		this.temaService.getTeam(id).subscribe((team) => {
+		this.teamService.getTeam(id).subscribe((team) => {
 			this.team = team;
             this.loadData();    
 		});
@@ -47,10 +49,11 @@ export class TeamDetailComponent implements OnInit {
         this.loadResults();
         this.loadTransfers();
         this.loadPlayers();
+        this.loadTable();
     }
 
     loadResults() {
-        this.temaService.getTeamResultsByFilter(this.team.id, this.currentResultPage-1).subscribe((results) => {
+        this.teamService.getTeamResultsByFilter(this.team.id, this.currentResultPage-1).subscribe((results) => {
 			this.results = results.result;
             this.resultPagination = results.pagination;
             this.resultPagination.currentPage += 1;
@@ -58,7 +61,7 @@ export class TeamDetailComponent implements OnInit {
     }
 
     loadTransfers() {
-        this.temaService.getTeamTransfersByFilter(this.team.id, this.currentTransferPage-1).subscribe((transfers) => {
+        this.teamService.getTeamTransfersByFilter(this.team.id, this.currentTransferPage-1).subscribe((transfers) => {
 			this.transfers = transfers.result;
             this.transferPagination = transfers.pagination;
             this.transferPagination.currentPage += 1;
@@ -66,8 +69,15 @@ export class TeamDetailComponent implements OnInit {
     }
 
     loadPlayers() {
-        this.temaService.getTeamPlayersStatistics(this.team.id).subscribe((players) => {
+        this.teamService.getTeamPlayersStatistics(this.team.id).subscribe((players) => {
 			this.players = players;
+		});
+    }
+
+    loadTable() {
+        this.teamService.getTeamTable(34).subscribe((table) => {
+			this.table = table;
+            console.log("table", this.table);
 		});
     }
 
