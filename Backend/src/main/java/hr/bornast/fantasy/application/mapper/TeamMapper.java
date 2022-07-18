@@ -4,6 +4,7 @@ import java.util.List;
 
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.application.dto.league.LeagueDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
@@ -24,4 +25,5 @@ public interface TeamMapper {
     TeamTransferDto map(Transfer transfer);
     TeamPlayerDto map(Player player);
     List<TeamTableDto> map(League league);
+    LeagueDto mapTeamLeague(League league);
 }

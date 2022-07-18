@@ -5,6 +5,7 @@ import java.util.List;
 
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.application.dto.league.LeagueDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
@@ -252,5 +253,10 @@ public class TeamMapperImpl implements TeamMapper {
         }
 
         return result;
+    }
+
+    @Override
+    public LeagueDto mapTeamLeague(League league) {
+        return mapper.map(league, LeagueDto.class);
     }
 }

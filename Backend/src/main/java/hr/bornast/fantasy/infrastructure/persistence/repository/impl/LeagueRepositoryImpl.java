@@ -58,6 +58,12 @@ public class LeagueRepositoryImpl implements LeagueRepository {
     }
 
     @Override
+    public List<League> findByTeamId(int teamId) {
+        return leagueRepository.findByTeamId(teamId).stream()
+            .map(x -> mapper.map(x, League.class)).toList();
+    }
+
+    @Override
     public League update(League league) {
         return mapper.map(leagueRepository.save(mapper.map(league, LeagueEntity.class)), League.class);
     }

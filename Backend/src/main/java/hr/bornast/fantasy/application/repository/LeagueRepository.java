@@ -16,5 +16,5 @@ public interface LeagueRepository {
     League create(League league);
     League update(League league);
     void delete(int id);
-
+    List<League> findByTeamId(int teamId);
 }

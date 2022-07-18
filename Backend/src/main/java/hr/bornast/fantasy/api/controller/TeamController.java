@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.application.dto.league.LeagueDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
@@ -124,6 +125,11 @@ public class TeamController {
     @PreAuthorize("hasAnyRole('Admin', 'User')")
     public ResponseEntity<List<TeamTableDto>> findTeamTable(@RequestParam("leagueId") int leagueId) {
         return ok(teamService.getTeamTable(leagueId));
+    }
+
+    @GetMapping("/{id}/leagues")
+    public ResponseEntity<List<LeagueDto>> findTeamLeagues(@PathVariable int id) {
+        return ok(teamService.getTeamLeagues(id));
     }
 
 }

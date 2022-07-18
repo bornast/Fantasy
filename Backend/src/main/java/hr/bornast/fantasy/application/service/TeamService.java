@@ -5,6 +5,7 @@ import java.util.List;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.application.dto.league.LeagueDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
@@ -27,4 +28,5 @@ public interface TeamService {
     PagedListDto<TeamResultDto> findTeamResults(int teamId, Pageable paging);
     PagedListDto<TeamTransferDto> findTeamTransfers(int teamId, Pageable paging);
     List<TeamTableDto> getTeamTable(int leagueId);
+    List<LeagueDto> getTeamLeagues(int id);
 }

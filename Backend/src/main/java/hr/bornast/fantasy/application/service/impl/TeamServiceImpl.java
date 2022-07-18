@@ -6,6 +6,7 @@ import java.util.List;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.application.dto.league.LeagueDto;
 import hr.bornast.fantasy.application.dto.team.TeamDto;
 import hr.bornast.fantasy.application.dto.team.TeamPlayerDto;
 import hr.bornast.fantasy.application.dto.team.TeamResultDto;
@@ -201,6 +202,12 @@ public class TeamServiceImpl implements TeamService {
             .orElseThrow(EntityNotFoundException::new);
 
         return mapper.map(league);
+    }
+
+    @Override
+    public List<LeagueDto> getTeamLeagues(int id) {
+        return leagueRepository.findByTeamId(id)
+            .stream().map(mapper::mapTeamLeague).toList();
     }
 
 }
