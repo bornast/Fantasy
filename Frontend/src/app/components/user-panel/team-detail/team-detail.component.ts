@@ -1,6 +1,7 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { League } from 'src/app/models/league';
 import { Pagination } from 'src/app/models/pagination';
 import { Player } from 'src/app/models/player';
 import { Team } from 'src/app/models/team';
@@ -25,6 +26,7 @@ export class TeamDetailComponent implements OnInit {
     transferPagination: Pagination;
     currentTransferPage: number = 1;
 
+    leagues: League[];
     table: any[];
 
     constructor(private teamService: TeamService, private route: ActivatedRoute, private router: Router) { }
@@ -49,7 +51,7 @@ export class TeamDetailComponent implements OnInit {
         this.loadResults();
         this.loadTransfers();
         this.loadPlayers();
-        this.loadTable();
+        this.loadLeagues();        
     }
 
     loadResults() {
@@ -74,8 +76,17 @@ export class TeamDetailComponent implements OnInit {
 		});
     }
 
-    loadTable() {
-        this.teamService.getTeamTable(34).subscribe((table) => {
+    loadLeagues() {
+        this.teamService.getTeamLeagues(this.team.id).subscribe((leagues) => {
+			this.leagues = leagues;            
+            this.loadTable(this.leagues[0].id);
+            console.log("leagues", this.leagues);
+		});
+    }
+
+    loadTable(leagueId) {
+        // TODO: team table id
+        this.teamService.getTeamTable(leagueId).subscribe((table) => {
 			this.table = table;
             console.log("table", this.table);
 		});

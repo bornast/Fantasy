@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { League } from '../models/league';
 import { PaginatedResult } from '../models/pagination';
 import { Player } from '../models/player';
 import { RecordName } from '../models/recordName';
@@ -79,6 +80,10 @@ export class TeamService {
 		params = params.append('pageSize', pageSize);
 		params = params.append('pageNumber', pageNumber);
         return this.http.get<PaginatedResult<[]>>(this.baseUrl + teamId + "/transfers", { params });
+	}
+
+    getTeamLeagues(id) {
+		return this.http.get<League[]>(this.baseUrl + id + "/leagues");
 	}
 
     getTeam(id) {
