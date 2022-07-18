@@ -36,8 +36,8 @@ public class MatchRepositoryImpl implements MatchRepository {
     }
 
     @Override
-    public List<Match> findByTeamId(int teamId) {
-        return matchRepository.findByTeamId(teamId).stream().map(mapper::map).toList();
+    public List<Match> findByTeamId(int teamId, int leagueId) {
+        return matchRepository.findByTeamId(teamId, leagueId).stream().map(mapper::map).toList();
     }
 
     @Override

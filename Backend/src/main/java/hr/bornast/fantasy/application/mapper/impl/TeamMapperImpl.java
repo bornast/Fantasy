@@ -189,7 +189,7 @@ public class TeamMapperImpl implements TeamMapper {
             var goalsConceded = 0;
 
 
-            var matches = matchRepository.findByTeamId(team.getId());
+            var matches = matchRepository.findByTeamId(team.getId(), league.getId());
             for (var match : matches) {
                 var homeScore = 0;
                 var awayScore = 0;
