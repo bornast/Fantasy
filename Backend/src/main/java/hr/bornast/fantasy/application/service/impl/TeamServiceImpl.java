@@ -3,6 +3,7 @@ package hr.bornast.fantasy.application.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import hr.bornast.fantasy.application.command.chat.CreateChatCommand;
 import hr.bornast.fantasy.application.command.team.SaveTeamCommand;
 import hr.bornast.fantasy.application.dto.common.PagedListDto;
 import hr.bornast.fantasy.application.dto.common.RecordNameDto;
@@ -19,6 +20,7 @@ import hr.bornast.fantasy.application.repository.PlayerRepository;
 import hr.bornast.fantasy.application.repository.TeamRepository;
 import hr.bornast.fantasy.application.repository.TransferRepository;
 import hr.bornast.fantasy.application.repository.UserRepository;
+import hr.bornast.fantasy.application.service.ChatService;
 import hr.bornast.fantasy.application.service.TeamService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.domain.model.Team;
@@ -39,6 +41,7 @@ public class TeamServiceImpl implements TeamService {
     private final UserRepository userRepository;
     private final MatchRepository matchRepository;
     private final LeagueRepository leagueRepository;
+    private final ChatService chatService;
     private final TeamMapper mapper;
 
     @Override
@@ -88,7 +91,14 @@ public class TeamServiceImpl implements TeamService {
     }
 
     public TeamDto create(SaveTeamCommand command) {
-        return mapper.map(teamRepository.create(mapper.map(command)));
+        var team = mapper.map(teamRepository.create(mapper.map(command)));
+
+        var chatCommand = new CreateChatCommand();
+        chatCommand.setName(team.getName());
+        chatCommand.setTeamId(team.getId());
+        chatService.create(chatCommand);
+
+        return team;
     }
 
     @Override

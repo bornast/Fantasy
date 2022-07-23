@@ -56,6 +56,7 @@ import { TeamDetailComponent } from './components/user-panel/team-detail/team-de
 import { MatchDetailComponent } from './components/user-panel/match-detail/match-detail.component';
 import { MediaListComponent } from './components/admin/media/media-list/media-list.component';
 import { DashboardNavbarComponent } from './components/common/dashboard-navbar/dashboard-navbar.component';
+import { StompService } from 'ng2-stomp-service';
 
 export function tokenGetter() {
 	return localStorage.getItem('fantasy-token');

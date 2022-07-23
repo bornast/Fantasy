@@ -5,6 +5,8 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import hr.bornast.fantasy.application.dto.common.RecordNameDto;
+import hr.bornast.fantasy.domain.model.User;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -36,6 +38,14 @@ public class CommonConfiguration {
             }
         };
         result.addConverter(toStringOffsetDateTime);
+
+        Converter<User, RecordNameDto> userRecordNameConverter = new AbstractConverter<User, RecordNameDto>() {
+            @Override
+            protected RecordNameDto convert(User source) {
+                return new RecordNameDto(source.getId(), source.getUsername());
+            }
+        };
+        result.addConverter(userRecordNameConverter);
 
         result.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 

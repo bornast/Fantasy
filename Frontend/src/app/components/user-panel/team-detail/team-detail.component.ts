@@ -7,6 +7,10 @@ import { Player } from 'src/app/models/player';
 import { Team } from 'src/app/models/team';
 import { PlayerService } from 'src/app/services/player.service';
 import { TeamService } from 'src/app/services/team.service';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { ChatService } from 'src/app/services/chat.service';
+import { Chat } from 'src/app/models/chat';
 
 @Component({
   selector: 'app-team-detail',
@@ -28,10 +32,17 @@ export class TeamDetailComponent implements OnInit {
 
     leagues: League[];
     table: any[];
+    chat: Chat;
 
-    constructor(private teamService: TeamService, private route: ActivatedRoute, private router: Router) { }
+    greetings: string[] = [];
+    disabled = true;
+    newmessage: string;
+    private stompClient = null;
+    currentUser = localStorage.getItem('fantasy-userId');
 
-    ngOnInit(): void {
+    constructor(private teamService: TeamService, private chatService: ChatService, private route: ActivatedRoute, private router: Router) { }
+
+    ngOnInit(): void {        
         let id = this.route.snapshot.params['id'];
 		if (id) {
 			this.getTeam(id);			
@@ -40,10 +51,17 @@ export class TeamDetailComponent implements OnInit {
         }
     }
 
+    public ngOnDestroy() {
+        if (this.stompClient != null) {
+            this.stompClient.disconnect();
+        }
+      }
+
     getTeam(id: any) {
 		this.teamService.getTeam(id).subscribe((team) => {
 			this.team = team;
-            this.loadData();    
+            this.connect();
+            this.loadData();
 		});
 	}
 
@@ -78,17 +96,25 @@ export class TeamDetailComponent implements OnInit {
 
     loadLeagues() {
         this.teamService.getTeamLeagues(this.team.id).subscribe((leagues) => {
-			this.leagues = leagues;            
-            this.loadTable(this.leagues[0].id);
-            console.log("leagues", this.leagues);
+			this.leagues = leagues;
+            if (this.leagues != null && this.leagues.length > 0) {
+                this.loadTable(this.leagues[0].id);
+                console.log("leagues", this.leagues);
+            }            
 		});
     }
 
     loadTable(leagueId) {
-        // TODO: team table id
         this.teamService.getTeamTable(leagueId).subscribe((table) => {
 			this.table = table;
             console.log("table", this.table);
+		});
+    }
+
+    loadChat() {
+        this.chatService.getChat(this.team.id).subscribe((chat) => {
+			this.chat = chat;
+            console.log("chat", this.chat);
 		});
     }
 
@@ -239,5 +265,33 @@ export class TeamDetailComponent implements OnInit {
             "<i class='flaticon-right-chevron'></i>"
         ]
     }
+
+    setConnected(connected: boolean) {
+        this.disabled = !connected;
+    }
+
+    connect() {
+        const socket = new SockJS('http://localhost:8080/chat');
+        this.stompClient = Stomp.over(socket);
+        const _this = this;
+        this.stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            _this.loadChat();
+            _this.stompClient.subscribe('/start/initial/' + _this.team.id, function(msg) {
+                console.log("msg", JSON.parse(msg.body));
+                console.log("before", _this.chat);
+                _this.chat.messages.push(JSON.parse(msg.body));
+                console.log("after", _this.chat);
+            });
+        });
+    }
+
+    sendMessage() {
+        this.stompClient.send('/current/resume/' + this.team.id,
+            {Authorization: localStorage.getItem("fantasy-token")}, 
+            this.newmessage
+        );
+        this.newmessage = "";
+      }
 
 }

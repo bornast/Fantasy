@@ -41,7 +41,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
-    // {path: 'dashboard-messages', component: DashboardMessagesComponent},
+    {path: 'dashboard-messages', component: DashboardMessagesComponent},
     // {path: 'dashboard-my-profile', component: DashboardMyProfileComponent},
     {path: 'dashboard', component: UserListComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path: 'admin/media-list', component: MediaListComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
