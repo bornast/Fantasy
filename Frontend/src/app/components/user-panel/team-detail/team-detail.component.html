@@ -294,8 +294,8 @@
                                         <!-- LEFT -->
                                         <div class="chat chat-left" *ngIf="msg.user.id != currentUser" style="margin-bottom: 15px;">
                                             <div class="chat-avatar">
-                                                <a routerLink="/profile" class="d-inline-block">
-                                                    <img src="assets/img/user2.jpg" width="50" height="50" class="rounded-circle" alt="image">
+                                                <a class="d-inline-block">
+                                                    <img src="https://www.svgrepo.com/show/164671/soccer-ball.svg" width="50" height="50" class="rounded-circle" alt="image">
                                                 </a>
                                             </div>
             
@@ -309,14 +309,14 @@
                                         <!-- RIGHT -->
                                         <div class="chat" *ngIf="msg.user.id == currentUser" style="margin-bottom: 15px;">
                                             <div class="chat-avatar">
-                                                <a routerLink="/profile" class="d-inline-block">
-                                                    <img src="assets/img/user1.jpg" width="50" height="50" class="rounded-circle" alt="image">
+                                                <a class="d-inline-block">
+                                                    <img src="https://st.depositphotos.com/3839635/57664/v/380/depositphotos_576642214-stock-illustration-vector-pixel-art-boy-play.jpg?forcejpeg=true" width="50" height="50" class="rounded-circle" alt="image">
                                                 </a>
                                             </div>
             
                                             <div class="chat-body">
                                                 <div class="chat-message">
-                                                    <p><a href="https://envytheme.com/" target="_blank">{{msg.content}}</a></p>
+                                                    <p><span>{{msg.content}}</span></p>
                                                     <span class="time d-block">{{msg.time}}</span>
                                                 </div>
                                             </div>
