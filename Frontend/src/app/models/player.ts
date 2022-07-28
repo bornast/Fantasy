@@ -11,4 +11,5 @@ export class Player {
     goals: number;
     yellowCards: number;
     redCards: number;
+    rate: number;
 }

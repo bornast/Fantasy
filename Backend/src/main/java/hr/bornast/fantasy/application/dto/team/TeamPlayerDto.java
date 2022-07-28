@@ -11,4 +11,5 @@ public class TeamPlayerDto {
     private int goals;
     private int yellowCards;
     private int redCards;
+    private double rate;
 }

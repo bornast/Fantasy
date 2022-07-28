@@ -21,6 +21,7 @@ import hr.bornast.fantasy.application.repository.TeamRepository;
 import hr.bornast.fantasy.application.repository.TransferRepository;
 import hr.bornast.fantasy.application.repository.UserRepository;
 import hr.bornast.fantasy.application.service.ChatService;
+import hr.bornast.fantasy.application.service.RateService;
 import hr.bornast.fantasy.application.service.TeamService;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.domain.model.Team;
@@ -43,6 +44,7 @@ public class TeamServiceImpl implements TeamService {
     private final LeagueRepository leagueRepository;
     private final ChatService chatService;
     private final TeamMapper mapper;
+    private final RateService rateService;
 
     @Override
     public PagedListDto<TeamDto> findAll(Pageable paging, String name) {
@@ -72,10 +74,7 @@ public class TeamServiceImpl implements TeamService {
                 .orElseThrow(EntityNotFoundException::new);
             if (lastPlayerTransfer.getToTeam().getId() == id) {
                 var playerToAdd = mapper.map(transferPlayer);
-//                var playerToAdd = new RecordNameDto();
-//                // TODO: map Player class to TeamPlayerDto
-//                playerToAdd.setId(lastPlayerTransfer.getPlayer().getId());
-//                playerToAdd.setName(lastPlayerTransfer.getPlayer().getName());
+                playerToAdd.setRate(rateService.findPlayerRate(playerToAdd.getId()));
                 result.add(playerToAdd);
             }
         }
