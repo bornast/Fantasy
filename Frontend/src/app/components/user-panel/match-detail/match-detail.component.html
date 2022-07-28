@@ -393,7 +393,7 @@
                                     <button type="submit" (click)="submitRate()" data-bs-dismiss="modal">Rate</button>                                    
                                 </div>
                                 <div class="col-lg-6 col-md-6">
-                                    <button style="background-color: red;" type="submit" (click)="removeRate()" data-bs-dismiss="modal">Remove rate</button>
+                                    <button [disabled]="!currentRateId" style="background-color: red;" type="submit" (click)="removeRate()" data-bs-dismiss="modal">Remove rate</button>
                                 </div>
                             </div>
                         </form>
