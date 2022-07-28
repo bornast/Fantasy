@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface MatchPlayerRateEntityRepository extends JpaRepository<MatchPlayerRateEntity, Integer> {
     Optional<MatchPlayerRateEntity> findByMatchIdAndPlayerIdAndUserId(int matchId, int playerId, int userId);
 
-    @Query(value = "select coalesce(avg(r.rate), 0.0) from rates r where r.player_id = ?1", nativeQuery = true)
+    @Query(value = "select round(coalesce(avg(r.rate), 0.0), 1) from rates r where r.player_id = ?1", nativeQuery = true)
     double findPlayerRate(int playerId);
 
-    @Query(value = "select coalesce(avg(r.rate), 0.0) from rates r where r.player_id = ?1 and r.match_id = ?2", nativeQuery = true)
+    @Query(value = "select round(coalesce(avg(r.rate), 0.0), 1) from rates r where r.player_id = ?1 and r.match_id = ?2", nativeQuery = true)
     double findPlayerMatchRate(int playerId, int matchId);
 }
