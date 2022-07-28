@@ -76,7 +76,7 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let player of awayTeamLineupStats">
-                                  <td style="text-align: right;">
+                                  <td class="playerRow" style="text-align: right; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#ratePlayer" (click)="ratePlayer(player)">
                                     <span style="float: left;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                       <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
                                       <span *ngFor="let card of player.cards">&nbsp;
@@ -104,7 +104,10 @@
                               </thead>
                             <tbody>
                               <tr *ngFor="let player of homeTeamSubstituteStats">
-                                <td>{{player.name}}
+                                <td *ngIf="player.substitutions.length == 0">
+                                    {{player.name}}
+                                <td *ngIf="player.substitutions.length > 0" class="playerRow" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#ratePlayer" (click)="ratePlayer(player)">
+                                    {{player.name}}
                                     <span *ngFor="let goal of player.goals">&nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"> {{goal}}</span>
                                     <span *ngFor="let card of player.cards">&nbsp;
                                         <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
@@ -129,7 +132,9 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let player of awayTeamSubstituteStats">
-                                  <td style="text-align: right;">
+                                <td *ngIf="player.substitutions.length == 0">
+                                    {{player.name}}
+                                  <td *ngIf="player.substitutions.length > 0" class="playerRow" style="cursor: pointer; text-align: right;" data-bs-toggle="modal" data-bs-target="#ratePlayer" (click)="ratePlayer(player)">
                                     <span style="float: left;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                       <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
                                       <span *ngFor="let card of player.cards">&nbsp;
