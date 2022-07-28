@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ENTITYTYPE } from 'src/app/constants/entityTypeConstant';
 import { MEDIATYPE } from 'src/app/constants/mediaTypeConstant';
-import { Match, MatchSubstitution } from 'src/app/models/match';
+import { Match, MatchPlayer, MatchSubstitution } from 'src/app/models/match';
 import { Media } from 'src/app/models/media';
 import { Pagination } from 'src/app/models/pagination';
 import { RecordName } from 'src/app/models/recordName';
 import { MatchService } from 'src/app/services/match.service';
 import { MediaService } from 'src/app/services/media.service';
+import { RateService } from 'src/app/services/rate.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-match-detail',
@@ -30,7 +32,17 @@ export class MatchDetailComponent implements OnInit {
     myMedia: Media[];
     entityTypeId = ENTITYTYPE.memory;
 
-    constructor(private matchService: MatchService, private mediaService: MediaService, private route: ActivatedRoute, private router: Router) { }
+    currentRate: number;
+    currentRateId: null;
+    currentRatePlayerId: number;
+    currentRatePlayerName: string;
+
+    constructor(private matchService: MatchService, 
+        private mediaService: MediaService, 
+        private rateService: RateService, 
+        private route: ActivatedRoute, 
+        private router: Router,
+        private toast: ToastService) { }
 
     ngOnInit(): void {
         let id = this.route.snapshot.params['id'];
@@ -53,7 +65,7 @@ export class MatchDetailComponent implements OnInit {
 		});
 	}
 
-    getTeamLineupStats(match: Match, lineupPlayers: RecordName[], substitutions: MatchSubstitution[]) {
+    getTeamLineupStats(match: Match, lineupPlayers: MatchPlayer[], substitutions: MatchSubstitution[]) {
         var result = [];
 
         for (const index in lineupPlayers) {
@@ -62,7 +74,8 @@ export class MatchDetailComponent implements OnInit {
                 name: lineupPlayers[index].name,
                 goals: [],
                 cards: [],
-                substitutions: []
+                substitutions: [],
+                rate: lineupPlayers[index].rate
             };
 
             for (const goalIndex in match.goals) {
@@ -91,7 +104,7 @@ export class MatchDetailComponent implements OnInit {
         return result;
     }
 
-    getTeamSubstituteStats(match: Match, substitutePlayers: RecordName[], substitutions: MatchSubstitution[]) {
+    getTeamSubstituteStats(match: Match, substitutePlayers: MatchPlayer[], substitutions: MatchSubstitution[]) {
         var result = [];
 
         for (const index in substitutePlayers) {
@@ -100,7 +113,8 @@ export class MatchDetailComponent implements OnInit {
                 name: substitutePlayers[index].name,
                 goals: [],
                 cards: [],
-                substitutions: []
+                substitutions: [],
+                rate: substitutePlayers[index].rate
             };
 
             for (const goalIndex in match.goals) {
@@ -177,6 +191,67 @@ export class MatchDetailComponent implements OnInit {
 
     getVideoMedia() {
         return this.mediaForList.filter(x => x.mediaTypeId == MEDIATYPE.video);
+    }
+
+    ratePlayer(player: any) {
+        this.currentRate = null;
+        this.currentRateId = null;
+        this.currentRatePlayerId = null;
+        this.currentRatePlayerName = null;
+
+        this.rateService.getRate(this.match.id, player.playerId).subscribe((rate) => {
+            if (rate && rate.id > 0) {
+                this.currentRateId = rate.id;
+                this.currentRate = rate.rate;
+            }
+            this.currentRatePlayerName = player.name;
+            this.currentRatePlayerId = player.playerId;
+		});
+    }
+
+    submitRate() {
+        if (this.currentRateId) {
+            let objecToUpdate = {
+                playerId: this.currentRatePlayerId,
+                matchId: this.match.id,
+                rate: this.currentRate
+            };
+            this.rateService.updateRate(this.currentRateId, objecToUpdate).subscribe(() => {
+				this.toast.success("Successfully rated!");
+				this.currentRate = null;
+                this.currentRateId = null;
+                this.currentRatePlayerId = null;
+                this.currentRatePlayerName = null;
+                this.getMatch(this.match.id);
+			});
+        } else {
+            let objecToCreate = {
+                playerId: this.currentRatePlayerId,
+                matchId: this.match.id,
+                rate: this.currentRate
+            };
+            this.rateService.createRate(objecToCreate).subscribe((match) => {
+				this.toast.success("Successfully rated!");
+				this.currentRate = null;
+                this.currentRateId = null;
+                this.currentRatePlayerId = null;
+                this.currentRatePlayerName = null;
+                this.getMatch(this.match.id);
+			});
+        }
+    }
+
+    removeRate() {
+        if (this.currentRateId) {
+            this.rateService.deleteRate(this.currentRateId).subscribe(() => {
+				this.toast.success("Rate successfully removed!");
+				this.currentRate = null;
+                this.currentRateId = null;
+                this.currentRatePlayerId = null;
+                this.currentRatePlayerName = null;
+                this.getMatch(this.match.id);
+			});
+        }
     }
 
 }

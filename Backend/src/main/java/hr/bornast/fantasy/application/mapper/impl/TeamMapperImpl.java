@@ -17,6 +17,7 @@ import hr.bornast.fantasy.application.repository.MatchRepository;
 import hr.bornast.fantasy.application.repository.PresidentRepository;
 import hr.bornast.fantasy.application.repository.StadiumRepository;
 import hr.bornast.fantasy.application.service.MediaService;
+import hr.bornast.fantasy.application.service.RateService;
 import hr.bornast.fantasy.common.enums.EntityType;
 import hr.bornast.fantasy.common.exception.EntityNotFoundException;
 import hr.bornast.fantasy.domain.model.League;
@@ -38,6 +39,7 @@ public class TeamMapperImpl implements TeamMapper {
     private final StadiumRepository stadiumRepository;
     private final MediaService mediaService;
     private final MatchRepository matchRepository;
+    private final RateService rateService;
 
     @Override
     public TeamDto map(Team team) {
@@ -142,6 +144,10 @@ public class TeamMapperImpl implements TeamMapper {
         result.setPlayerImage(playerMedia.getMainMedia());
 
         result.setTransferDate(mapper.map(transfer.getTransferDate(), String.class).substring(0, 10));
+
+        result.setRate(rateService.findPlayerRate(transfer.getPlayer().getId()));
+
+        result.setPlayerId(transfer.getPlayer().getId());
 
         return result;
     }

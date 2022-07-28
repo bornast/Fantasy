@@ -36,4 +36,8 @@ public class PlayerEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "player",
                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Set<MatchPlayerEntity> matches = new HashSet<>();
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "player",
+//               cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+//    private Set<MatchPlayerRateEntity> rates = new HashSet<>();
 }

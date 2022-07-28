@@ -16,6 +16,7 @@ import hr.bornast.fantasy.application.repository.CardRepository;
 import hr.bornast.fantasy.application.repository.FormationRepository;
 import hr.bornast.fantasy.application.repository.LeagueRepository;
 import hr.bornast.fantasy.application.repository.PlayerRepository;
+import hr.bornast.fantasy.application.repository.RateRepository;
 import hr.bornast.fantasy.application.repository.RefereeRepository;
 import hr.bornast.fantasy.application.repository.StadiumRepository;
 import hr.bornast.fantasy.application.repository.TeamRepository;
@@ -41,6 +42,7 @@ public class MatchMapperImpl implements MatchMapper {
     private final LeagueRepository leagueRepository;
     private final RefereeRepository refereeRepository;
     private final StadiumRepository stadiumRepository;
+    private final RateRepository rateRepository;
 
     @Override
     public MatchDto map(Match match) {
@@ -64,6 +66,22 @@ public class MatchMapperImpl implements MatchMapper {
         result.getAwayTeam().setCoach(mapper.map(match.getAwayTeam().getTeam().getCoach(), RecordNameDto.class));
 
         result.setResult(homeScore + " : " + awayScore);
+
+        result.getHomeTeam().getLineupPlayers().forEach(x -> {
+            x.setRate(rateRepository.findPlayerMatchRate(x.getId(), match.getId()));
+        });
+
+        result.getHomeTeam().getSubstitutePlayers().forEach(x -> {
+            x.setRate(rateRepository.findPlayerMatchRate(x.getId(), match.getId()));
+        });
+
+        result.getAwayTeam().getLineupPlayers().forEach(x -> {
+            x.setRate(rateRepository.findPlayerMatchRate(x.getId(), match.getId()));
+        });
+
+        result.getAwayTeam().getSubstitutePlayers().forEach(x -> {
+            x.setRate(rateRepository.findPlayerMatchRate(x.getId(), match.getId()));
+        });
 
         return result;
     }

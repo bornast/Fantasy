@@ -50,14 +50,16 @@
                               </thead>
                             <tbody>
                               <tr *ngFor="let player of homeTeamLineupStats">
-                                <td>{{player.name}}
+                                <td class="playerRow" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#ratePlayer" (click)="ratePlayer(player)">
+                                    {{player.name}}
                                     <span *ngFor="let goal of player.goals">&nbsp;<img style="width: 20px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png"> {{goal}}</span>
                                     <span *ngFor="let card of player.cards">&nbsp;
                                         <img *ngIf="card.card=='yellow'" style="width: 20px; height:20px;" src="https://e1.365dm.com/score-centre/icons/yellow_card.svg"> 
                                         <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png"> 
                                         {{card.minute}}
                                     </span>
-                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>                                    
+                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>
+                                    <span style="float: right;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                 </td>
                               </tr>
                             </tbody>
@@ -74,7 +76,8 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let player of awayTeamLineupStats">
-                                  <td style="text-align: right;">                                                                            
+                                  <td style="text-align: right;">
+                                    <span style="float: left;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                       <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
                                       <span *ngFor="let card of player.cards">&nbsp;
                                         {{card.minute}}
@@ -108,7 +111,8 @@
                                         <img *ngIf="card.card=='red'" style="width: 15px; height:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/369px-Red_card.svg.png"> 
                                         {{card.minute}}
                                     </span>
-                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>                                    
+                                    <span *ngFor="let sub of player.substitutions">&nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"> &nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp; &nbsp;</span>
+                                    <span style="float: right;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                 </td>
                               </tr>
                             </tbody>
@@ -125,7 +129,8 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let player of awayTeamSubstituteStats">
-                                  <td style="text-align: right;">                                                                            
+                                  <td style="text-align: right;">
+                                    <span style="float: left;">&nbsp; <button class="btn btn-secondary">{{player.rate}}</button> &nbsp; &nbsp;</span>
                                       <span *ngFor="let sub of player.substitutions">&nbsp; ({{sub.withPlayer}}) {{sub.minute}} &nbsp;<img style="width: 20px; height:20px;" src="https://icon-library.com/images/substitute-icon/substitute-icon-24.jpg"></span>
                                       <span *ngFor="let card of player.cards">&nbsp;
                                         {{card.minute}}
@@ -362,5 +367,36 @@
 </section>
 <!-- End Listings Details Area -->
 
+<div class="modal fade loginRegisterModal" id="ratePlayer" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x'></i></button>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">{{currentRatePlayerName}}</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="login" role="tabpanel">
+                    <div class="vesax-login">
+                        <form>
+                            <div class="form-group">
+                                <input [(ngModel)]="currentRate" type="number" placeholder="Rate" class="form-control" name="rate">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <button type="submit" (click)="submitRate()" data-bs-dismiss="modal">Rate</button>                                    
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <button style="background-color: red;" type="submit" (click)="removeRate()" data-bs-dismiss="modal">Remove rate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 

@@ -13,6 +13,7 @@ public class Match {
     private MatchTeam awayTeam;
     private Set<MatchGoal> goals = new HashSet<>();
     private Set<MatchCard> cards = new HashSet<>();
+    private Set<MatchPlayerRate> rates = new HashSet<>();
     private League league;
     private OffsetDateTime matchDate;
     private Referee referee;

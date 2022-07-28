@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { NavbarStyleTwoComponent } from './components/common/navbar-style-two/navbar-style-two.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { DashboardSidemenuComponent } from './components/common/dashboard-sidemenu/dashboard-sidemenu.component';
-import { DashboardMessagesComponent } from './components/pages/dashboard/dashboard-messages/dashboard-messages.component';
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -69,7 +68,6 @@ export function tokenGetter() {
     NotFoundComponent, 
     DashboardNavbarComponent,
     DashboardSidemenuComponent,
-    DashboardMessagesComponent,
     DashboardMyProfileComponent,
     UserListComponent,
     UserEditorComponent,

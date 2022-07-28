@@ -1,3 +1,4 @@
+@import "../../common/navbar-style-one.component.scss";
 @import "../../pages/homeone-listings.component.scss";
 .listings-details-image {
     position: relative;
@@ -2125,4 +2126,9 @@
 .result-row:hover {
     background-color: #E5E2E1;
     cursor: pointer;
+}
+
+
+.playerRow:hover {
+    background-color:#F7E6B9;
 }

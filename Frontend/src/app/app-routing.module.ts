@@ -29,7 +29,6 @@ import { TransferEditorComponent } from './components/admin/transfer/transfer-ed
 import { TransferListComponent } from './components/admin/transfer/transfer-list/transfer-list.component';
 import { UserEditorComponent } from './components/admin/user/user-editor/user-editor.component';
 import { UserListComponent } from './components/admin/user/user-list/user-list.component';
-import { DashboardMessagesComponent } from './components/pages/dashboard/dashboard-messages/dashboard-messages.component';
 import { DashboardMyProfileComponent } from './components/pages/dashboard/dashboard-my-profile/dashboard-my-profile.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { FavouriteTeamListComponent } from './components/user-panel/favourite-team-list/favourite-team-list.component';
@@ -41,7 +40,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'dashboard-messages', component: DashboardMessagesComponent},
     // {path: 'dashboard-my-profile', component: DashboardMyProfileComponent},
     {path: 'dashboard', component: UserListComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path: 'admin/media-list', component: MediaListComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},

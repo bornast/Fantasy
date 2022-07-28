@@ -18,16 +18,22 @@ export class Match {
 export class MatchTeam {
     team: RecordName;
     formation: RecordName;
-    lineupPlayers: RecordName[];
-    substitutePlayers: RecordName[];
+    lineupPlayers: MatchPlayer[];
+    substitutePlayers: MatchPlayer[];
     substitutions: MatchSubstitution[];
     coach: RecordName;
 }
 
 export class MatchSubstitution {
-    lineupPlayer: RecordName;
-    substitutePlayer: RecordName;
+    lineupPlayer: MatchPlayer;
+    substitutePlayer: MatchPlayer;
     minute: number;
+}
+
+export class MatchPlayer {
+    id: number;
+    name: string;
+    rate: number;
 }
 
 export class MatchGoal {

@@ -9,8 +9,8 @@ import lombok.Data;
 public class MatchTeamDto {
     private RecordNameDto team;
     private RecordNameDto formation;
-    private Set<RecordNameDto> lineupPlayers;
-    private Set<RecordNameDto> substitutePlayers;
+    private Set<MatchPlayerDto> lineupPlayers;
+    private Set<MatchPlayerDto> substitutePlayers;
     private Set<MatchSubstitutionDto> substitutions;
     private RecordNameDto coach;
 }
